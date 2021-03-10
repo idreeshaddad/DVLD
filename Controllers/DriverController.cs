@@ -12,22 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 namespace DVLD.Controllers
 {
     [Authorize]
-    public class TicketController : Controller
+    public class DriverController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TicketController(ApplicationDbContext context)
+        public DriverController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ticket
+        // GET: Driver
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tickets.ToListAsync());
+            return View(await _context.Drivers.ToListAsync());
         }
 
-        // GET: Ticket/Details/5
+        // GET: Driver/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +37,39 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets
+            var driver = await _context.Drivers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
+            if (driver == null)
             {
                 return NotFound();
             }
 
-            return View(ticket);
+            return View(driver);
         }
 
-        // GET: Ticket/Create
+        // GET: Driver/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ticket/Create
+        // POST: Driver/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IssueDate,VehicleOwnerName,VehicleModel,LicensePlate,Location,Reason,Amount,OfficerName")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,LicenseNumber,LicenseType,Gender")] Driver driver)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ticket);
+                _context.Add(driver);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(driver);
         }
 
-        // GET: Ticket/Edit/5
+        // GET: Driver/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +77,22 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
+            var driver = await _context.Drivers.FindAsync(id);
+            if (driver == null)
             {
                 return NotFound();
             }
-            return View(ticket);
+            return View(driver);
         }
 
-        // POST: Ticket/Edit/5
+        // POST: Driver/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IssueDate,VehicleOwnerName,VehicleModel,LicensePlate,Location,Reason,Amount,OfficerName")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DateOfBirth,LicenseNumber,LicenseType,Gender")] Driver driver)
         {
-            if (id != ticket.Id)
+            if (id != driver.Id)
             {
                 return NotFound();
             }
@@ -99,12 +101,12 @@ namespace DVLD.Controllers
             {
                 try
                 {
-                    _context.Update(ticket);
+                    _context.Update(driver);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketExists(ticket.Id))
+                    if (!DriverExists(driver.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +117,10 @@ namespace DVLD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(driver);
         }
 
-        // GET: Ticket/Delete/5
+        // GET: Driver/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,30 +128,30 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets
+            var driver = await _context.Drivers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
+            if (driver == null)
             {
                 return NotFound();
             }
 
-            return View(ticket);
+            return View(driver);
         }
 
-        // POST: Ticket/Delete/5
+        // POST: Driver/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ticket = await _context.Tickets.FindAsync(id);
-            _context.Tickets.Remove(ticket);
+            var driver = await _context.Drivers.FindAsync(id);
+            _context.Drivers.Remove(driver);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TicketExists(int id)
+        private bool DriverExists(int id)
         {
-            return _context.Tickets.Any(e => e.Id == id);
+            return _context.Drivers.Any(e => e.Id == id);
         }
     }
 }

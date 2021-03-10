@@ -15,5 +15,7 @@ namespace DVLD.Data
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<Driver> Drivers { get; set; }
     }
 }
