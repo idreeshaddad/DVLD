@@ -25,7 +25,20 @@ namespace DVLD.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Drivers.ToListAsync());
+            List<Driver> drivers = await _context.Drivers.ToListAsync();
+
+            return View(drivers);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> DriverCars(int id)
+        {
+            List<Car> driverCars = await _context
+                                            .Cars
+                                            .Where(car => car.Driver.Id == id)
+                                            .ToListAsync();
+
+            return View(driverCars);
         }
 
         // GET: Driver/Details/5
