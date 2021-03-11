@@ -1,9 +1,6 @@
 ﻿using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DVLD.Data
 {
@@ -15,7 +12,7 @@ namespace DVLD.Data
         }
 
         public DbSet<Ticket> Tickets { get; set; }
-
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }
