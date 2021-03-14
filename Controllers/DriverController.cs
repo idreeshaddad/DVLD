@@ -33,10 +33,20 @@ namespace DVLD.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> DriverCars(int id)
         {
-            List<Car> driverCars = await _context
+            string driverName = await _context
+                                    .Drivers
+                                    .Where(driver => driver.Id == id)
+                                    .Select(driver => $"{driver.FirstName} {driver.LastName}")
+                                    .SingleAsync();
+
+            ViewBag.DriverName = driverName;
+
+
+
+            List <Car> driverCars = await _context
                                             .Cars
                                             .Where(car => car.Driver.Id == id)
-                                            .ToListAsync();
+                                            .ToListAsync();       
 
             return View(driverCars);
         }
