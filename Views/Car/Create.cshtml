@@ -1,10 +1,10 @@
 ﻿@model DVLD.Data.Entities.Car
 
 @{
-    ViewData["Title"] = "Create Car";
+    ViewData["Title"] = "Create a new Car";
 }
 
-<h1>Create Car</h1>
+<h1>Create a new Car</h1>
 
 <hr />
 <div class="row">
@@ -26,6 +26,13 @@
                 <input asp-for="Color" class="form-control" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Driver" class="control-label"></label>
+                <select asp-for="Driver" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
+                <span asp-validation-for="Driver" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

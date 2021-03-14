@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using DVLD.Data;
 using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DVLD.Controllers
 {
@@ -45,8 +47,16 @@ namespace DVLD.Controllers
         }
 
         // GET: Car/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            List<Driver> drivers = await _context
+                                        .Drivers
+                                        .ToListAsync();
+
+            SelectList driversListItems = new SelectList(drivers, "Id", "FirstName"); 
+
+            ViewBag.DriversListItems = driversListItems;
+
             return View();
         }
 
