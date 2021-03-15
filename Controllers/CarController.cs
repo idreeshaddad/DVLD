@@ -24,7 +24,12 @@ namespace DVLD.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cars.ToListAsync());
+            List<Car> cars = await _context
+                                        .Cars
+                                        .Include(car => car.Driver)
+                                        .ToListAsync();
+
+            return View(cars);
         }
 
         // GET: Car/Details/5

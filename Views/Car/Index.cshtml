@@ -28,26 +28,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                [NOT IMPLEMENTED YET!]
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => car.Manu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => car.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => car.Color)
+                </td>
+                <td>
+                    @if (car.Driver == null)
+                    {
+                        <span class="text-secondary font-weight-bold">
+                            No Owner
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-success font-weight-bold">
+                            @Html.DisplayFor(modelItem => car.Driver.FullName)
+                        </span>
+                    }
+
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@car.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@car.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
