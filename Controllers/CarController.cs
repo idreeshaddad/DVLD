@@ -58,7 +58,7 @@ namespace DVLD.Controllers
                                         .Drivers
                                         .ToListAsync();
 
-            SelectList driversListItems = new SelectList(drivers, "Id", "FirstName"); 
+            SelectList driversListItems = new SelectList(drivers, "Id", "FullName"); 
 
             ViewBag.DriversListItems = driversListItems;
 

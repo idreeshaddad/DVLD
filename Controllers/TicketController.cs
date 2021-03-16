@@ -21,10 +21,18 @@ namespace DVLD.Controllers
             _context = context;
         }
 
+        #region Actions
+
         // GET: Ticket
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tickets.ToListAsync());
+            List<Ticket> tickets = await _context
+                                            .Tickets
+                                            .Include(ticket => ticket.Driver)
+                                            .Include(ticket => ticket.Car)
+                                            .ToListAsync();
+
+            return View(tickets);
         }
 
         // GET: Ticket/Details/5
@@ -35,8 +43,12 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var ticket = await _context
+                                .Tickets
+                                .Include(ticket => ticket.Driver)
+                                .Include(ticket => ticket.Car)
+                                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (ticket == null)
             {
                 return NotFound();
@@ -46,8 +58,12 @@ namespace DVLD.Controllers
         }
 
         // GET: Ticket/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            ViewBag.DriversListItems = await GetDriversListItems();
+
+            ViewBag.CarsListItems = await GetCarsListItems();
+
             return View();
         }
 
@@ -56,7 +72,7 @@ namespace DVLD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IssueDate,VehicleOwnerName,VehicleModel,LicensePlate,Location,Reason,Amount,OfficerName")] Ticket ticket)
+        public async Task<IActionResult> Create(Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -70,16 +86,26 @@ namespace DVLD.Controllers
         // GET: Ticket/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.DriversListItems = await GetDriversListItems();
+
+            ViewBag.CarsListItems = await GetCarsListItems();
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _context
+                                    .Tickets
+                                    .Include(ticket => ticket.Driver)
+                                    .Include(ticket => ticket.Car)
+                                    .FirstOrDefaultAsync(m => m.Id == id);
+
             if (ticket == null)
             {
                 return NotFound();
             }
+
             return View(ticket);
         }
 
@@ -147,9 +173,37 @@ namespace DVLD.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion
+
+        #region Private Functions
+
         private bool TicketExists(int id)
         {
             return _context.Tickets.Any(e => e.Id == id);
         }
+
+        private async Task<SelectList> GetCarsListItems()
+        {
+            List<Car> cars = await _context
+                                    .Cars
+                                    .ToListAsync();
+
+            SelectList carsListItems = new SelectList(cars, "Id", "LicensePlate");
+
+            return carsListItems;
+        }
+
+        private async Task<SelectList> GetDriversListItems()
+        {
+            List<Driver> drivers = await _context
+                                            .Drivers
+                                            .ToListAsync();
+
+            SelectList driversListItems = new SelectList(drivers, "Id", "FullName");
+
+            return driversListItems;
+        }
+
+        #endregion
     }
 }

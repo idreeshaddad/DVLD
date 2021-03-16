@@ -16,21 +16,20 @@
                 <input asp-for="IssueDate" class="form-control" />
                 <span asp-validation-for="IssueDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="VehicleOwnerName" class="control-label"></label>
-                <input asp-for="VehicleOwnerName" class="form-control" />
-                <span asp-validation-for="VehicleOwnerName" class="text-danger"></span>
+                <label asp-for="Driver" class="control-label"></label>
+                <select asp-for="Driver" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
+                <span asp-validation-for="Driver" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="VehicleModel" class="control-label"></label>
-                <input asp-for="VehicleModel" class="form-control" />
-                <span asp-validation-for="VehicleModel" class="text-danger"></span>
+                <label asp-for="Car" class="control-label"></label>
+                <select asp-for="Car" asp-items="@ViewBag.CarsListItems" class="form-control"></select>
+                <span asp-validation-for="Car" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LicensePlate" class="control-label"></label>
-                <input asp-for="LicensePlate" class="form-control" />
-                <span asp-validation-for="LicensePlate" class="text-danger"></span>
-            </div>
+
+
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />

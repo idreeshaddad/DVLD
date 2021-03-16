@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.IssueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleOwnerName)
+                @Html.DisplayNameFor(model => model.Driver.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleModel)
+                @Html.DisplayNameFor(model => model.Car.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LicensePlate)
+                @Html.DisplayNameFor(model => model.Car.LicensePlate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Location)
@@ -40,36 +40,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var ticket in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IssueDate)
+                @Html.DisplayFor(modelItem => ticket.IssueDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VehicleOwnerName)
+                @Html.DisplayFor(modelItem => ticket.Driver.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VehicleModel)
+                @Html.DisplayFor(modelItem => ticket.Car.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LicensePlate)
+                @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location)
+                @Html.DisplayFor(modelItem => ticket.Location)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reason)
+                @Html.DisplayFor(modelItem => ticket.Reason)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+                @Html.DisplayFor(modelItem => ticket.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OfficerName)
+                @Html.DisplayFor(modelItem => ticket.OfficerName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@ticket.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@ticket.Id">Delete</a>
             </td>
         </tr>
 }

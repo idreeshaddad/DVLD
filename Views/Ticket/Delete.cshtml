@@ -17,22 +17,23 @@
             @Html.DisplayFor(model => model.IssueDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleOwnerName)
+            @Html.DisplayNameFor(model => model.Driver.FullName)
+
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VehicleOwnerName)
+            @Html.DisplayFor(model => model.Driver.FullName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleModel)
+            @Html.DisplayNameFor(model => model.Car.Model)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VehicleModel)
+            @Html.DisplayFor(model => model.Car.Model)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LicensePlate)
+            @Html.DisplayNameFor(model => model.Car.LicensePlate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LicensePlate)
+            @Html.DisplayFor(model => model.Car.LicensePlate)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Location)
