@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DVLD.Data;
 using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using DVLD.Models;
 
 namespace DVLD.Controllers
 {
@@ -32,7 +33,30 @@ namespace DVLD.Controllers
                                             .Include(ticket => ticket.Car)
                                             .ToListAsync();
 
-            return View(tickets);
+            
+            List<TicketViewModel> ticketViewModels = new List<TicketViewModel>();
+            foreach (var ticket in tickets)
+            {
+                TicketViewModel ticketViewModel = new TicketViewModel();
+                ticketViewModel.Id = ticket.Id;
+                ticketViewModel.IssueDate = ticket.IssueDate;
+
+                ticketViewModel.DriverId = ticket.Driver.Id;
+                ticketViewModel.DriverFullName = ticket.Driver.FullName;
+
+                ticketViewModel.CarId = ticket.Car.Id;
+                ticketViewModel.LicensePlate = ticket.Car.LicensePlate;
+                ticketViewModel.CarModel = ticket.Car.Model;
+
+                ticketViewModel.Location = ticket.Location;
+                ticketViewModel.OfficerName = ticket.OfficerName;
+                ticketViewModel.Reason = ticket.Reason;
+                ticketViewModel.Amount = ticket.Amount;
+
+                ticketViewModels.Add(ticketViewModel);
+            }
+
+            return View(ticketViewModels);
         }
 
         // GET: Ticket/Details/5

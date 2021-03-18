@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DVLD.Data.Entities.Ticket>
+﻿@model IEnumerable<DVLD.Models.TicketViewModel>
 
 @{
     ViewData["Title"] = "Tickets";
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.IssueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Driver.FullName)
+                @Html.DisplayNameFor(model => model.DriverFullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Car.Model)
+                @Html.DisplayNameFor(model => model.CarModel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Car.LicensePlate)
+                @Html.DisplayNameFor(model => model.LicensePlate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Location)
@@ -46,13 +46,13 @@
                 @Html.DisplayFor(modelItem => ticket.IssueDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.Driver.FullName)
+                @Html.DisplayFor(modelItem => ticket.DriverFullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.Car.Model)
+                @Html.DisplayFor(modelItem => ticket.CarModel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
+                @Html.DisplayFor(modelItem => ticket.LicensePlate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => ticket.Location)
