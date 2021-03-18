@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,7 @@ using DVLD.Data;
 using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DVLD.Models;
+using AutoMapper;
 
 namespace DVLD.Controllers
 {
@@ -16,10 +16,12 @@ namespace DVLD.Controllers
     public class TicketController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TicketController(ApplicationDbContext context)
+        public TicketController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         #region Actions
@@ -37,21 +39,23 @@ namespace DVLD.Controllers
             List<TicketViewModel> ticketViewModels = new List<TicketViewModel>();
             foreach (var ticket in tickets)
             {
-                TicketViewModel ticketViewModel = new TicketViewModel();
-                ticketViewModel.Id = ticket.Id;
-                ticketViewModel.IssueDate = ticket.IssueDate;
+                //TicketViewModel ticketViewModel = new TicketViewModel();
+                //ticketViewModel.Id = ticket.Id;
+                //ticketViewModel.IssueDate = ticket.IssueDate;
 
-                ticketViewModel.DriverId = ticket.Driver.Id;
-                ticketViewModel.DriverFullName = ticket.Driver.FullName;
+                //ticketViewModel.DriverId = ticket.Driver.Id;
+                //ticketViewModel.DriverFullName = ticket.Driver.FullName;
 
-                ticketViewModel.CarId = ticket.Car.Id;
-                ticketViewModel.LicensePlate = ticket.Car.LicensePlate;
-                ticketViewModel.CarModel = ticket.Car.Model;
+                //ticketViewModel.CarId = ticket.Car.Id;
+                //ticketViewModel.LicensePlate = ticket.Car.LicensePlate;
+                //ticketViewModel.CarModel = ticket.Car.Model;
 
-                ticketViewModel.Location = ticket.Location;
-                ticketViewModel.OfficerName = ticket.OfficerName;
-                ticketViewModel.Reason = ticket.Reason;
-                ticketViewModel.Amount = ticket.Amount;
+                //ticketViewModel.Location = ticket.Location;
+                //ticketViewModel.OfficerName = ticket.OfficerName;
+                //ticketViewModel.Reason = ticket.Reason;
+                //ticketViewModel.Amount = ticket.Amount;
+
+                TicketViewModel ticketViewModel = _mapper.Map<TicketViewModel>(ticket);
 
                 ticketViewModels.Add(ticketViewModel);
             }
