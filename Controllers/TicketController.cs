@@ -29,36 +29,12 @@ namespace DVLD.Controllers
         // GET: Ticket
         public async Task<IActionResult> Index()
         {
-            List<Ticket> tickets = await _context
+            List<TicketViewModel> ticketViewModels = await _context
                                             .Tickets
                                             .Include(ticket => ticket.Driver)
                                             .Include(ticket => ticket.Car)
+                                            .Select(ticket => _mapper.Map<TicketViewModel>(ticket))
                                             .ToListAsync();
-
-            
-            List<TicketViewModel> ticketViewModels = new List<TicketViewModel>();
-            foreach (var ticket in tickets)
-            {
-                //TicketViewModel ticketViewModel = new TicketViewModel();
-                //ticketViewModel.Id = ticket.Id;
-                //ticketViewModel.IssueDate = ticket.IssueDate;
-
-                //ticketViewModel.DriverId = ticket.Driver.Id;
-                //ticketViewModel.DriverFullName = ticket.Driver.FullName;
-
-                //ticketViewModel.CarId = ticket.Car.Id;
-                //ticketViewModel.LicensePlate = ticket.Car.LicensePlate;
-                //ticketViewModel.CarModel = ticket.Car.Model;
-
-                //ticketViewModel.Location = ticket.Location;
-                //ticketViewModel.OfficerName = ticket.OfficerName;
-                //ticketViewModel.Reason = ticket.Reason;
-                //ticketViewModel.Amount = ticket.Amount;
-
-                TicketViewModel ticketViewModel = _mapper.Map<TicketViewModel>(ticket);
-
-                ticketViewModels.Add(ticketViewModel);
-            }
 
             return View(ticketViewModels);
         }
