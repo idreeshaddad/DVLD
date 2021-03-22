@@ -7,22 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DVLD.Data;
 using DVLD.Data.Entities;
+using DVLD.Models.Officer;
+using AutoMapper;
 
 namespace DVLD.Controllers
 {
     public class OfficerController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public OfficerController(ApplicationDbContext context)
+        public OfficerController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Officers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Officers.ToListAsync());
+            List<OfficerViewModel> offiersVM = await _context
+                                                    .Officers
+                                                    .Select(officer => _mapper.Map<OfficerViewModel>(officer))
+                                                    .ToListAsync();
+
+            return View(offiersVM);
         }
 
         // GET: Officers/Details/5
@@ -54,15 +63,17 @@ namespace DVLD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BadgeNumber,Rank")] Officer officer)
+        public async Task<IActionResult> Create(OfficerViewModel OfficerVM)
         {
             if (ModelState.IsValid)
             {
+                Officer officer = _mapper.Map<Officer>(OfficerVM);
+
                 _context.Add(officer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(officer);
+            return View(OfficerVM);
         }
 
         // GET: Officers/Edit/5
