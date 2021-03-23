@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DVLD.Data;
 using DVLD.Data.Entities;
@@ -14,6 +12,8 @@ namespace DVLD.Controllers
 {
     public class OfficerController : Controller
     {
+        #region Data and Constructors 
+
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
@@ -23,18 +23,21 @@ namespace DVLD.Controllers
             _mapper = mapper;
         }
 
-        // GET: Officers
+        #endregion
+
+        #region Actions
+
         public async Task<IActionResult> Index()
         {
-            List<OfficerViewModel> offiersVM = await _context
-                                                    .Officers
-                                                    .Select(officer => _mapper.Map<OfficerViewModel>(officer))
-                                                    .ToListAsync();
+            List<Officer> officer = await _context
+                                            .Officers
+                                            .ToListAsync();
 
-            return View(offiersVM);
+            List<OfficerViewModel> officerVMs = _mapper.Map<List<Officer>, List<OfficerViewModel>>(officer);
+
+            return View(officerVMs);
         }
 
-        // GET: Officers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,32 +45,32 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var officer = await _context.Officers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Officer officer = await _context
+                                        .Officers
+                                        .FirstOrDefaultAsync(m => m.Id == id);
+
             if (officer == null)
             {
                 return NotFound();
             }
 
-            return View(officer);
+            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+
+            return View(officerVM);
         }
 
-        // GET: Officers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Officers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(OfficerViewModel OfficerVM)
         {
             if (ModelState.IsValid)
             {
-                Officer officer = _mapper.Map<Officer>(OfficerVM);
+                Officer officer = _mapper.Map<OfficerViewModel, Officer>(OfficerVM);
 
                 _context.Add(officer);
                 await _context.SaveChangesAsync();
@@ -76,7 +79,6 @@ namespace DVLD.Controllers
             return View(OfficerVM);
         }
 
-        // GET: Officers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,22 +86,23 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var officer = await _context.Officers.FindAsync(id);
+            Officer officer = await _context.Officers.FindAsync(id);
+
             if (officer == null)
             {
                 return NotFound();
             }
-            return View(officer);
+
+            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+
+            return View(officerVM);
         }
 
-        // POST: Officers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BadgeNumber,Rank")] Officer officer)
+        public async Task<IActionResult> Edit(int id, OfficerViewModel OfficerVM)
         {
-            if (id != officer.Id)
+            if (id != OfficerVM.Id)
             {
                 return NotFound();
             }
@@ -108,12 +111,14 @@ namespace DVLD.Controllers
             {
                 try
                 {
+                    Officer officer = _mapper.Map<OfficerViewModel, Officer>(OfficerVM);
+
                     _context.Update(officer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OfficerExists(officer.Id))
+                    if (!OfficerExists(OfficerVM.Id))
                     {
                         return NotFound();
                     }
@@ -124,10 +129,10 @@ namespace DVLD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(officer);
+
+            return View(OfficerVM);
         }
 
-        // GET: Officers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,17 +140,21 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var officer = await _context.Officers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var officer = await _context
+                                    .Officers
+                                    .FirstOrDefaultAsync(m => m.Id == id);
+
             if (officer == null)
             {
                 return NotFound();
             }
 
-            return View(officer);
+            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+
+            return View(officerVM);
+
         }
 
-        // POST: Officers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -156,9 +165,15 @@ namespace DVLD.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool OfficerExists(int id)
         {
             return _context.Officers.Any(e => e.Id == id);
         }
+
+        #endregion
     }
 }

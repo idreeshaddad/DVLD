@@ -1,4 +1,5 @@
-﻿@model DVLD.Data.Entities.Officer
+﻿@model DVLD.Models.Officer.OfficerViewModel
+@using DVLD.Enums 
 
 @{
     ViewData["Title"] = "Edit";
@@ -30,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rank" class="control-label"></label>
-                <select asp-for="Rank" class="form-control"></select>
+                <select asp-for="Rank" asp-items="@Html.GetEnumSelectList<Rank>()" class="form-control"></select>
                 <span asp-validation-for="Rank" class="text-danger"></span>
             </div>
             <div class="form-group">
