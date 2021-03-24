@@ -1,12 +1,19 @@
-﻿@model IEnumerable<DVLD.Data.Entities.Car>
+﻿@model IEnumerable<DVLD.Models.Car.CarViewModel>
 
 @{
     ViewData["Title"] = "Driver Cars";
 }
 
 <h1>
-    @ViewBag.DriverName 
-    Cars
+    @if (@Model.Count() > 0)
+    {
+        @Model.First().DriverFullName
+        <span>Cars</span>
+    }
+    else
+    {
+        <span>No Cars for this Driver</span>
+    }
 </h1>
 
 <table class="table">
@@ -25,18 +32,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -7,20 +7,30 @@ using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DVLD.Models.Car;
+using AutoMapper;
+using System;
 
 namespace DVLD.Controllers
 {
     [Authorize]
     public class CarController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        #region Data and Constructors
 
-        public CarController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+
+        public CarController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        // GET: Car
+        #endregion
+
+        #region Actions
+
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -32,7 +42,6 @@ namespace DVLD.Controllers
             return View(cars);
         }
 
-        // GET: Car/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
@@ -51,37 +60,41 @@ namespace DVLD.Controllers
             return View(car);
         }
 
-        // GET: Car/Create
         public async Task<IActionResult> CreateAsync()
         {
             List<Driver> drivers = await _context
                                         .Drivers
                                         .ToListAsync();
 
-            SelectList driversListItems = new SelectList(drivers, "Id", "FullName"); 
+            SelectList driversListItems = new SelectList(drivers, "Id", "FullName");
 
             ViewBag.DriversListItems = driversListItems;
 
             return View();
         }
 
-        // POST: Car/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Manu,Model,Color")] Car car)
+        public async Task<IActionResult> Create(CarViewModel carVM)
         {
             if (ModelState.IsValid)
             {
+                Car car = _mapper.Map<CarViewModel, Car>(carVM);
+
+                // TODO Add DriverId property to CarViewModel
+                int DriverId = Convert.ToInt32(carVM.DriverFullName);
+                Driver driver = await _context.Drivers.FindAsync(DriverId);
+
+                car.Driver = driver;
+
                 _context.Add(car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(car);
+
+            return View(carVM);
         }
 
-        // GET: Car/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,12 +110,9 @@ namespace DVLD.Controllers
             return View(car);
         }
 
-        // POST: Car/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Manu,Model,Color")] Car car)
+        public async Task<IActionResult> Edit(int id, Car car)
         {
             if (id != car.Id)
             {
@@ -132,7 +142,6 @@ namespace DVLD.Controllers
             return View(car);
         }
 
-        // GET: Car/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,7 +159,6 @@ namespace DVLD.Controllers
             return View(car);
         }
 
-        // POST: Car/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -161,9 +169,15 @@ namespace DVLD.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
-        }
+        } 
+
+        #endregion
     }
 }

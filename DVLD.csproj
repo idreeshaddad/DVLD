@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Car\" />
     <Folder Include="Models\Driver\" />
   </ItemGroup>
 
