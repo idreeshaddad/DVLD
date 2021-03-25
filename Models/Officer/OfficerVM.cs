@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DVLD.Models.Officer
 {
-    public class OfficerViewModel
+    public class OfficerVM
     {
         public int Id { get; set; }
 

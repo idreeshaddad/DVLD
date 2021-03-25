@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DVLD.Data.Entities;
-using DVLD.Models;
+using DVLD.Models.Tickets;
 
 namespace DVLD.AutoMapper
 {
@@ -8,7 +8,7 @@ namespace DVLD.AutoMapper
     {
         public TicketProfile()
         {
-            CreateMap<Ticket, TicketViewModel>()
+            CreateMap<Ticket, TicketVM>()
                 .ForMember(dest => dest.LicensePlate, opts => opts.MapFrom(src => src.Car.LicensePlate))
                 .ReverseMap();
         }

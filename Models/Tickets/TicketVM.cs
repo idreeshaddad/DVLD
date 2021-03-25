@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models
+namespace DVLD.Models.Tickets
 {
-    public class TicketViewModel
+    public class TicketVM
     {
         public int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace DVLD.Models
         public int? DriverId { get; set; }
         public string DriverFullName { get; set; }
 
-        public int? CarId { get; set; } 
+        public int? CarId { get; set; }
         public string LicensePlate { get; set; }
         public string CarModel { get; set; }
 

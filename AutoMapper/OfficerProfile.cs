@@ -8,7 +8,7 @@ namespace DVLD.AutoMapper
     {
         public OfficerProfile()
         {
-            CreateMap<Officer, OfficerViewModel>().ReverseMap();
+            CreateMap<Officer, OfficerVM>().ReverseMap();
         }
     }
 }

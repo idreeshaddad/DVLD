@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DVLD.Models.Car;
 using AutoMapper;
-using System;
+using DVLD.Models.Driver;
 
 namespace DVLD.Controllers
 {
@@ -39,7 +39,9 @@ namespace DVLD.Controllers
                                         .Include(car => car.Driver)
                                         .ToListAsync();
 
-            return View(cars);
+            List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars); 
+
+            return View(carsVMs);
         }
 
         [AllowAnonymous]
@@ -50,14 +52,16 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars
+            Car car = await _context.Cars
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (car == null)
             {
                 return NotFound();
             }
 
-            return View(car);
+            CarVM carVM = _mapper.Map<Car, CarVM>(car);
+
+            return View(carVM);
         }
 
         public async Task<IActionResult> CreateAsync()
@@ -66,7 +70,9 @@ namespace DVLD.Controllers
                                         .Drivers
                                         .ToListAsync();
 
-            SelectList driversListItems = new SelectList(drivers, "Id", "FullName");
+            List<DriverVM> driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
+
+            SelectList driversListItems = new SelectList(driverVMs, "Id", "FullName");
 
             ViewBag.DriversListItems = driversListItems;
 
@@ -75,15 +81,13 @@ namespace DVLD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarViewModel carVM)
+        public async Task<IActionResult> Create(CreateCarVM createCarVM)
         {
             if (ModelState.IsValid)
             {
-                Car car = _mapper.Map<CarViewModel, Car>(carVM);
+                Car car = _mapper.Map<CreateCarVM, Car>(createCarVM);
 
-                // TODO Add DriverId property to CarViewModel
-                int DriverId = Convert.ToInt32(carVM.DriverFullName);
-                Driver driver = await _context.Drivers.FindAsync(DriverId);
+                Driver driver = await _context.Drivers.FindAsync(createCarVM.DriverId);
 
                 car.Driver = driver;
 
@@ -92,7 +96,7 @@ namespace DVLD.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(carVM);
+            return View(createCarVM);
         }
 
         public async Task<IActionResult> Edit(int? id)

@@ -8,7 +8,8 @@ namespace DVLD.AutoMapper
     {
         public CarProfile()
         {
-            CreateMap<Car, CarViewModel>().ReverseMap();
+            CreateMap<Car, CarVM>();
+            CreateMap<CreateCarVM, Car>();
         }
     }
 }

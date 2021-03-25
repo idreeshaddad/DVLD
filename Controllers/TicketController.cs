@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using DVLD.Data;
 using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
-using DVLD.Models;
 using AutoMapper;
+using DVLD.Models.Tickets;
 
 namespace DVLD.Controllers
 {
@@ -29,11 +29,11 @@ namespace DVLD.Controllers
         // GET: Ticket
         public async Task<IActionResult> Index()
         {
-            List<TicketViewModel> ticketViewModels = await _context
+            List<TicketVM> ticketViewModels = await _context
                                             .Tickets
                                             .Include(ticket => ticket.Driver)
                                             .Include(ticket => ticket.Car)
-                                            .Select(ticket => _mapper.Map<TicketViewModel>(ticket))
+                                            .Select(ticket => _mapper.Map<TicketVM>(ticket))
                                             .ToListAsync();
 
             return View(ticketViewModels);

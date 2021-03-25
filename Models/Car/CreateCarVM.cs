@@ -2,7 +2,7 @@
 
 namespace DVLD.Models.Car
 {
-    public class CarViewModel
+    public class CreateCarVM
     {
         public int Id { get; set; }
 
@@ -20,6 +20,6 @@ namespace DVLD.Models.Car
         [Display(Name = "License Plate")]
         public string LicensePlate { get; set; }
 
-        public string DriverFullName { get; set; }
+        public int DriverId { get; set; }
     }
 }

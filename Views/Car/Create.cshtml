@@ -1,4 +1,4 @@
-﻿@model DVLD.Models.Car.CarViewModel
+﻿@model DVLD.Models.Car.CreateCarVM
 
 @{
     ViewData["Title"] = "Create a new Car";
@@ -34,9 +34,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="DriverFullName" class="control-label"></label>
-                <select asp-for="DriverFullName" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
-                <span asp-validation-for="DriverFullName" class="text-danger"></span>
+                <label asp-for="DriverId" class="control-label"></label>
+                <select asp-for="DriverId" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
+                <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
 
             <div class="form-group">

@@ -33,7 +33,7 @@ namespace DVLD.Controllers
                                             .Officers
                                             .ToListAsync();
 
-            List<OfficerViewModel> officerVMs = _mapper.Map<List<Officer>, List<OfficerViewModel>>(officer);
+            List<OfficerVM> officerVMs = _mapper.Map<List<Officer>, List<OfficerVM>>(officer);
 
             return View(officerVMs);
         }
@@ -54,7 +54,7 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+            OfficerVM officerVM = _mapper.Map<Officer, OfficerVM>(officer);
 
             return View(officerVM);
         }
@@ -66,11 +66,11 @@ namespace DVLD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OfficerViewModel OfficerVM)
+        public async Task<IActionResult> Create(OfficerVM OfficerVM)
         {
             if (ModelState.IsValid)
             {
-                Officer officer = _mapper.Map<OfficerViewModel, Officer>(OfficerVM);
+                Officer officer = _mapper.Map<OfficerVM, Officer>(OfficerVM);
 
                 _context.Add(officer);
                 await _context.SaveChangesAsync();
@@ -93,14 +93,14 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+            OfficerVM officerVM = _mapper.Map<Officer, OfficerVM>(officer);
 
             return View(officerVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, OfficerViewModel OfficerVM)
+        public async Task<IActionResult> Edit(int id, OfficerVM OfficerVM)
         {
             if (id != OfficerVM.Id)
             {
@@ -111,7 +111,7 @@ namespace DVLD.Controllers
             {
                 try
                 {
-                    Officer officer = _mapper.Map<OfficerViewModel, Officer>(OfficerVM);
+                    Officer officer = _mapper.Map<OfficerVM, Officer>(OfficerVM);
 
                     _context.Update(officer);
                     await _context.SaveChangesAsync();
@@ -149,7 +149,7 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            OfficerViewModel officerVM = _mapper.Map<Officer, OfficerViewModel>(officer);
+            OfficerVM officerVM = _mapper.Map<Officer, OfficerVM>(officer);
 
             return View(officerVM);
 

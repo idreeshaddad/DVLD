@@ -8,6 +8,7 @@ using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DVLD.Models.Car;
 using AutoMapper;
+using DVLD.Models.Driver;
 
 namespace DVLD.Controllers
 {
@@ -34,7 +35,9 @@ namespace DVLD.Controllers
         {
             List<Driver> drivers = await _context.Drivers.ToListAsync();
 
-            return View(drivers);
+            List<DriverVM> driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
+
+            return View(driverVMs);
         }
 
         [AllowAnonymous]
@@ -53,7 +56,7 @@ namespace DVLD.Controllers
                                             .Where(car => car.Driver.Id == id)
                                             .ToListAsync();
 
-            List<CarViewModel> carVMs = _mapper.Map<List<Car>, List<CarViewModel>>(driverCars);
+            List<CarVM> carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
 
             return View(carVMs);
         }
