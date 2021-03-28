@@ -9,12 +9,15 @@ using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using DVLD.Models.Tickets;
+using DVLD.Models;
 
 namespace DVLD.Controllers
 {
     [Authorize]
     public class TicketController : Controller
     {
+        #region Data and Constructors
+
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
@@ -24,22 +27,23 @@ namespace DVLD.Controllers
             _mapper = mapper;
         }
 
+        #endregion
+
         #region Actions
 
-        // GET: Ticket
         public async Task<IActionResult> Index()
         {
-            List<TicketVM> ticketViewModels = await _context
+            var tickets = await _context
                                             .Tickets
                                             .Include(ticket => ticket.Driver)
                                             .Include(ticket => ticket.Car)
-                                            .Select(ticket => _mapper.Map<TicketVM>(ticket))
                                             .ToListAsync();
 
-            return View(ticketViewModels);
+            var ticketVMs = _mapper.Map<List<Ticket>, List<TicketVM>>(tickets);
+
+            return View(ticketVMs);
         }
 
-        // GET: Ticket/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,41 +62,42 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            return View(ticket);
+            var ticketVM = _mapper.Map<Ticket, TicketVM>(ticket);
+
+            return View(ticketVM);
         }
 
-        // GET: Ticket/Create
         public async Task<IActionResult> CreateAsync()
         {
             ViewBag.DriversListItems = await GetDriversListItems();
-
             ViewBag.CarsListItems = await GetCarsListItems();
+            ViewBag.OfficersListItems = await GetOfficersListItems();
 
             return View();
         }
 
-        // POST: Ticket/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Ticket ticket)
+        public async Task<IActionResult> Create(TicketVM ticketVM)
         {
             if (ModelState.IsValid)
             {
+
+                var ticket = _mapper.Map<TicketVM, Ticket>(ticketVM);
+
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+
+            return View(ticketVM);
         }
 
-        // GET: Ticket/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.DriversListItems = await GetDriversListItems();
-
             ViewBag.CarsListItems = await GetCarsListItems();
+            ViewBag.OfficersListItems = await GetOfficersListItems();
 
             if (id == null)
             {
@@ -113,12 +118,9 @@ namespace DVLD.Controllers
             return View(ticket);
         }
 
-        // POST: Ticket/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IssueDate,VehicleOwnerName,VehicleModel,LicensePlate,Location,Reason,Amount,OfficerName")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, Ticket ticket)
         {
             if (id != ticket.Id)
             {
@@ -148,7 +150,6 @@ namespace DVLD.Controllers
             return View(ticket);
         }
 
-        // GET: Ticket/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,7 +167,6 @@ namespace DVLD.Controllers
             return View(ticket);
         }
 
-        // POST: Ticket/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -188,22 +188,48 @@ namespace DVLD.Controllers
 
         private async Task<SelectList> GetCarsListItems()
         {
-            List<Car> cars = await _context
+            var carsLookup = await _context
                                     .Cars
+                                    .Select(car => new LookupVM()
+                                    {
+                                        Id = car.Id,
+                                        Name = $"{car.Manu} - {car.Model} - {car.LicensePlate}"
+                                    })
                                     .ToListAsync();
 
-            SelectList carsListItems = new SelectList(cars, "Id", "LicensePlate");
+            var carsListItems = new SelectList(carsLookup, "Id", "Name");
 
             return carsListItems;
         }
 
         private async Task<SelectList> GetDriversListItems()
         {
-            List<Driver> drivers = await _context
-                                            .Drivers
-                                            .ToListAsync();
+            var driversLookup = await _context
+                                    .Drivers
+                                    .Select(driver => new LookupVM()
+                                    {
+                                        Id = driver.Id,
+                                        Name = $"{driver.FirstName} {driver.LastName}"
+                                    })
+                                    .ToListAsync();
 
-            SelectList driversListItems = new SelectList(drivers, "Id", "FullName");
+            var driversListItems = new SelectList(driversLookup, "Id", "Name");
+
+            return driversListItems;
+        }
+
+        private async Task<SelectList> GetOfficersListItems()
+        {
+            var officersLookup = await _context
+                                    .Officers
+                                    .Select(officer => new LookupVM()
+                                    {
+                                        Id = officer.Id,
+                                        Name = $"{officer.FirstName} {officer.LastName}"
+                                    })
+                                    .ToListAsync();
+
+            var driversListItems = new SelectList(officersLookup, "Id", "Name");
 
             return driversListItems;
         }

@@ -1,4 +1,4 @@
-﻿@model DVLD.Data.Entities.Ticket
+﻿@model DVLD.Models.Tickets.TicketVM
 
 @{
     ViewData["Title"] = "Create Ticket";
@@ -45,11 +45,13 @@
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="OfficerName" class="control-label"></label>
-                <input asp-for="OfficerName" class="form-control" />
-                <span asp-validation-for="OfficerName" class="text-danger"></span>
+                <label class="control-label">الرقيب</label>
+                <select asp-for="Officer.FullName" asp-items="@ViewBag.OfficersListItems" class="form-control"></select>
+                <span asp-validation-for="Officer.FullName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

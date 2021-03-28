@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DVLD.Models.TicketVM>
+﻿@model IEnumerable<DVLD.Models.Tickets.TicketVM>
 
 @{
     ViewData["Title"] = "Tickets";
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.IssueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DriverFullName)
+                @Html.DisplayNameFor(model => model.Driver.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarModel)
+                @Html.DisplayNameFor(model => model.Car.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LicensePlate)
+                @Html.DisplayNameFor(model => model.Car.LicensePlate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Location)
@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OfficerName)
+                @Html.DisplayNameFor(model => model.Officer.FullName)
             </th>
             <th></th>
         </tr>
@@ -46,13 +46,13 @@
                 @Html.DisplayFor(modelItem => ticket.IssueDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.DriverFullName)
+                @Html.DisplayFor(modelItem => ticket.Driver.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.CarModel)
+                @Html.DisplayFor(modelItem => ticket.Car.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.LicensePlate)
+                @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => ticket.Location)
@@ -64,7 +64,7 @@
                 @Html.DisplayFor(modelItem => ticket.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => ticket.OfficerName)
+                @Html.DisplayFor(modelItem => ticket.Officer.FullName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a> |

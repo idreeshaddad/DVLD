@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DVLD.Models.Car;
+using DVLD.Models.Driver;
+using DVLD.Models.Officer;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DVLD.Models.Tickets
@@ -12,12 +15,9 @@ namespace DVLD.Models.Tickets
         public DateTime IssueDate { get; set; }
 
 
-        public int? DriverId { get; set; }
-        public string DriverFullName { get; set; }
+        public DriverVM Driver { get; set; }
 
-        public int? CarId { get; set; }
-        public string LicensePlate { get; set; }
-        public string CarModel { get; set; }
+        public CarVM Car { get; set; }
 
 
         [Required]
@@ -33,7 +33,6 @@ namespace DVLD.Models.Tickets
 
 
         [Required]
-        [Display(Name = "Officer Name")]
-        public string OfficerName { get; set; }
+        public OfficerVM Officer { get; set; }
     }
 }
