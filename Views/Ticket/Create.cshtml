@@ -1,4 +1,4 @@
-﻿@model DVLD.Models.Tickets.TicketVM
+﻿@model DVLD.Models.Tickets.CreateEditTicketVM
 
 @{
     ViewData["Title"] = "Create Ticket";
@@ -18,15 +18,15 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Driver" class="control-label"></label>
-                <select asp-for="Driver" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
-                <span asp-validation-for="Driver" class="text-danger"></span>
+                <label asp-for="DriverId" class="control-label"></label>
+                <select asp-for="DriverId" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
+                <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Car" class="control-label"></label>
-                <select asp-for="Car" asp-items="@ViewBag.CarsListItems" class="form-control"></select>
-                <span asp-validation-for="Car" class="text-danger"></span>
+                <label asp-for="CarId" class="control-label"></label>
+                <select asp-for="CarId" asp-items="@ViewBag.CarsListItems" class="form-control"></select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
             </div>
 
 
@@ -47,9 +47,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Officer.FullName" class="control-label"></label>
-                <select asp-for="Officer.FullName" asp-items="@ViewBag.OfficersListItems" class="form-control"></select>
-                <span asp-validation-for="Officer.FullName" class="text-danger"></span>
+                <label asp-for="OfficerId" class="control-label"></label>
+                <select asp-for="OfficerId" asp-items="@ViewBag.OfficersListItems" class="form-control"></select>
+                <span asp-validation-for="OfficerId" class="text-danger"></span>
             </div>
 
             <div class="form-group">

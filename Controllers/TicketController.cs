@@ -78,18 +78,31 @@ namespace DVLD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TicketVM ticketVM)
+        public async Task<IActionResult> Create(CreateEditTicketVM ticketVM)
         {
             if (ModelState.IsValid)
             {
 
-                var ticket = _mapper.Map<TicketVM, Ticket>(ticketVM);
+                var ticket = _mapper.Map<CreateEditTicketVM, Ticket>(ticketVM);
+                
+                var driver = await _context.Drivers.FindAsync(ticketVM.DriverId);
+                ticket.Driver = driver;
+
+                var car = await _context.Cars.FindAsync(ticketVM.CarId);
+                ticket.Car = car;
+
+                var officer = await _context.Officers.FindAsync(ticketVM.OfficerId);
+                ticket.Officer = officer;
 
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
+
+            ViewBag.DriversListItems = await GetDriversListItems();
+            ViewBag.CarsListItems = await GetCarsListItems();
+            ViewBag.OfficersListItems = await GetOfficersListItems();
             return View(ticketVM);
         }
 

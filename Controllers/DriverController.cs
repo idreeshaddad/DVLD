@@ -33,9 +33,9 @@ namespace DVLD.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            List<Driver> drivers = await _context.Drivers.ToListAsync();
+            var drivers = await _context.Drivers.ToListAsync();
 
-            List<DriverVM> driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
+            var driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
 
             return View(driverVMs);
         }
@@ -50,13 +50,13 @@ namespace DVLD.Controllers
                                     .SingleAsync();
 
 
-            List<Car> driverCars = await _context
+            var driverCars = await _context
                                             .Cars
                                             .Include(car => car.Driver)
                                             .Where(car => car.Driver.Id == id)
                                             .ToListAsync();
 
-            List<CarVM> carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
+            var carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
 
             return View(carVMs);
         }
@@ -84,20 +84,20 @@ namespace DVLD.Controllers
             return View();
         }
 
-        // POST: Driver/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Driver driver)
+        public async Task<IActionResult> Create(DriverVM driverVM)
         {
             if (ModelState.IsValid)
             {
+                var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+
                 _context.Add(driver);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(driver);
+
+            return View(driverVM);
         }
 
         public async Task<IActionResult> Edit(int? id)

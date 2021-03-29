@@ -9,6 +9,7 @@ namespace DVLD.AutoMapper
         public TicketProfile()
         {
             CreateMap<Ticket, TicketVM>().ReverseMap();
+            CreateMap<Ticket, CreateEditTicketVM>().ReverseMap();
         }
     }
 }

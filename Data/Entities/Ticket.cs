@@ -15,6 +15,9 @@ namespace DVLD.Data.Entities
         public string Location { get; set; }
         public string Reason { get; set; }
         public double Amount { get; set; }
-        public string OfficerName { get; set; }
+
+
+        public int OfficerId { get; set; }
+        public Officer Officer { get; set; }
     }
 }
