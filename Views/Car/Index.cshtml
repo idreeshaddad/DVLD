@@ -140,17 +140,20 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <p class="text-danger">
-                                        Are you sure you want to delete @car.Manu - @car.Model - @car.LicensePlate
-                                        <span>?</span>
-                                    </p>
+                                    <h5>
+                                        Are you sure you want to delete
+                                        <span class="text-danger">
+                                            @car.Manu - @car.Model - @car.LicensePlate
+                                        </span>                                        
+                                        ?
+                                    </h5>
 
                                 </div>
                                 <div class="modal-footer">
                                     <form asp-action="Delete">
                                         <input type="hidden" value="@car.Id" name="id" />
-                                        <input type="submit" value="Delete" class="btn btn-danger" /> |
-                                        <a asp-action="Index">Back to List</a>
+                                        <input type="submit" value="Delete" class="btn btn-danger mr-2" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                             </div>
