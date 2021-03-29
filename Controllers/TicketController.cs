@@ -225,7 +225,7 @@ namespace DVLD.Controllers
                                     .Select(officer => new LookupVM()
                                     {
                                         Id = officer.Id,
-                                        Name = $"{officer.FirstName} {officer.LastName}"
+                                        Name = $"{officer.FirstName} {officer.LastName} - {officer.Rank}"
                                     })
                                     .ToListAsync();
 

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DVLD.Models.Car;
 using AutoMapper;
-using DVLD.Models.Driver;
+using DVLD.Models;
 
 namespace DVLD.Controllers
 {
@@ -52,8 +52,11 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            Car car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var car = await _context
+                                .Cars
+                                .Include(car => car.Driver)
+                                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (car == null)
             {
                 return NotFound();
@@ -66,28 +69,19 @@ namespace DVLD.Controllers
 
         public async Task<IActionResult> CreateAsync()
         {
-            List<Driver> drivers = await _context
-                                        .Drivers
-                                        .ToListAsync();
-
-            List<DriverVM> driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
-
-            SelectList driversListItems = new SelectList(driverVMs, "Id", "FullName");
-
-            ViewBag.DriversListItems = driversListItems;
-
+            ViewBag.DriversListItems = await GetDriversListItems();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateCarVM createCarVM)
+        public async Task<IActionResult> Create(CreateEditCarVM createCarVM)
         {
             if (ModelState.IsValid)
             {
-                Car car = _mapper.Map<CreateCarVM, Car>(createCarVM);
+                var car = _mapper.Map<CreateEditCarVM, Car>(createCarVM);
 
-                Driver driver = await _context.Drivers.FindAsync(createCarVM.DriverId);
+                var driver = await _context.Drivers.FindAsync(createCarVM.DriverId);
 
                 car.Driver = driver;
 
@@ -106,19 +100,28 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _context
+                                .Cars
+                                .Include(car => car.Driver)
+                                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (car == null)
             {
                 return NotFound();
             }
-            return View(car);
+
+            ViewBag.DriversListItems = await GetDriversListItems();
+
+            var carVM = _mapper.Map<Car, CreateEditCarVM>(car);
+
+            return View(carVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Car car)
+        public async Task<IActionResult> Edit(int id, CreateEditCarVM carVM)
         {
-            if (id != car.Id)
+            if (id != carVM.Id)
             {
                 return NotFound();
             }
@@ -127,12 +130,16 @@ namespace DVLD.Controllers
             {
                 try
                 {
+                    var car = _mapper.Map<CreateEditCarVM, Car>(carVM);
+                    var driver = await _context.Drivers.FindAsync(carVM.DriverId);
+                    car.Driver = driver;
+
                     _context.Update(car);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarExists(car.Id))
+                    if (!CarExists(carVM.Id))
                     {
                         return NotFound();
                     }
@@ -143,7 +150,7 @@ namespace DVLD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(car);
+            return View(carVM);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -163,7 +170,23 @@ namespace DVLD.Controllers
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
-        } 
+        }
+
+        private async Task<SelectList> GetDriversListItems()
+        {
+            var driversLookup = await _context
+                                    .Drivers
+                                    .Select(driver => new LookupVM()
+                                    {
+                                        Id = driver.Id,
+                                        Name = $"{driver.FirstName} {driver.LastName}"
+                                    })
+                                    .ToListAsync();
+
+            var driversListItems = new SelectList(driversLookup, "Id", "Name");
+
+            return driversListItems;
+        }
 
         #endregion
     }

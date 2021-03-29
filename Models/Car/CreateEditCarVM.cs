@@ -2,7 +2,7 @@
 
 namespace DVLD.Models.Car
 {
-    public class CreateCarVM
+    public class CreateEditCarVM
     {
         public int Id { get; set; }
 
