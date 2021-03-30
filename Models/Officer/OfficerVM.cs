@@ -8,11 +8,14 @@ namespace DVLD.Models.Officer
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Officer Full Name")]
         public string FullName
         {
             get
@@ -22,6 +25,7 @@ namespace DVLD.Models.Officer
         }
 
         [Required]
+        [Display(Name = "Badge Number")]
         public string BadgeNumber { get; set; }
         
         public Rank Rank { get; set; }

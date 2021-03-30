@@ -1,4 +1,4 @@
-﻿@model DVLD.Models.Car.CreateCarVM
+﻿@model DVLD.Models.Car.CreateEditCarVM
 
 @{
     ViewData["Title"] = "Create a new Car";
@@ -35,7 +35,9 @@
 
             <div class="form-group">
                 <label asp-for="DriverId" class="control-label"></label>
-                <select asp-for="DriverId" asp-items="@ViewBag.DriversListItems" class="form-control"></select>
+                <select asp-for="DriverId" asp-items="@ViewBag.DriversListItems" class="form-control">
+                    <option value="0">- Please select a Driver -</option>
+                </select>
                 <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
 

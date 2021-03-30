@@ -51,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Gender)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    @item.DateOfBirth.ToString("dddd-MMMM-yyyy")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LicenseNumber)

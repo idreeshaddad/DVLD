@@ -8,9 +8,8 @@ namespace DVLD.AutoMapper
     {
         public TicketProfile()
         {
-            CreateMap<Ticket, TicketVM>()
-                .ForMember(dest => dest.LicensePlate, opts => opts.MapFrom(src => src.Car.LicensePlate))
-                .ReverseMap();
+            CreateMap<Ticket, TicketVM>().ReverseMap();
+            CreateMap<Ticket, CreateEditTicketVM>().ReverseMap();
         }
     }
 }
