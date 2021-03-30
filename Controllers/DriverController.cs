@@ -76,7 +76,9 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            return View(driver);
+            var driverVM = _mapper.Map<Driver, DriverVM>(driver);
+
+            return View(driverVM);
         }
 
         public IActionResult Create()
@@ -108,18 +110,22 @@ namespace DVLD.Controllers
             }
 
             var driver = await _context.Drivers.FindAsync(id);
+
             if (driver == null)
             {
                 return NotFound();
             }
-            return View(driver);
+
+            var driverVM = _mapper.Map<Driver, DriverVM>(driver);
+
+            return View(driverVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Driver driver)
+        public async Task<IActionResult> Edit(int id, DriverVM driverVM)
         {
-            if (id != driver.Id)
+            if (id != driverVM.Id)
             {
                 return NotFound();
             }
@@ -128,12 +134,14 @@ namespace DVLD.Controllers
             {
                 try
                 {
+                    var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+
                     _context.Update(driver);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DriverExists(driver.Id))
+                    if (!DriverExists(driverVM.Id))
                     {
                         return NotFound();
                     }
@@ -144,7 +152,8 @@ namespace DVLD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(driver);
+
+            return View(driverVM);
         }
 
         public async Task<IActionResult> Delete(int? id)

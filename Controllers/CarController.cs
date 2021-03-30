@@ -39,7 +39,7 @@ namespace DVLD.Controllers
                                         .Include(car => car.Driver)
                                         .ToListAsync();
 
-            List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars); 
+            List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars);
 
             return View(carsVMs);
         }
@@ -75,22 +75,24 @@ namespace DVLD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateEditCarVM createCarVM)
+        public async Task<IActionResult> Create(CreateEditCarVM createEditCarVM)
         {
             if (ModelState.IsValid)
             {
-                var car = _mapper.Map<CreateEditCarVM, Car>(createCarVM);
+                var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                var driver = await _context.Drivers.FindAsync(createCarVM.DriverId);
-
-                car.Driver = driver;
+                if (createEditCarVM.DriverId > 0)
+                {
+                    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+                    car.Driver = driver;
+                }
 
                 _context.Add(car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(createCarVM);
+            return View(createEditCarVM);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -119,9 +121,9 @@ namespace DVLD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CreateEditCarVM carVM)
+        public async Task<IActionResult> Edit(int id, CreateEditCarVM createEditCarVM)
         {
-            if (id != carVM.Id)
+            if (id != createEditCarVM.Id)
             {
                 return NotFound();
             }
@@ -130,16 +132,24 @@ namespace DVLD.Controllers
             {
                 try
                 {
-                    var car = _mapper.Map<CreateEditCarVM, Car>(carVM);
-                    var driver = await _context.Drivers.FindAsync(carVM.DriverId);
-                    car.Driver = driver;
+                    var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
+
+                    if (createEditCarVM.DriverId == 0)
+                    {
+                        car.DriverId = null;
+                    }
+                    else
+                    {
+                        var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+                        car.Driver = driver;
+                    }
 
                     _context.Update(car);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarExists(carVM.Id))
+                    if (!CarExists(createEditCarVM.Id))
                     {
                         return NotFound();
                     }
@@ -150,7 +160,7 @@ namespace DVLD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(carVM);
+            return View(createEditCarVM);
         }
 
         [HttpPost, ActionName("Delete")]
