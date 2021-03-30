@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DVLD.Models.Tickets
@@ -36,5 +37,10 @@ namespace DVLD.Models.Tickets
         [Required]
         [Display(Name = "Officer")]
         public int OfficerId { get; set; }
+
+        // Drop down Lists
+        public SelectList DriversListItems { get; set; }
+        public SelectList CarsListItems { get; set; }
+        public SelectList OfficersListItems { get; set; }
     }
 }

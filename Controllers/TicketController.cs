@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using DVLD.Models.Tickets;
 using DVLD.Models;
+using System;
 
 namespace DVLD.Controllers
 {
@@ -37,6 +38,7 @@ namespace DVLD.Controllers
                                             .Tickets
                                             .Include(ticket => ticket.Driver)
                                             .Include(ticket => ticket.Car)
+                                            .Include(ticket => ticket.Officer)
                                             .ToListAsync();
 
             var ticketVMs = _mapper.Map<List<Ticket>, List<TicketVM>>(tickets);
@@ -69,11 +71,15 @@ namespace DVLD.Controllers
 
         public async Task<IActionResult> CreateAsync()
         {
-            ViewBag.DriversListItems = await GetDriversListItems();
-            ViewBag.CarsListItems = await GetCarsListItems();
-            ViewBag.OfficersListItems = await GetOfficersListItems();
+            var createEditTicketVM = new CreateEditTicketVM();
 
-            return View();
+            createEditTicketVM.DriversListItems = await GetDriversListItems();
+            createEditTicketVM.CarsListItems = await GetCarsListItems();
+            createEditTicketVM.OfficersListItems = await GetOfficersListItems();
+
+            createEditTicketVM.IssueDate = DateTime.Now;
+
+            return View(createEditTicketVM);
         }
 
         [HttpPost]
@@ -82,7 +88,6 @@ namespace DVLD.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var ticket = _mapper.Map<CreateEditTicketVM, Ticket>(ticketVM);
                 
                 var driver = await _context.Drivers.FindAsync(ticketVM.DriverId);
@@ -108,10 +113,6 @@ namespace DVLD.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.DriversListItems = await GetDriversListItems();
-            ViewBag.CarsListItems = await GetCarsListItems();
-            ViewBag.OfficersListItems = await GetOfficersListItems();
-
             if (id == null)
             {
                 return NotFound();
@@ -128,7 +129,12 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            return View(ticket);
+            var ticketVM = _mapper.Map<Ticket, CreateEditTicketVM>(ticket);
+            ticketVM.DriversListItems = await GetDriversListItems();
+            ticketVM.CarsListItems = await GetCarsListItems();
+            ticketVM.OfficersListItems = await GetOfficersListItems();
+
+            return View(ticketVM);
         }
 
         [HttpPost]
