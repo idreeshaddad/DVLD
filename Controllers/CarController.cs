@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DVLD.Models.Car;
 using AutoMapper;
 using DVLD.Models;
+using DVLD.Helper.LookupService;
 
 namespace DVLD.Controllers
 {
@@ -20,11 +21,15 @@ namespace DVLD.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILookupService _lookupService;
 
-        public CarController(ApplicationDbContext context, IMapper mapper)
+        public CarController(ApplicationDbContext context, 
+                            IMapper mapper,
+                            ILookupService lookupService)
         {
             _context = context;
             _mapper = mapper;
+            _lookupService = lookupService;
         }
 
         #endregion
@@ -69,7 +74,7 @@ namespace DVLD.Controllers
 
         public async Task<IActionResult> CreateAsync()
         {
-            ViewBag.DriversListItems = await GetDriversListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
             return View();
         }
 
@@ -112,7 +117,7 @@ namespace DVLD.Controllers
                 return NotFound();
             }
 
-            ViewBag.DriversListItems = await GetDriversListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
 
             var carVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
@@ -180,22 +185,6 @@ namespace DVLD.Controllers
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
-        }
-
-        private async Task<SelectList> GetDriversListItems()
-        {
-            var driversLookup = await _context
-                                    .Drivers
-                                    .Select(driver => new LookupVM()
-                                    {
-                                        Id = driver.Id,
-                                        Name = $"{driver.FirstName} {driver.LastName}"
-                                    })
-                                    .ToListAsync();
-
-            var driversListItems = new SelectList(driversLookup, "Id", "Name");
-
-            return driversListItems;
         }
 
         #endregion

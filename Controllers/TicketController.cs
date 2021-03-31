@@ -11,6 +11,7 @@ using AutoMapper;
 using DVLD.Models.Tickets;
 using DVLD.Models;
 using System;
+using DVLD.Helper.LookupService;
 
 namespace DVLD.Controllers
 {
@@ -21,11 +22,15 @@ namespace DVLD.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILookupService _lookupService;
 
-        public TicketController(ApplicationDbContext context, IMapper mapper)
+        public TicketController(ApplicationDbContext context, 
+                                IMapper mapper,
+                                ILookupService lookupService)
         {
             _context = context;
             _mapper = mapper;
+            _lookupService = lookupService;
         }
 
         #endregion
@@ -73,9 +78,9 @@ namespace DVLD.Controllers
         {
             var createEditTicketVM = new CreateEditTicketVM();
 
-            createEditTicketVM.DriversListItems = await GetDriversListItems();
-            createEditTicketVM.CarsListItems = await GetCarsListItems();
-            createEditTicketVM.OfficersListItems = await GetOfficersListItems();
+            createEditTicketVM.DriversListItems = await _lookupService.GetDriversListItems();
+            createEditTicketVM.CarsListItems = await _lookupService.GetCarsListItems();
+            createEditTicketVM.OfficersListItems = await _lookupService.GetOfficersListItems();
 
             createEditTicketVM.IssueDate = DateTime.Now;
 
@@ -105,9 +110,9 @@ namespace DVLD.Controllers
             }
 
 
-            ViewBag.DriversListItems = await GetDriversListItems();
-            ViewBag.CarsListItems = await GetCarsListItems();
-            ViewBag.OfficersListItems = await GetOfficersListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
+            ViewBag.CarsListItems = await _lookupService.GetCarsListItems();
+            ViewBag.OfficersListItems = await _lookupService.GetOfficersListItems();
             return View(ticketVM);
         }
 
@@ -130,9 +135,9 @@ namespace DVLD.Controllers
             }
 
             var ticketVM = _mapper.Map<Ticket, CreateEditTicketVM>(ticket);
-            ticketVM.DriversListItems = await GetDriversListItems();
-            ticketVM.CarsListItems = await GetCarsListItems();
-            ticketVM.OfficersListItems = await GetOfficersListItems();
+            ticketVM.DriversListItems = await _lookupService.GetDriversListItems();
+            ticketVM.CarsListItems = await _lookupService.GetCarsListItems();
+            ticketVM.OfficersListItems = await _lookupService.GetOfficersListItems();
 
             return View(ticketVM);
         }
@@ -203,54 +208,6 @@ namespace DVLD.Controllers
         private bool TicketExists(int id)
         {
             return _context.Tickets.Any(e => e.Id == id);
-        }
-
-        private async Task<SelectList> GetCarsListItems()
-        {
-            var carsLookup = await _context
-                                    .Cars
-                                    .Select(car => new LookupVM()
-                                    {
-                                        Id = car.Id,
-                                        Name = $"{car.Manu} - {car.Model} - {car.LicensePlate}"
-                                    })
-                                    .ToListAsync();
-
-            var carsListItems = new SelectList(carsLookup, "Id", "Name");
-
-            return carsListItems;
-        }
-
-        private async Task<SelectList> GetDriversListItems()
-        {
-            var driversLookup = await _context
-                                    .Drivers
-                                    .Select(driver => new LookupVM()
-                                    {
-                                        Id = driver.Id,
-                                        Name = $"{driver.FirstName} {driver.LastName}"
-                                    })
-                                    .ToListAsync();
-
-            var driversListItems = new SelectList(driversLookup, "Id", "Name");
-
-            return driversListItems;
-        }
-
-        private async Task<SelectList> GetOfficersListItems()
-        {
-            var officersLookup = await _context
-                                    .Officers
-                                    .Select(officer => new LookupVM()
-                                    {
-                                        Id = officer.Id,
-                                        Name = $"{officer.FirstName} {officer.LastName} - {officer.Rank}"
-                                    })
-                                    .ToListAsync();
-
-            var driversListItems = new SelectList(officersLookup, "Id", "Name");
-
-            return driversListItems;
         }
 
         #endregion
