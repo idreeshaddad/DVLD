@@ -1,6 +1,6 @@
 using System;
 
-namespace MB.T.DVLD.WebApi
+namespace MB.T.DVLD.WebApi.TEST
 {
     public class WeatherForecastDto // Data Transfer Object
     {

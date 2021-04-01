@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MB.T.DVLD.WebApi.TEST;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MB.T.DVLD.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -34,6 +34,25 @@ namespace MB.T.DVLD.WebApi.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        public string GetHelloMsg()
+        {
+            return "Hello World!";
+        }
+
+        [HttpGet]
+        public PersonDto GetTestPerson()
+        {
+            var person = new PersonDto()
+            {
+                Id = 71,
+                Name = "Hamza Adham",
+                Age = 24
+            };
+
+            return person;
         }
     }
 }
