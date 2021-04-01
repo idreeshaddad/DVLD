@@ -2,7 +2,7 @@ using System;
 
 namespace MB.T.DVLD.WebApi
 {
-    public class WeatherForecast
+    public class WeatherForecastDto // Data Transfer Object
     {
         public DateTime Date { get; set; }
 
