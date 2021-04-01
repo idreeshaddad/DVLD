@@ -1,5 +1,6 @@
-﻿using DVLD.Enums;
-namespace DVLD.Data.Entities
+﻿using MB.T.DVLD.Utilities.Enums;
+
+namespace MB.T.DVLD.Entities
 {
     public class Officer
     {

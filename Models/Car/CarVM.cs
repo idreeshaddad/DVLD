@@ -1,7 +1,7 @@
-﻿using DVLD.Models.Driver;
+﻿using MB.T.DVLD.Web.Models.Driver;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Car
+namespace MB.T.DVLD.Web.Models.Car
 {
     public class CarVM
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DVLD.Data.Entities;
-using DVLD.Models.Officer;
+using MB.T.DVLD.Entities;
+using MB.T.DVLD.Web.Models.Officer;
 
-namespace DVLD.AutoMapper
+namespace MB.T.DVLD.Web.AutoMapper
 {
     public class OfficerProfile : Profile
     {

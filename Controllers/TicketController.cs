@@ -2,18 +2,16 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DVLD.Data;
-using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using DVLD.Models.Tickets;
-using DVLD.Models;
 using System;
-using DVLD.Helper.LookupService;
+using MB.T.DVLD.Web.Data;
+using MB.T.DVLD.Web.Models.Tickets;
+using MB.T.DVLD.Entities.Helper.LookupService;
+using MB.T.DVLD.Entities;
 
-namespace DVLD.Controllers
+namespace MB.T.DVLD.Web.Controllers
 {
     [Authorize]
     public class TicketController : Controller
@@ -24,7 +22,7 @@ namespace DVLD.Controllers
         private readonly IMapper _mapper;
         private readonly ILookupService _lookupService;
 
-        public TicketController(ApplicationDbContext context, 
+        public TicketController(ApplicationDbContext context,
                                 IMapper mapper,
                                 ILookupService lookupService)
         {
@@ -94,7 +92,7 @@ namespace DVLD.Controllers
             if (ModelState.IsValid)
             {
                 var ticket = _mapper.Map<CreateEditTicketVM, Ticket>(ticketVM);
-                
+
                 var driver = await _context.Drivers.FindAsync(ticketVM.DriverId);
                 ticket.Driver = driver;
 

@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DVLD.Data;
-using DVLD.Data.Entities;
-using DVLD.Models.Officer;
 using AutoMapper;
+using MB.T.DVLD.Web.Data;
+using MB.T.DVLD.Web.Models.Officer;
+using MB.T.DVLD.Entities;
 
-namespace DVLD.Controllers
+namespace MB.T.DVLD.Web.Controllers
 {
     public class OfficerController : Controller
     {

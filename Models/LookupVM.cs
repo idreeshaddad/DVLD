@@ -1,4 +1,4 @@
-﻿namespace DVLD.Models
+﻿namespace MB.T.DVLD.Web.Models
 {
     public class LookupVM
     {

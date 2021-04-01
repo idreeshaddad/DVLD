@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MB.T.DVLD.Entities\**" />
+    <Compile Remove="MB.T.DVLD.Utilities\**" />
+    <Content Remove="MB.T.DVLD.Entities\**" />
+    <Content Remove="MB.T.DVLD.Utilities\**" />
+    <EmbeddedResource Remove="MB.T.DVLD.Entities\**" />
+    <EmbeddedResource Remove="MB.T.DVLD.Utilities\**" />
+    <None Remove="MB.T.DVLD.Entities\**" />
+    <None Remove="MB.T.DVLD.Utilities\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
@@ -18,6 +29,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="MB.T.DVLD.Entities\MB.T.DVLD.Entities.csproj" />
+    <ProjectReference Include="MB.T.DVLD.Utilities\MB.T.DVLD.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

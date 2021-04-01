@@ -1,5 +1,5 @@
-using DVLD.Data;
-using DVLD.Helper.LookupService;
+using MB.T.DVLD.Entities.Helper.LookupService;
+using MB.T.DVLD.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

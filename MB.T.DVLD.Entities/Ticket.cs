@@ -1,5 +1,6 @@
 ﻿using System;
-namespace DVLD.Data.Entities
+
+namespace MB.T.DVLD.Entities
 {
     public class Ticket
     {

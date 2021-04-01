@@ -1,11 +1,11 @@
-﻿using DVLD.Data;
-using DVLD.Models;
+﻿using MB.T.DVLD.Web.Data;
+using MB.T.DVLD.Web.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DVLD.Helper.LookupService
+namespace MB.T.DVLD.Entities.Helper.LookupService
 {
     public class LookupService : ILookupService
     {

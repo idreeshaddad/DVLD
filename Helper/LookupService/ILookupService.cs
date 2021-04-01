@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
-namespace DVLD.Helper.LookupService
+namespace MB.T.DVLD.Entities.Helper.LookupService
 {
     public interface ILookupService
     {

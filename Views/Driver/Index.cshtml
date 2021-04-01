@@ -1,8 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using MB.T.DVLD.Web.Models.Driver
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@model IEnumerable<DVLD.Models.Driver.DriverVM>
+@model IEnumerable<DriverVM>
 
 @{
     ViewData["Title"] = "Drivers";

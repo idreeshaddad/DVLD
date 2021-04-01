@@ -1,4 +1,4 @@
-﻿namespace DVLD.Enums
+﻿namespace MB.T.DVLD.Utilities.Enums
 {
     public enum Rank
     {

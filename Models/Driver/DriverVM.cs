@@ -1,8 +1,8 @@
-﻿using System;
-using DVLD.Enums;
+﻿using MB.T.DVLD.Utilities.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Driver
+namespace MB.T.DVLD.Web.Models.Driver
 {
     public class DriverVM
     {

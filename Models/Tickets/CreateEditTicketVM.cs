@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Tickets
+namespace MB.T.DVLD.Web.Models.Tickets
 {
     public class CreateEditTicketVM
     {

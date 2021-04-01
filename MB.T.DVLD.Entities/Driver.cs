@@ -1,7 +1,7 @@
-﻿using DVLD.Enums;
+﻿using MB.T.DVLD.Utilities.Enums;
 using System;
 
-namespace DVLD.Data.Entities
+namespace MB.T.DVLD.Entities
 {
     public class Driver
     {

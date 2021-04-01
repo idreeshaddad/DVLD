@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DVLD.Data.Entities;
-using DVLD.Models.Driver;
+using MB.T.DVLD.Entities;
+using MB.T.DVLD.Web.Models.Driver;
 
-namespace DVLD.AutoMapper
+namespace MB.T.DVLD.Web.AutoMapper
 {
     public class DriverProfile : Profile
     {

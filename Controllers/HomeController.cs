@@ -1,13 +1,9 @@
-﻿using DVLD.Models;
+﻿using MB.T.DVLD.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace DVLD.Controllers
+namespace MB.T.DVLD.Web.Controllers
 {
     public class HomeController : Controller
     {

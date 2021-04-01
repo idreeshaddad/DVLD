@@ -1,10 +1,10 @@
-﻿using DVLD.Models.Car;
-using DVLD.Models.Driver;
-using DVLD.Models.Officer;
+﻿using MB.T.DVLD.Web.Models.Car;
+using MB.T.DVLD.Web.Models.Driver;
+using MB.T.DVLD.Web.Models.Officer;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Tickets
+namespace MB.T.DVLD.Web.Models.Tickets
 {
     public class TicketVM
     {

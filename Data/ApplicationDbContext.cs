@@ -1,9 +1,8 @@
-﻿using DVLD.Data.Entities;
+﻿using MB.T.DVLD.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DVLD.Models.Officer;
 
-namespace DVLD.Data
+namespace MB.T.DVLD.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

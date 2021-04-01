@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Car
+namespace MB.T.DVLD.Web.Models.Car
 {
     public class CreateEditCarVM
     {

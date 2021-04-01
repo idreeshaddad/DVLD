@@ -1,7 +1,7 @@
-﻿using DVLD.Enums;
+﻿using MB.T.DVLD.Utilities.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace DVLD.Models.Officer
+namespace MB.T.DVLD.Web.Models.Officer
 {
     public class OfficerVM
     {
@@ -27,7 +27,7 @@ namespace DVLD.Models.Officer
         [Required]
         [Display(Name = "Badge Number")]
         public string BadgeNumber { get; set; }
-        
+
         public Rank Rank { get; set; }
     }
 }

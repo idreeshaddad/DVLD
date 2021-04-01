@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DVLD.Data;
-using DVLD.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using DVLD.Models.Car;
 using AutoMapper;
-using DVLD.Models;
-using DVLD.Helper.LookupService;
+using MB.T.DVLD.Web.Data;
+using MB.T.DVLD.Web.Models.Car;
+using MB.T.DVLD.Entities.Helper.LookupService;
+using MB.T.DVLD.Entities;
 
-namespace DVLD.Controllers
+namespace MB.T.DVLD.Web.Controllers
 {
     [Authorize]
     public class CarController : Controller
@@ -23,7 +21,7 @@ namespace DVLD.Controllers
         private readonly IMapper _mapper;
         private readonly ILookupService _lookupService;
 
-        public CarController(ApplicationDbContext context, 
+        public CarController(ApplicationDbContext context,
                             IMapper mapper,
                             ILookupService lookupService)
         {
