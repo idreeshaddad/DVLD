@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="MB.T.DVLD.Entities\MB.T.DVLD.Entities.csproj" />
-    <ProjectReference Include="MB.T.DVLD.Utilities\MB.T.DVLD.Utilities.csproj" />
+    <ProjectReference Include="..\MB.T.DVLD.Entities\MB.T.DVLD.Entities.csproj" />
+    <ProjectReference Include="..\MB.T.DVLD.Utilities\MB.T.DVLD.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
