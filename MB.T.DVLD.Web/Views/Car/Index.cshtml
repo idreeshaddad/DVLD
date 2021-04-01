@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<MB.T.DVLD.Web.Models.Car.CarVM>
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Cars";
 }
@@ -122,11 +124,16 @@
 
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@car.Id">Details</a> |
-                    <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#deleteModal_@car.Id">
-                        Delete
-                    </button>
+                    <a asp-action="Details" asp-route-id="@car.Id">Details</a> 
+                    
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <span>|</span>
+                        <a asp-action="Edit" asp-route-id="@car.Id">Edit</a>
+                        <span>|</span>
+                        <button type="button" class="btn btn-link p-0 mb-1" data-toggle="modal" data-target="#deleteModal_@car.Id">
+                            Delete
+                        </button>}
 
                     <!-- Delete Car Modal -->
                     <div class="modal fade" id="deleteModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -141,7 +148,7 @@
                                 <div class="modal-body">
 
                                     <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                    <h5>
+                                    <div>
                                         <dl class="row">
                                             <dt class="col-sm-4 my-2">Car Manu :</dt>
                                             <dd class="col-sm-8 my-2 text-danger">@car.Manu</dd>
@@ -150,7 +157,7 @@
                                             <dt class="col-sm-4 my-2">License Plate :</dt>
                                             <dd class="col-sm-8 my-2 text-danger">@car.LicensePlate</dd>
                                         </dl>
-                                    </h5>
+                                    </div>
 
                                 </div>
                                 <div class="modal-footer">

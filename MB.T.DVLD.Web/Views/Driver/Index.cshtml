@@ -68,7 +68,7 @@
                         <span>|</span>
                         <a asp-action="Edit" asp-route-id="@driver.Id">Edit</a>
                         <span>|</span>
-                        <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#deleteModal_@driver.Id">
+                        <button type="button" class="btn btn-link p-0 mb-1" data-toggle="modal" data-target="#deleteModal_@driver.Id">
                             Delete
                         </button>
 
@@ -85,7 +85,7 @@
                                     <div class="modal-body">
 
                                         <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                        <h5>
+                                        <div>
                                             <dl class="row">
                                                 <dt class="col-sm-6 my-2">Driver Name :</dt>
                                                 <dd class="col-sm-6 my-2 text-danger">@driver.FullName</dd>
@@ -94,26 +94,26 @@
                                                 <dt class="col-sm-6 my-2">License Type :</dt>
                                                 <dd class="col-sm-6 my-2 text-danger">@driver.LicenseType</dd>
                                             </dl>
-                                        </h5>
+                                        </div>
 
                                     </div>
                                     <div class="modal-footer">
                                         <form asp-action="Delete">
                                             <input type="hidden" value="@driver.Id" name="id" />
-                                            <input type="submit" value="Delete" class="btn btn-danger" />  
+                                            <input type="submit" value="Delete" class="btn btn-danger" />
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
-                <span>|</span>
-            }
 
+                        
+                    }
+                     <span>|</span>
                     <a asp-action="DriverCars" asp-route-id="@driver.Id">Cars</a>
-                    </td>
-                    </tr>
-                }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
