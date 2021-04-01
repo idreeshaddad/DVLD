@@ -172,22 +172,7 @@ namespace MB.T.DVLD.Web.Controllers
             return View(ticket);
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ticket = await _context.Tickets
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-
-            return View(ticket);
-        }
+        
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

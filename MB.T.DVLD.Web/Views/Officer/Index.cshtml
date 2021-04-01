@@ -28,24 +28,62 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var officer in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => officer.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => officer.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BadgeNumber)
+                @Html.DisplayFor(modelItem => officer.BadgeNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rank)
+                @Html.DisplayFor(modelItem => officer.Rank)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@officer.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@officer.Id">Details</a> |
+                <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#deleteModal_@officer.Id">
+                    Delete
+                </button>
+
+                <!-- Driver Modal -->
+                <div class="modal fade" id="deleteModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="deleteModalLabel_@officer.Id">Delete Officer?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                <h5>
+                                    <dl class="row">
+                                        <dt class="col-sm-6 my-2">Officer Name :</dt>
+                                        <dd class="col-sm-6 my-2 text-danger">@officer.FullName</dd>
+                                        <dt class="col-sm-6 my-2">Badge Number :</dt>
+                                        <dd class="col-sm-6 my-2 text-danger">@officer.BadgeNumber</dd>
+                                        <dt class="col-sm-6 my-2">Officer Rank :</dt>
+                                        <dd class="col-sm-6 my-2 text-danger">@officer.Rank</dd>
+                                    </dl>
+                                </h5>
+
+                            </div>
+                            <div class="modal-footer">
+                                <form asp-action="Delete">
+                                    <input type="hidden" value="@officer.Id" name="id" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />  
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
 }

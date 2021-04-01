@@ -39,42 +39,81 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var driver in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => driver.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => driver.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
+                    @Html.DisplayFor(modelItem => driver.Gender)
                 </td>
                 <td>
-                    @item.DateOfBirth.ToString("dddd-MMMM-yyyy")
+                    @driver.DateOfBirth.ToString("dddd-MMMM-yyyy")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LicenseNumber)
+                    @Html.DisplayFor(modelItem => driver.LicenseNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LicenseType)
+                    @Html.DisplayFor(modelItem => driver.LicenseType)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Details" asp-route-id="@driver.Id">Details</a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <span>|</span>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@driver.Id">Edit</a>
                         <span>|</span>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        <span>|</span>
-                    }
+                        <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#deleteModal_@driver.Id">
+                            Delete
+                        </button>
 
-                    <a asp-action="DriverCars" asp-route-id="@item.Id">Cars</a>
-                </td>
-            </tr>
-        }
+                        <!-- Driver Modal -->
+                        <div class="modal fade" id="deleteModal_@driver.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="deleteModalLabel_@driver.Id">Delete Driver?</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                        <h5>
+                                            <dl class="row">
+                                                <dt class="col-sm-6 my-2">Driver Name :</dt>
+                                                <dd class="col-sm-6 my-2 text-danger">@driver.FullName</dd>
+                                                <dt class="col-sm-6 my-2">License Number :</dt>
+                                                <dd class="col-sm-6 my-2 text-danger">@driver.LicenseNumber</dd>
+                                                <dt class="col-sm-6 my-2">License Type :</dt>
+                                                <dd class="col-sm-6 my-2 text-danger">@driver.LicenseType</dd>
+                                            </dl>
+                                        </h5>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-action="Delete">
+                                            <input type="hidden" value="@driver.Id" name="id" />
+                                            <input type="submit" value="Delete" class="btn btn-danger" />  
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                <span>|</span>
+            }
+
+                    <a asp-action="DriverCars" asp-route-id="@driver.Id">Cars</a>
+                    </td>
+                    </tr>
+                }
     </tbody>
 </table>

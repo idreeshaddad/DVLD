@@ -40,38 +40,77 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var ticket in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.IssueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Driver.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Car.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Officer.FullName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@ticket.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@ticket.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.IssueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Driver.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Car.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Officer.FullName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@ticket.Id">Details</a> |
+                    <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#deleteModal_@ticket.Id">
+                        Delete
+                    </button>
+
+                    <!-- Delete Car Modal -->
+                    <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="deleteModalLabel_@ticket.Id">Delete Ticket?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                    <h5>
+                                        <dl class="row">
+                                            <dt class="col-sm-4 my-2">Ticket Id :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@ticket.Id</dd>
+                                            <dt class="col-sm-4 my-2">Driver Name :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@ticket.Driver.FullName</dd>
+                                            <dt class="col-sm-4 my-2">Issue Time :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@ticket.IssueDate</dd>
+                                        </dl>
+                                    </h5>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-action="Delete">
+                                        <input type="hidden" value="@ticket.Id" name="id" />
+                                        <input type="submit" value="Delete" class="btn btn-danger mr-2" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

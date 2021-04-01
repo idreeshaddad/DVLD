@@ -132,28 +132,8 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(OfficerVM);
         }
+       
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var officer = await _context
-                                    .Officers
-                                    .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (officer == null)
-            {
-                return NotFound();
-            }
-
-            OfficerVM officerVM = _mapper.Map<Officer, OfficerVM>(officer);
-
-            return View(officerVM);
-
-        }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

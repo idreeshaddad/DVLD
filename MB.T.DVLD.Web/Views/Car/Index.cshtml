@@ -133,19 +133,23 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel_@car.Id">Delete Car?</h5>
+                                    <h4 class="modal-title" id="deleteModalLabel_@car.Id">Delete Car?</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
 
+                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
                                     <h5>
-                                        Are you sure you want to delete
-                                        <span class="text-danger">
-                                            @car.Manu - @car.Model - @car.LicensePlate
-                                        </span>                                        
-                                        ?
+                                        <dl class="row">
+                                            <dt class="col-sm-4 my-2">Car Manu :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@car.Manu</dd>
+                                            <dt class="col-sm-4 my-2">Car Model :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@car.Model</dd>
+                                            <dt class="col-sm-4 my-2">License Plate :</dt>
+                                            <dd class="col-sm-8 my-2 text-danger">@car.LicensePlate</dd>
+                                        </dl>
                                     </h5>
 
                                 </div>

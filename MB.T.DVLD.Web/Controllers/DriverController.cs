@@ -156,22 +156,7 @@ namespace MB.T.DVLD.Web.Controllers
             return View(driverVM);
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var driver = await _context.Drivers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (driver == null)
-            {
-                return NotFound();
-            }
-
-            return View(driver);
-        }
+       
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
