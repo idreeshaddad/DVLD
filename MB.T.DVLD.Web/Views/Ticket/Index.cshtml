@@ -44,7 +44,8 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.IssueDate)
+                    
+                    @ticket.IssueDate.ToString("dddd, dd MMMM yyyy HH:mm")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => ticket.Driver.FullName)
