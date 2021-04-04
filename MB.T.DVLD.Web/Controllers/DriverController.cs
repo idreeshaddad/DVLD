@@ -9,6 +9,8 @@ using MB.T.DVLD.Web.Data;
 using MB.T.DVLD.Web.Models.Car;
 using MB.T.DVLD.Web.Models.Driver;
 using MB.T.DVLD.Entities;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -19,11 +21,15 @@ namespace MB.T.DVLD.Web.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<DriverController> _logger;
 
-        public DriverController(ApplicationDbContext context, IMapper mapper)
+        public DriverController(ApplicationDbContext context, 
+                                IMapper mapper,
+                                ILogger<DriverController> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #endregion
@@ -33,11 +39,21 @@ namespace MB.T.DVLD.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var drivers = await _context.Drivers.ToListAsync();
+            try
+            {
+                //int x = 10;
+                //int y = 0;
+                //int z = x / y;
 
-            var driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
-
-            return View(driverVMs);
+                var drivers = await _context.Drivers.ToListAsync();
+                var driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
+                return View(driverVMs);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Driver list فقعت");
+                return BadRequest();
+            }
         }
 
         [AllowAnonymous]
