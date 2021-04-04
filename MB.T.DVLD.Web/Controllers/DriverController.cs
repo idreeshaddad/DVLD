@@ -71,9 +71,10 @@ namespace MB.T.DVLD.Web.Controllers
 
             var driver = await _context.Drivers
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (driver == null)
             {
-                return NotFound();
+                return Redirect("~/errorPages/DriverNotFound.html");
             }
 
             var driverVM = _mapper.Map<Driver, DriverVM>(driver);

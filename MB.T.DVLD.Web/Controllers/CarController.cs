@@ -62,7 +62,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             if (car == null)
             {
-                return NotFound();
+                return Redirect("~/errorPages/CarNotFound.html");
             }
 
             CarVM carVM = _mapper.Map<Car, CarVM>(car);
