@@ -8,5 +8,6 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
         public Task<SelectList> GetCarsListItems();
         public Task<SelectList> GetDriversListItems();
         public Task<SelectList> GetOfficersListItems();
+        public Task<SelectList> GetInsurancesListItems();
     }
 }

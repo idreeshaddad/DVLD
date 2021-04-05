@@ -22,5 +22,6 @@ namespace MB.T.DVLD.Web.Models.Car
 
         [Display(Name = "Driver")]
         public int DriverId { get; set; }
+        public int InsuranceId { get; set; }
     }
 }

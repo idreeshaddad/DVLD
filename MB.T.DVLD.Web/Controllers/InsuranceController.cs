@@ -27,7 +27,7 @@ namespace MB.T.DVLD.Web.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var Insurance = await _context.Insurance.ToListAsync();
+            var Insurance = await _context.Insurances.ToListAsync();
             var InsuranceVM = _mapper.Map<List<Insurance>, List<InsuranceVM>>(Insurance);
             return View(InsuranceVM);
         }
@@ -40,7 +40,7 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var insurance = await _context.Insurance
+            var insurance = await _context.Insurances
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (insurance == null)
             {
@@ -81,7 +81,7 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var insurance = await _context.Insurance.FindAsync(id);
+            var insurance = await _context.Insurances.FindAsync(id);
             if (insurance == null)
             {
                 return NotFound();
@@ -134,15 +134,15 @@ namespace MB.T.DVLD.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var insurance = await _context.Insurance.FindAsync(id);
-            _context.Insurance.Remove(insurance);
+            var insurance = await _context.Insurances.FindAsync(id);
+            _context.Insurances.Remove(insurance);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InsuranceExists(int id)
         {
-            return _context.Insurance.Any(e => e.Id == id);
+            return _context.Insurances.Any(e => e.Id == id);
         }
     }
 }

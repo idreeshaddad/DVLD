@@ -40,6 +40,7 @@ namespace MB.T.DVLD.Web.Controllers
             List<Car> cars = await _context
                                         .Cars
                                         .Include(car => car.Driver)
+                                        .Include(car => car.Insurance)
                                         .ToListAsync();
 
             List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars);
@@ -58,6 +59,7 @@ namespace MB.T.DVLD.Web.Controllers
             var car = await _context
                                 .Cars
                                 .Include(car => car.Driver)
+                                .Include(car => car.Insurance)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
@@ -73,6 +75,7 @@ namespace MB.T.DVLD.Web.Controllers
         public async Task<IActionResult> CreateAsync()
         {
             ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
+            ViewBag.GetInsurancesListItems = await _lookupService.GetInsurancesListItems();
             return View();
         }
 
@@ -108,6 +111,7 @@ namespace MB.T.DVLD.Web.Controllers
             var car = await _context
                                 .Cars
                                 .Include(car => car.Driver)
+                                .Include(car => car.Insurance)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
@@ -116,6 +120,7 @@ namespace MB.T.DVLD.Web.Controllers
             }
 
             ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
+            ViewBag.InsurancesListItems = await _lookupService.GetInsurancesListItems();
 
             var carVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
@@ -145,6 +150,8 @@ namespace MB.T.DVLD.Web.Controllers
                     {
                         var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
                         car.Driver = driver;
+                        var Insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
+                        car.Insurance = Insurance;
                     }
 
                     _context.Update(car);

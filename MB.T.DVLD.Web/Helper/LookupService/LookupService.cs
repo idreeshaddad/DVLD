@@ -63,5 +63,22 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
 
             return driversListItems;
         }
+
+        public async Task<SelectList> GetInsurancesListItems() 
+        {
+            var insuranceLookup = await _context
+                                    .Insurances
+                                    .Select(insurance => new LookupVM()
+                                    {
+                                        Id = insurance.Id,
+                                        Name = $"{insurance.CompanyName} {insurance.ExpiryDate} - {insurance.InsuranceType}"
+                                    })
+                                    .ToListAsync();
+
+            var insuranceListItems = new SelectList(insuranceLookup, "Id", "Name");
+
+            return insuranceListItems;
+
+        }
     }
 }
