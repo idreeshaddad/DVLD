@@ -10,5 +10,7 @@
 
         public int? DriverId { get; set; }
         public Driver Driver { get; set; }
+        public int? InsuranceId { get; set; }
+        public Insurance Insurance { get; set; }
     }
 }
