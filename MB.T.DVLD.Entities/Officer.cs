@@ -9,5 +9,8 @@ namespace MB.T.DVLD.Entities
         public string LastName { get; set; }
         public string BadgeNumber  { get; set; }
         public Rank Rank { get; set; }
+
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

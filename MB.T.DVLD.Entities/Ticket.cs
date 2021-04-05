@@ -20,5 +20,9 @@ namespace MB.T.DVLD.Entities
 
         public int OfficerId { get; set; }
         public Officer Officer { get; set; }
+
+
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

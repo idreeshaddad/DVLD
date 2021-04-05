@@ -4,14 +4,16 @@ using MB.T.DVLD.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DVLD.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210405144054_Table_Departments")]
+    partial class Table_Departments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,9 +108,6 @@ namespace DVLD.Data.Migrations
                     b.Property<string>("BadgeNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,8 +118,6 @@ namespace DVLD.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Officers");
                 });
@@ -136,9 +133,6 @@ namespace DVLD.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("DriverId")
@@ -159,8 +153,6 @@ namespace DVLD.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
-
-                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("DriverId");
 
@@ -378,15 +370,6 @@ namespace DVLD.Data.Migrations
                     b.Navigation("Driver");
                 });
 
-            modelBuilder.Entity("MB.T.DVLD.Entities.Officer", b =>
-                {
-                    b.HasOne("MB.T.DVLD.Entities.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId");
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("MB.T.DVLD.Entities.Ticket", b =>
                 {
                     b.HasOne("MB.T.DVLD.Entities.Car", "Car")
@@ -394,10 +377,6 @@ namespace DVLD.Data.Migrations
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("MB.T.DVLD.Entities.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("MB.T.DVLD.Entities.Driver", "Driver")
                         .WithMany()
@@ -412,8 +391,6 @@ namespace DVLD.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Car");
-
-                    b.Navigation("Department");
 
                     b.Navigation("Driver");
 

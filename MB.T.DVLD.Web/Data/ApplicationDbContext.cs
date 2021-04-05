@@ -15,5 +15,6 @@ namespace MB.T.DVLD.Web.Data
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Officer> Officers { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.T.DVLD.Utilities", "MB.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.T.DVLD.Web", "MB.T.DVLD.Web\MB.T.DVLD.Web.csproj", "{691F06C2-ADE1-4054-90DB-5563E44A0D81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.T.DVLD.WebApi", "MB.T.DVLD.WebApi\MB.T.DVLD.WebApi.csproj", "{F080BDCC-F239-430C-89F0-11CAD3E16EFD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.T.DVLD.Repositories", "MB.T.DVLD.Repositories\MB.T.DVLD.Repositories.csproj", "{78898723-9CB8-4E31-98F5-2B3939FE889D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{691F06C2-ADE1-4054-90DB-5563E44A0D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{691F06C2-ADE1-4054-90DB-5563E44A0D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{691F06C2-ADE1-4054-90DB-5563E44A0D81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F080BDCC-F239-430C-89F0-11CAD3E16EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F080BDCC-F239-430C-89F0-11CAD3E16EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F080BDCC-F239-430C-89F0-11CAD3E16EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F080BDCC-F239-430C-89F0-11CAD3E16EFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78898723-9CB8-4E31-98F5-2B3939FE889D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78898723-9CB8-4E31-98F5-2B3939FE889D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78898723-9CB8-4E31-98F5-2B3939FE889D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78898723-9CB8-4E31-98F5-2B3939FE889D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
