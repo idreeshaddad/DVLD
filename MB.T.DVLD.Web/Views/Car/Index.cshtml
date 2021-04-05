@@ -24,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Insurance.CompanyName)
+            </th>
+            <th>
                 Driver Name
             </th>
             <th></th>
@@ -44,9 +47,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => car.Insurance.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => car.Insurance.InsuranceType)
             </td>
             <td>
                 @if (car.Driver == null)

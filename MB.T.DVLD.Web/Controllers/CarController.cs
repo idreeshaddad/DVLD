@@ -75,7 +75,7 @@ namespace MB.T.DVLD.Web.Controllers
         public async Task<IActionResult> CreateAsync()
         {
             ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
-            ViewBag.GetInsurancesListItems = await _lookupService.GetInsurancesListItems();
+            ViewBag.InsurancesListItems = await _lookupService.GetInsurancesListItems();
             return View();
         }
 
