@@ -1,4 +1,5 @@
 ﻿using MB.T.DVLD.Web.Models.Car;
+using MB.T.DVLD.Web.Models.Departments;
 using MB.T.DVLD.Web.Models.Driver;
 using MB.T.DVLD.Web.Models.Officer;
 using System;
@@ -34,5 +35,7 @@ namespace MB.T.DVLD.Web.Models.Tickets
 
         [Required]
         public OfficerVM Officer { get; set; }
+        
+        public DepartmentVM Department{ get; set; }
     }
 }

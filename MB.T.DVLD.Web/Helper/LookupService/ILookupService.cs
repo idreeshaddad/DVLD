@@ -5,9 +5,10 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
 {
     public interface ILookupService
     {
-        public Task<SelectList> GetCarsListItems();
-        public Task<SelectList> GetDriversListItems();
-        public Task<SelectList> GetOfficersListItems();
-        public Task<SelectList> GetInsurancesListItems();
+        public Task<SelectList> GetCarSelectList();
+        public Task<SelectList> GetDriverSelectList();
+        public Task<SelectList> GetOfficerSelectList();
+        public Task<SelectList> GetInsuranceSelectList();
+        public Task<SelectList> GetDepartmentSelectList();
     }
 }

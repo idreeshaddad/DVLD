@@ -76,9 +76,10 @@ namespace MB.T.DVLD.Web.Controllers
         {
             var createEditTicketVM = new CreateEditTicketVM();
 
-            createEditTicketVM.DriversListItems = await _lookupService.GetDriversListItems();
-            createEditTicketVM.CarsListItems = await _lookupService.GetCarsListItems();
-            createEditTicketVM.OfficersListItems = await _lookupService.GetOfficersListItems();
+            createEditTicketVM.DriverSelectList = await _lookupService.GetDriverSelectList();
+            createEditTicketVM.CarSelectList = await _lookupService.GetCarSelectList();
+            createEditTicketVM.OfficerSelectList = await _lookupService.GetOfficerSelectList();
+            createEditTicketVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
 
             createEditTicketVM.IssueDate = DateTime.Now;
 
@@ -108,9 +109,9 @@ namespace MB.T.DVLD.Web.Controllers
             }
 
 
-            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
-            ViewBag.CarsListItems = await _lookupService.GetCarsListItems();
-            ViewBag.OfficersListItems = await _lookupService.GetOfficersListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriverSelectList();
+            ViewBag.CarsListItems = await _lookupService.GetCarSelectList();
+            ViewBag.OfficersListItems = await _lookupService.GetOfficerSelectList();
             return View(ticketVM);
         }
 
@@ -133,9 +134,9 @@ namespace MB.T.DVLD.Web.Controllers
             }
 
             var ticketVM = _mapper.Map<Ticket, CreateEditTicketVM>(ticket);
-            ticketVM.DriversListItems = await _lookupService.GetDriversListItems();
-            ticketVM.CarsListItems = await _lookupService.GetCarsListItems();
-            ticketVM.OfficersListItems = await _lookupService.GetOfficersListItems();
+            ticketVM.DriverSelectList = await _lookupService.GetDriverSelectList();
+            ticketVM.CarSelectList = await _lookupService.GetCarSelectList();
+            ticketVM.OfficerSelectList = await _lookupService.GetOfficerSelectList();
 
             return View(ticketVM);
         }

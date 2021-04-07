@@ -74,8 +74,8 @@ namespace MB.T.DVLD.Web.Controllers
 
         public async Task<IActionResult> CreateAsync()
         {
-            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
-            ViewBag.GetInsurancesListItems = await _lookupService.GetInsurancesListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriverSelectList();
+            ViewBag.GetInsurancesListItems = await _lookupService.GetInsuranceSelectList();
             return View();
         }
 
@@ -119,8 +119,8 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            ViewBag.DriversListItems = await _lookupService.GetDriversListItems();
-            ViewBag.InsurancesListItems = await _lookupService.GetInsurancesListItems();
+            ViewBag.DriversListItems = await _lookupService.GetDriverSelectList();
+            ViewBag.InsurancesListItems = await _lookupService.GetInsuranceSelectList();
 
             var carVM = _mapper.Map<Car, CreateEditCarVM>(car);
 

@@ -16,7 +16,7 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
             _context = context;
         }
 
-        public async Task<SelectList> GetCarsListItems()
+        public async Task<SelectList> GetCarSelectList()
         {
             var carsLookup = await _context
                                     .Cars
@@ -27,12 +27,12 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
                                     })
                                     .ToListAsync();
 
-            var carsListItems = new SelectList(carsLookup, "Id", "Name");
+            var carSelectList = new SelectList(carsLookup, "Id", "Name");
 
-            return carsListItems;
+            return carSelectList;
         }
 
-        public async Task<SelectList> GetDriversListItems()
+        public async Task<SelectList> GetDriverSelectList()
         {
             var driversLookup = await _context
                                     .Drivers
@@ -43,12 +43,12 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
                                     })
                                     .ToListAsync();
 
-            var driversListItems = new SelectList(driversLookup, "Id", "Name");
+            var driverSelectList = new SelectList(driversLookup, "Id", "Name");
 
-            return driversListItems;
+            return driverSelectList;
         }
 
-        public async Task<SelectList> GetOfficersListItems()
+        public async Task<SelectList> GetOfficerSelectList()
         {
             var officersLookup = await _context
                                     .Officers
@@ -59,12 +59,12 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
                                     })
                                     .ToListAsync();
 
-            var driversListItems = new SelectList(officersLookup, "Id", "Name");
+            var driverSelectList = new SelectList(officersLookup, "Id", "Name");
 
-            return driversListItems;
+            return driverSelectList;
         }
 
-        public async Task<SelectList> GetInsurancesListItems() 
+        public async Task<SelectList> GetInsuranceSelectList() 
         {
             var insuranceLookup = await _context
                                     .Insurances
@@ -75,10 +75,26 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
                                     })
                                     .ToListAsync();
 
-            var insuranceListItems = new SelectList(insuranceLookup, "Id", "Name");
+            var insuranceSelectList = new SelectList(insuranceLookup, "Id", "Name");
 
-            return insuranceListItems;
+            return insuranceSelectList;
 
+        }
+
+        public async Task<SelectList> GetDepartmentSelectList()
+        {
+            var departmentsLookup = await _context
+                                            .Departments
+                                            .Select(department => new LookupVM()
+                                            {
+                                                Id = department.Id,
+                                                Name = department.Name
+                                            })
+                                            .ToListAsync();
+
+            var departmentSelectList = new SelectList(departmentsLookup, "Id", "Name");
+
+            return departmentSelectList;
         }
     }
 }

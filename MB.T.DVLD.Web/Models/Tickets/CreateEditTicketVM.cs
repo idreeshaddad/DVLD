@@ -38,9 +38,14 @@ namespace MB.T.DVLD.Web.Models.Tickets
         [Display(Name = "Officer")]
         public int OfficerId { get; set; }
 
+        
+        [Display(Name = "Department")]
+        public int DepartmentId { get; set; }
+
         // Drop down Lists
-        public SelectList DriversListItems { get; set; }
-        public SelectList CarsListItems { get; set; }
-        public SelectList OfficersListItems { get; set; }
+        public SelectList DriverSelectList { get; set; }
+        public SelectList CarSelectList { get; set; }
+        public SelectList OfficerSelectList { get; set; }
+        public SelectList DepartmentSelectList { get; set; }
     }
 }
