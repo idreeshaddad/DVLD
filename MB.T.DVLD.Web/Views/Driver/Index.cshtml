@@ -52,7 +52,7 @@
                     @Html.DisplayFor(modelItem => driver.Gender)
                 </td>
                 <td>
-                    
+
                     @driver.DateOfBirth.ToString("dd-MMMM-yyyy")
                 </td>
                 <td>
@@ -62,16 +62,15 @@
                     @Html.DisplayFor(modelItem => driver.LicenseType)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@driver.Id">Details</a>
+                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@driver.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <span>|</span>
-                        <a asp-action="Edit" asp-route-id="@driver.Id">Edit</a>
+                        <a class="fas fa-pencil-alt" asp-action="Edit" asp-route-id="@driver.Id"></a>
                         <span>|</span>
-                        <button type="button" class="btn btn-link p-0 mb-1" data-toggle="modal" data-target="#deleteModal_@driver.Id">
-                            Delete
-                        </button>
+                        <button class="p-0 btn btn-link mb-1 text-danger" type="button" data-toggle="modal" data-target="#deleteModal_@driver.Id"><i class="fas fa-trash"></i></button>
+
 
                         <!-- Driver Modal -->
                         <div class="modal fade" id="deleteModal_@driver.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -109,10 +108,10 @@
                             </div>
                         </div>
 
-                        
+
                     }
-                     <span>|</span>
-                    <a asp-action="DriverCars" asp-route-id="@driver.Id">Cars</a>
+                    <span>|</span>
+                    <a class="fas fa-car text-black-50" asp-action="DriverCars" asp-route-id="@driver.Id"></a>
                 </td>
             </tr>
         }

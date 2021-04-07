@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<MB.T.DVLD.Web.Models.Departments.DepartmentVM>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Departments";
@@ -22,20 +25,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+
+                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@item.Id"></a> |
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="fas fa-pencil-alt " asp-action="Edit" asp-route-id="@item.Id"></a> <span>|</span>
+                        <a class="fas fa-trash text-danger" asp-action="Delete" asp-route-id="@item.Id"></a>
+                        
+                    }
+                </td>
+            </tr>
 }
     </tbody>
 </table>

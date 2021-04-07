@@ -65,13 +65,12 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@ticket.Id">Details</a>
+                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@ticket.Id"></a>
                     <span>|</span>
-                    <a asp-action="Edit" asp-route-id="@ticket.Id">Edit</a>
+                    <a class="fas fa-pencil-alt" asp-action="Edit" asp-route-id="@ticket.Id"></a>
                     <span>|</span>
-                    <button type="button" class="btn btn-link p-0 mb-1" data-toggle="modal" data-target="#deleteModal_@ticket.Id">
-                        Delete
-                    </button>
+                    <button class="p-0 btn btn-link mb-1 text-danger" type="button" data-toggle="modal" data-target="#deleteModal_@ticket.Id"><i class="fas fa-trash"></i></button>
+
                     <!-- Delete Car Modal -->
                     <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">

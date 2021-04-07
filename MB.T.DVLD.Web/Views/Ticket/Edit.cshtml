@@ -7,9 +7,11 @@
 <h1>Edit Ticket</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+
+
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -23,7 +25,8 @@
                 <select asp-for="DriverId" asp-items="@Model.DriverSelectList" class="form-control"></select>
                 <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
-
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="CarId" class="control-label"></label>
                 <select asp-for="CarId" asp-items="@Model.CarSelectList" class="form-control"></select>
@@ -35,6 +38,8 @@
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Reason" class="control-label"></label>
                 <input asp-for="Reason" class="form-control" />
@@ -45,33 +50,38 @@
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Paid" class="control-label"></label>
-                <input asp-for="Paid" class="form-control" />
-                <span asp-validation-for="Paid" class="text-danger"></span>
-            </div>
+        </div>
+
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="OfficerId" class="control-label"></label>
                 <select asp-for="OfficerId" asp-items="@Model.OfficerSelectList" class="form-control"></select>
                 <span asp-validation-for="OfficerId" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
 
             <div class="form-group">
                 <label asp-for="DepartmentId" class="control-label"></label>
                 <select asp-for="DepartmentId" asp-items="@Model.DepartmentSelectList" class="form-control"></select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
-
-            <span class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </span>
-                
-            <span>
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-            </span>
-        </form>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Paid" class="control-label"></label>
+                <input asp-for="Paid" class="form-control" />
+                <span asp-validation-for="Paid" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="form-group float-right">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-secondary ml-1" asp-action="Index" >Back to List</a>
+    </div>
+</form>
+
+
 
 
 

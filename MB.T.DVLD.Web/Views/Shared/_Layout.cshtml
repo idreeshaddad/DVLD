@@ -34,27 +34,32 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Ticket" asp-action="Index">Tickets</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Driver" asp-action="Index">Drivers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Officer" asp-action="Index">Officers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Departments</a>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Insurance" asp-action="Index">Insurances</a>
                             </li>
                         }
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Services
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="text-dark dropdown-item" asp-area="" asp-controller="Driver" asp-action="Index">Drivers</a>
+                                <a class=" text-dark dropdown-item" asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <a class="text-dark dropdown-item" asp-area="" asp-controller="Ticket" asp-action="Index">Tickets</a>
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                الحكومة
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="text-dark dropdown-item" asp-area="" asp-controller="Department" asp-action="Index">Departments</a>
+                                <a class=" text-dark dropdown-item" asp-area="" asp-controller="Officer" asp-action="Index">Officers</a>
+                            </div>
+                        </li>
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
