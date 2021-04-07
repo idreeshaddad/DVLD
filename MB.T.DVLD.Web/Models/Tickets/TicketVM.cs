@@ -38,5 +38,7 @@ namespace MB.T.DVLD.Web.Models.Tickets
         public OfficerVM Officer { get; set; }
         
         public DepartmentVM Department{ get; set; }
+        public bool Paid { get; set; }
+
     }
 }

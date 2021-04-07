@@ -24,5 +24,6 @@ namespace MB.T.DVLD.Entities
 
         public int? DepartmentId { get; set; }
         public Department Department { get; set; }
+        public bool Paid  {get; set; }
     }
 }

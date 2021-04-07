@@ -59,6 +59,7 @@ namespace MB.T.DVLD.Web.Controllers
                                 .Tickets
                                 .Include(ticket => ticket.Driver)
                                 .Include(ticket => ticket.Car)
+                                .Include(ticket => ticket.Officer)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (ticket == null)

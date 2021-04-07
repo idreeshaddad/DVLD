@@ -45,6 +45,11 @@
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Paid" class="control-label"></label>
+                <input asp-for="Paid" class="form-control" />
+                <span asp-validation-for="Paid" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="OfficerId" class="control-label"></label>
@@ -57,6 +62,7 @@
                 <select asp-for="DepartmentId" asp-items="@Model.DepartmentSelectList" class="form-control"></select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

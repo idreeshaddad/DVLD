@@ -47,5 +47,7 @@ namespace MB.T.DVLD.Web.Models.Tickets
         public SelectList CarSelectList { get; set; }
         public SelectList OfficerSelectList { get; set; }
         public SelectList DepartmentSelectList { get; set; }
+
+        public bool Paid { get; set; }
     }
 }
