@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MB.T.DVLD.Web.Models.Tickets.TicketVM>
 
 @{
-    ViewData["Title"] = "Tickets";
+    ViewData["Title"] = "Create new tickets";
 }
 
 <h1>Tickets</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create new ticket</a>
 </p>
 <table class="table">
     <thead>
@@ -16,25 +16,16 @@
                 @Html.DisplayNameFor(model => model.IssueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Driver.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car.Model)
+                @Html.DisplayNameFor(model => model.Driver)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Car.LicensePlate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Reason)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Officer.FullName)
             </th>
             <th></th>
         </tr>
@@ -51,22 +42,13 @@
                     @Html.DisplayFor(modelItem => ticket.Driver.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.Car.Model)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Location)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => ticket.Reason)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => ticket.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Officer.FullName)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@ticket.Id">Details</a>

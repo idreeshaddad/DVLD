@@ -26,6 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Rank)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,6 +47,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => officer.Rank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => officer.Department.Name)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@officer.Id">Details</a>

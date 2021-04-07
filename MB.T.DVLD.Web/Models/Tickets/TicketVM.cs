@@ -16,6 +16,7 @@ namespace MB.T.DVLD.Web.Models.Tickets
         public DateTime IssueDate { get; set; }
 
 
+        [Display(Name = "Driver")]
         public DriverVM Driver { get; set; }
 
         public CarVM Car { get; set; }

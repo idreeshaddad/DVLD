@@ -1,4 +1,6 @@
-﻿using MB.T.DVLD.Utilities.Enums;
+﻿using MB.T.DVLD.Entities;
+using MB.T.DVLD.Utilities.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Officer
@@ -29,5 +31,14 @@ namespace MB.T.DVLD.Web.Models.Officer
         public string BadgeNumber { get; set; }
 
         public Rank Rank { get; set; }
+
+
+        public int? DepartmentId { get; set; }
+
+        [Display(Name = "Department")]
+        public Department Department { get; set; }
+
+
+        public SelectList DepartmentSelectList { get; set; }
     }
 }

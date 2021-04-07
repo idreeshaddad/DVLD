@@ -7,6 +7,7 @@ using AutoMapper;
 using MB.T.DVLD.Web.Data;
 using MB.T.DVLD.Web.Models.Officer;
 using MB.T.DVLD.Entities;
+using MB.T.DVLD.Entities.Helper.LookupService;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -16,11 +17,15 @@ namespace MB.T.DVLD.Web.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILookupService _lookupService;
 
-        public OfficerController(ApplicationDbContext context, IMapper mapper)
+        public OfficerController(ApplicationDbContext context,
+                                 IMapper mapper,
+                                 ILookupService lookupService)
         {
             _context = context;
             _mapper = mapper;
+            _lookupService = lookupService;
         }
 
         #endregion
@@ -31,6 +36,7 @@ namespace MB.T.DVLD.Web.Controllers
         {
             List<Officer> officer = await _context
                                             .Officers
+                                            .Include(officer => officer.Department)
                                             .ToListAsync();
 
             List<OfficerVM> officerVMs = _mapper.Map<List<Officer>, List<OfficerVM>>(officer);
@@ -47,6 +53,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             Officer officer = await _context
                                         .Officers
+                                        .Include(officer => officer.Department)
                                         .FirstOrDefaultAsync(m => m.Id == id);
 
             if (officer == null)
@@ -59,9 +66,12 @@ namespace MB.T.DVLD.Web.Controllers
             return View(officerVM);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            return View();
+            var officerVM = new OfficerVM();
+            officerVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
+
+            return View(officerVM);
         }
 
         [HttpPost]
@@ -94,6 +104,7 @@ namespace MB.T.DVLD.Web.Controllers
             }
 
             OfficerVM officerVM = _mapper.Map<Officer, OfficerVM>(officer);
+            officerVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
 
             return View(officerVM);
         }
@@ -132,7 +143,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(OfficerVM);
         }
-       
+
 
 
         [HttpPost, ActionName("Delete")]

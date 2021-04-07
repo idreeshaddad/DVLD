@@ -41,7 +41,6 @@ namespace MB.T.DVLD.Web.Controllers
                                             .Tickets
                                             .Include(ticket => ticket.Driver)
                                             .Include(ticket => ticket.Car)
-                                            .Include(ticket => ticket.Officer)
                                             .ToListAsync();
 
             var ticketVMs = _mapper.Map<List<Ticket>, List<TicketVM>>(tickets);
@@ -109,9 +108,13 @@ namespace MB.T.DVLD.Web.Controllers
             }
 
 
-            ViewBag.DriversListItems = await _lookupService.GetDriverSelectList();
-            ViewBag.CarsListItems = await _lookupService.GetCarSelectList();
-            ViewBag.OfficersListItems = await _lookupService.GetOfficerSelectList();
+            var createEditTicketVM = new CreateEditTicketVM();
+
+            createEditTicketVM.DriverSelectList = await _lookupService.GetDriverSelectList();
+            createEditTicketVM.CarSelectList = await _lookupService.GetCarSelectList();
+            createEditTicketVM.OfficerSelectList = await _lookupService.GetOfficerSelectList();
+            createEditTicketVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
+
             return View(ticketVM);
         }
 
@@ -137,6 +140,8 @@ namespace MB.T.DVLD.Web.Controllers
             ticketVM.DriverSelectList = await _lookupService.GetDriverSelectList();
             ticketVM.CarSelectList = await _lookupService.GetCarSelectList();
             ticketVM.OfficerSelectList = await _lookupService.GetOfficerSelectList();
+            ticketVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
+
 
             return View(ticketVM);
         }
