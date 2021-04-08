@@ -39,6 +39,7 @@ namespace MB.T.DVLD.Web.Models.Tickets
         
         public DepartmentVM Department{ get; set; }
         public bool Paid { get; set; }
+        public DateTime PaymentDate { get; set; }
 
     }
 }

@@ -56,20 +56,24 @@
                 <td>
                     @if (ticket.Paid)
                     {
-                        <i class="fas fa-check-circle text-success"></i>
+                        <i class="fas fa-check-circle text-success" data-toggle="tooltip" title="Paid on: @ticket.PaymentDate.ToLongDateString()"></i>
                     }
                     else
                     {
-                        <i class="fas fa-times-circle text-danger"></i>
+                        <i class="fas fa-times-circle text-danger" data-toggle="tooltip" title="Not Paid"></i>
 
                     }
                 </td>
                 <td>
-                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@ticket.Id"></a>
-                    <span>|</span>
-                    <a class="fas fa-pencil-alt" asp-action="Edit" asp-route-id="@ticket.Id"></a>
-                    <span>|</span>
-                    <button class="p-0 btn btn-link mb-1 text-danger" type="button" data-toggle="modal" data-target="#deleteModal_@ticket.Id"><i class="fas fa-trash"></i></button>
+                    <a class="fas fa-info-circle text-secondary mr-1 text-decoration-none" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@ticket.Id"></a>
+
+                    <a class="fas fa-pencil-alt mr-1 text-decoration-none" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@ticket.Id"></a>
+
+                    <span data-toggle="tooltip" title="Delete">
+                        <i class="fas fa-trash text-danger mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
+                    </span>
+
+                    <i class="fab fa-paypal text-primary pointer" data-toggle="tooltip" title="Pay Ticket"></i>
 
                     <!-- Delete Car Modal -->
                     <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

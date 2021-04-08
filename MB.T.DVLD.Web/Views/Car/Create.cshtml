@@ -38,14 +38,14 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="DriverId" class="control-label"></label>
-                <select asp-for="DriverId" asp-items="@ViewBag.DriversListItems" class="form-control">
+                <select asp-for="DriverId" asp-items="@Model.DriverSelectList" class="form-control">
                     <option value="0">- Please select a Driver -</option>
                 </select>
                 <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InsuranceId" class="control-label"></label>
-                <select asp-for="InsuranceId" asp-items="@ViewBag.InsurancesListItems" class="form-control">
+                <select asp-for="InsuranceId" asp-items="@Model.DriverSelectList" class="form-control">
                     <option value="0">- Please select a Insurance -</option>
                 </select>
                 <span asp-validation-for="InsuranceId" class="text-danger"></span>

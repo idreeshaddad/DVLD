@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Car
 {
@@ -25,5 +26,8 @@ namespace MB.T.DVLD.Web.Models.Car
 
         [Display(Name = "Insurance")]
         public int InsuranceId { get; set; }
+
+        public SelectList DriverSelectList { get; set; }
+        public SelectList InsuranceSelectList { get; set; }
     }
 }
