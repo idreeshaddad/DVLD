@@ -52,7 +52,7 @@
                     @Html.DisplayFor(modelItem => officer.Department.Name)
                 </td>
                 <td>
-                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@officer.Id"></a>
+                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@officer.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {

@@ -36,7 +36,7 @@
                 </td>
                 <td>
 
-                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@department.Id"></a>
+                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@department.Id"></a>
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <a class="fas fa-pencil-alt " asp-action="Edit" asp-route-id="@department.Id"></a>

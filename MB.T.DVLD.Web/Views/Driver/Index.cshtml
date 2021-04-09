@@ -62,7 +62,7 @@
                     @Html.DisplayFor(modelItem => driver.LicenseType)
                 </td>
                 <td>
-                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@driver.Id"></a>
+                    <a class="fas fa-info-circle " asp-action="Details" asp-route-id="@driver.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {

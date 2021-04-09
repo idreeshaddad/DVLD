@@ -42,7 +42,7 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="form-group float-right">
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+    <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 </div>
