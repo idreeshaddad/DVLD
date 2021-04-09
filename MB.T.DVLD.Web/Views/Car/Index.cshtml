@@ -136,14 +136,12 @@
 
                 </td>
                 <td>
-                    <a class="fas fa-info-circle text-secondary" asp-action="Details" asp-route-id="@car.Id"></a>
+                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@car.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <span>|</span>
-                        <a class="fas fa-pencil-alt" asp-action="Edit" asp-route-id="@car.Id"></a>
-                        <span>|</span>
-                        <button class="p-0 btn btn-link mb-1 text-danger" type="button" data-toggle="modal" data-target="#deleteModal_@car.Id"><i class="fas fa-trash"></i></button>
+                        <a class="fas fa-pencil-alt ml-1" asp-action="Edit" asp-route-id="@car.Id"></a>
+                        <button class="p-0 btn btn-link ml-1 mb-1" type="button" data-toggle="modal" data-target="#deleteModal_@car.Id"><i class="fas fa-trash"></i></button>
                     }
 
                     <!-- Delete Car Modal -->
@@ -174,8 +172,8 @@
                                 <div class="modal-footer">
                                     <form asp-action="Delete">
                                         <input type="hidden" value="@car.Id" name="id" />
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-2" />
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" value="Delete" class="btn btn-danger " />
                                     </form>
                                 </div>
                             </div>

@@ -126,7 +126,7 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            createEditCarVM.DriverSelectList = await _lookupService.GetInsuranceSelectList();
+            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceSelectList();
 
             return View(createEditCarVM);
         }

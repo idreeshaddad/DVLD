@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="InsuranceId" class="control-label"></label>
-                <select asp-for="InsuranceId" asp-items="@Model.DriverSelectList" class="form-control">
+                <select asp-for="InsuranceId" asp-items="@Model.InsuranceSelectList" class="form-control">
                     <option value="0">- Please select a Insurance -</option>
                 </select>
                 <span asp-validation-for="InsuranceId" class="text-danger"></span>
@@ -55,8 +55,9 @@
 
     </div>
     <div class="form-group float-right mt-2">
-        <input type="submit" value="Create" class="btn btn-primary" />
-        <a class="btn btn-secondary ml-1" asp-action="Index">Back to List</a>
+        <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+        <input type="submit" value="Create" class="btn btn-primary ml-1" />
+
     </div>
 </form>
 
