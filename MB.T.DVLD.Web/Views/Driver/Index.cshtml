@@ -35,7 +35,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.LicenseType)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -62,14 +61,15 @@
                     @Html.DisplayFor(modelItem => driver.LicenseType)
                 </td>
                 <td>
-                    <a class="fas fa-info-circle " asp-action="Details" asp-route-id="@driver.Id"></a>
+                    <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@driver.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <span>|</span>
-                        <a class="fas fa-pencil-alt" asp-action="Edit" asp-route-id="@driver.Id"></a>
-                        <span>|</span>
-                        <button class="p-0 btn btn-link mb-1 text-danger" type="button" data-toggle="modal" data-target="#deleteModal_@driver.Id"><i class="fas fa-trash"></i></button>
+                        <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@driver.Id"></a>
+
+                        <span data-toggle="tooltip" title="Delete">
+                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@driver.Id"></i>
+                        </span>
 
 
                         <!-- Driver Modal -->
@@ -100,8 +100,8 @@
                                     <div class="modal-footer">
                                         <form asp-action="Delete">
                                             <input type="hidden" value="@driver.Id" name="id" />
-                                            <input type="submit" value="Delete" class="btn btn-danger" />
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                            <input type="submit" value="Delete" class="btn btn-danger mr-1" />
                                         </form>
                                     </div>
                                 </div>
@@ -110,8 +110,8 @@
 
 
                     }
-                    <span>|</span>
-                    <a class="fas fa-car text-black-50" asp-action="DriverCars" asp-route-id="@driver.Id"></a>
+
+                    <a class="fas fa-car " asp-action="DriverCars"data-toggle="tooltip" title="Driver's Cars" asp-route-id="@driver.Id"></a>
                 </td>
             </tr>
         }

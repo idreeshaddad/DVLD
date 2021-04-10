@@ -32,7 +32,6 @@
             <th>
                 Driver Name
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -136,12 +135,15 @@
 
                 </td>
                 <td>
-                    <a class="fas fa-info-circle" asp-action="Details" asp-route-id="@car.Id"></a>
+                    <a class="fas fa-info-circle"  data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@car.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <a class="fas fa-pencil-alt ml-1" asp-action="Edit" asp-route-id="@car.Id"></a>
-                        <button class="p-0 btn btn-link ml-1 mb-1" type="button" data-toggle="modal" data-target="#deleteModal_@car.Id"><i class="fas fa-trash"></i></button>
+                        <a class="fas fa-pencil-alt ml-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@car.Id"></a>
+
+                        <span data-toggle="tooltip" title="Delete">
+                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@car.Id"></i>
+                        </span>
                     }
 
                     <!-- Delete Car Modal -->
@@ -172,8 +174,8 @@
                                 <div class="modal-footer">
                                     <form asp-action="Delete">
                                         <input type="hidden" value="@car.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger " />
+                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
                                     </form>
                                 </div>
                             </div>

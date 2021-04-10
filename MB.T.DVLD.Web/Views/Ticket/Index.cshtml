@@ -30,7 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Paid)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -70,10 +69,10 @@
                     <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@ticket.Id"></a>
 
                     <span data-toggle="tooltip" title="Delete">
-                        <i class="fas fa-trash text-danger mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
+                        <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
                     </span>
 
-                    <i class="fab fa-paypal text-primary pointer" data-toggle="tooltip" title="Pay Ticket"></i>
+                    <i class="fab fa-paypal pointer" data-toggle="tooltip" title="Pay Ticket"></i>
 
                     <!-- Delete Car Modal -->
                     <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -103,8 +102,8 @@
                                 <div class="modal-footer">
                                     <form asp-action="Delete">
                                         <input type="hidden" value="@ticket.Id" name="id" />
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-2" />
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
                                     </form>
                                 </div>
                             </div>
