@@ -1,5 +1,6 @@
 ﻿using MB.T.DVLD.Utilities.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace MB.T.DVLD.Entities
 {
@@ -12,5 +13,6 @@ namespace MB.T.DVLD.Entities
         public string LicenseNumber { get; set; }
         public LicenseType LicenseType { get; set; }
         public Gender Gender { get; set; }
+        public List<Car> Cars { get; set; }
     }
 }

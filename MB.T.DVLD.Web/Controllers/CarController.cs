@@ -39,7 +39,7 @@ namespace MB.T.DVLD.Web.Controllers
         {
             List<Car> cars = await _context
                                         .Cars
-                                        .Include(car => car.Driver)
+                                        .Include(car => car.Drivers)
                                         .Include(car => car.Insurance)
                                         .ToListAsync();
 
@@ -58,7 +58,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             var car = await _context
                                 .Cars
-                                .Include(car => car.Driver)
+                                .Include(car => car.Drivers)
                                 .Include(car => car.Insurance)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -91,11 +91,11 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                if (createEditCarVM.DriverId > 0)
-                {
-                    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-                    car.Driver = driver;
-                }
+                //if (createEditCarVM.DriverId > 0)
+                //{
+                //    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+                //    car.Driver = driver;
+                //}
 
                 _context.Add(car);
                 await _context.SaveChangesAsync();
@@ -114,7 +114,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             var car = await _context
                                 .Cars
-                                .Include(car => car.Driver)
+                                .Include(car => car.Drivers)
                                 .Include(car => car.Insurance)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -146,9 +146,9 @@ namespace MB.T.DVLD.Web.Controllers
                 {
                     var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                    await SetDriver(createEditCarVM, car);
+                    //await SetDriver(createEditCarVM, car);
 
-                    await SetInsurance(createEditCarVM, car);
+                    //await SetInsurance(createEditCarVM, car);
 
                     _context.Update(car);
 
@@ -189,31 +189,31 @@ namespace MB.T.DVLD.Web.Controllers
             return _context.Cars.Any(e => e.Id == id);
         }
 
-        private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)
-        {
-            if (createEditCarVM.DriverId == 0)
-            {
-                car.DriverId = null;
-            }
-            else
-            {
-                var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-                car.Driver = driver;
-            }
-        }
+        //private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)
+        //{
+        //    if (createEditCarVM.DriverId == 0)
+        //    {
+        //        car.DriverId = null;
+        //    }
+        //    else
+        //    {
+        //        var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+        //        car.Driver = driver;
+        //    }
+        //}
 
-        private async Task SetInsurance(CreateEditCarVM createEditCarVM, Car car)
-        {
-            if (createEditCarVM.InsuranceId == 0)
-            {
-                car.InsuranceId = null;
-            }
-            else
-            {
-                var insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
-                car.Insurance = insurance;
-            }
-        }
+        //private async Task SetInsurance(CreateEditCarVM createEditCarVM, Car car)
+        //{
+        //    if (createEditCarVM.InsuranceId == 0)
+        //    {
+        //        car.InsuranceId = null;
+        //    }
+        //    else
+        //    {
+        //        var insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
+        //        car.Insurance = insurance;
+        //    }
+        //}
 
         #endregion
     }

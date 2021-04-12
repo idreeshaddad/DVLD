@@ -1,4 +1,6 @@
-﻿namespace MB.T.DVLD.Entities
+﻿using System.Collections.Generic;
+
+namespace MB.T.DVLD.Entities
 {
     public class Car
     {
@@ -8,8 +10,7 @@
         public string Color { get; set; }
         public string LicensePlate { get; set; }
 
-        public int? DriverId { get; set; }
-        public Driver Driver { get; set; }
+        public List<Driver> Drivers { get; set; }
         public int? InsuranceId { get; set; }
         public Insurance Insurance { get; set; }
     }
