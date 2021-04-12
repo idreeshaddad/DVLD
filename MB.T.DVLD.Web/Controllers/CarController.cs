@@ -146,19 +146,12 @@ namespace MB.T.DVLD.Web.Controllers
                 {
                     var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                    if (createEditCarVM.DriverId == 0)
-                    {
-                        car.DriverId = null;
-                    }
-                    else
-                    {
-                        var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-                        car.Driver = driver;
-                        var Insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
-                        car.Insurance = Insurance;
-                    }
+                    await SetDriver(createEditCarVM, car);
+
+                    await SetInsurance(createEditCarVM, car);
 
                     _context.Update(car);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -194,6 +187,32 @@ namespace MB.T.DVLD.Web.Controllers
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
+        }
+
+        private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)
+        {
+            if (createEditCarVM.DriverId == 0)
+            {
+                car.DriverId = null;
+            }
+            else
+            {
+                var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+                car.Driver = driver;
+            }
+        }
+
+        private async Task SetInsurance(CreateEditCarVM createEditCarVM, Car car)
+        {
+            if (createEditCarVM.InsuranceId == 0)
+            {
+                car.InsuranceId = null;
+            }
+            else
+            {
+                var insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
+                car.Insurance = insurance;
+            }
         }
 
         #endregion

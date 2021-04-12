@@ -25,7 +25,7 @@ namespace MB.T.DVLD.Web.Models.Car
         public int DriverId { get; set; }
 
         [Display(Name = "Insurance")]
-        public int InsuranceId { get; set; }
+        public int? InsuranceId { get; set; }
 
         public SelectList DriverSelectList { get; set; }
         public SelectList InsuranceSelectList { get; set; }
