@@ -77,15 +77,37 @@ body {
     cursor: pointer;
 }
 
-.fas,.fab {
+/*.fas,.fab {
     color: #646363;
     transition: ease 250ms;
     font-size: 110%;
-}
+}*/
 
     .fas:hover {
         text-decoration: none;
     }
+
+
+.fa-trash {
+    color: #761313;
+}
+
+.fa-info-circle {
+    color: #30268c;
+}
+
+.fa-pencil-alt {
+    color: #134e91;
+}
+
+.fa-paypal {
+    color: #437da6;
+}
+
+.fa-car {
+    color: #a6a04b;
+}
+
 
 .fa-trash:hover {
     color: #e43434;
@@ -96,11 +118,11 @@ body {
 }
 
 .fa-pencil-alt:hover {
-    color: #0366d6;
+    color: #087cff;
 }
 
 .fa-paypal:hover {
-    color: #2e9ce8;
+    color: #139bf8;
 }
 
 .fa-car:hover{
