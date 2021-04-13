@@ -23,7 +23,7 @@ namespace MB.T.DVLD.Web.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<DriverController> _logger;
 
-        public DriverController(ApplicationDbContext context, 
+        public DriverController(ApplicationDbContext context,
                                 IMapper mapper,
                                 ILogger<DriverController> logger)
         {
@@ -41,10 +41,6 @@ namespace MB.T.DVLD.Web.Controllers
         {
             try
             {
-                //int x = 10;
-                //int y = 0;
-                //int z = x / y;
-
                 var drivers = await _context.Drivers.ToListAsync();
                 var driverVMs = _mapper.Map<List<Driver>, List<DriverVM>>(drivers);
                 return View(driverVMs);
@@ -67,10 +63,10 @@ namespace MB.T.DVLD.Web.Controllers
 
 
         //    var driverCars = await _context
-        //                                    .Cars
-        //                                    .Include(car => car.Drivers)
-        //                                    .Where(car => car.Driver.Id == id)
-        //                                    .ToListAsync();
+        //                                .Cars
+        //                                .Include(car => car.Drivers)
+        //                                .Where(car => car.Driver.Id == id)
+        //                                .ToListAsync();
 
         //    var carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
 
@@ -109,11 +105,19 @@ namespace MB.T.DVLD.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+                var isLicenseNumberUsed = CheckIfLicenseNumberUsed(driverVM.LicenseNumber);
 
-                _context.Add(driver);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (isLicenseNumberUsed)
+                {
+                    ModelState.AddModelError("LicenseNumber", "License number already used by another driver");
+                }
+                else
+                {
+                    var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+                    _context.Add(driver);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             return View(driverVM);
@@ -173,7 +177,7 @@ namespace MB.T.DVLD.Web.Controllers
             return View(driverVM);
         }
 
-       
+
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -192,6 +196,11 @@ namespace MB.T.DVLD.Web.Controllers
         private bool DriverExists(int id)
         {
             return _context.Drivers.Any(e => e.Id == id);
+        }
+
+        private bool CheckIfLicenseNumberUsed(string lisenceNumber)
+        {
+            return _context.Drivers.Any(driver => driver.LicenseNumber == lisenceNumber);
         }
 
         #endregion

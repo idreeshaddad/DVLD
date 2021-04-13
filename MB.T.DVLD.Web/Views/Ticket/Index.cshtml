@@ -71,13 +71,11 @@
 
                     <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@ticket.Id"></a>
 
+
                     <span data-toggle="tooltip" title="Delete">
                         <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
                     </span>
-
-                    <i class="fab fa-paypal pointer" data-toggle="tooltip" title="Pay Ticket"></i>
-
-                    <!-- Delete Car Modal -->
+                    <!-- Delete Ticket Modal -->
                     <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -105,8 +103,39 @@
                                 <div class="modal-footer">
                                     <form asp-action="Delete">
                                         <input type="hidden" value="@ticket.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" value="Delete" class="btn btn-danger ml-1" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @if (ticket.Paid == false)
+                    {
+                        <span data-toggle="tooltip" title="Pay Ticket">
+                            <i class="fab fa-paypal pointer" data-toggle="modal" data-target="#payTicketModal_@ticket.Id"></i>
+                        </span>
+                    }
+                    <!-- Pay Ticket Modal -->
+                    <div class="modal fade" id="payTicketModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="payTicketModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="payTicketModalLabel_@ticket.Id">pay Ticket?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4 class="text-danger">Are you sure you want to pay this ticket?</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-action="PayTicket">
+                                        <input type="hidden" value="@ticket.Id" name="ticketId" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <input type="submit" value="Yes" class="btn btn-primary ml-1" />
                                     </form>
                                 </div>
                             </div>

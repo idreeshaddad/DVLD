@@ -89,19 +89,31 @@ namespace MB.T.DVLD.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
+                bool isLicensePlateUsed = CheckIfLicensePlateIsUsed(createEditCarVM.LicensePlate);
 
-                //if (createEditCarVM.DriverId > 0)
-                //{
-                //    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-                //    car.Driver = driver;
-                //}
+                if(isLicensePlateUsed)
+                {
+                    ModelState.AddModelError("LicensePlate", "License Plate already used");
+                }
+                else
+                {
+                    var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                _context.Add(car);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    //if (createEditCarVM.DriverId > 0)
+                    //{
+                    //    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
+                    //    car.Driver = driver;
+                    //}
+
+                    _context.Add(car);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
+
+            createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
+            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceSelectList();
             return View(createEditCarVM);
         }
 
@@ -187,6 +199,11 @@ namespace MB.T.DVLD.Web.Controllers
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
+        }
+
+        private bool CheckIfLicensePlateIsUsed(string licensePlate)
+        {
+            return _context.Cars.Any(c => c.LicensePlate == licensePlate);
         }
 
         //private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)

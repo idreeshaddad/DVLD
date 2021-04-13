@@ -179,14 +179,24 @@ namespace MB.T.DVLD.Web.Controllers
             return View(ticket);
         }
 
-        
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ticket = await _context.Tickets.FindAsync(id);
             _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayTicket(int ticketId)
+        {
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+            ticket.Paid = true;
+            _context.Update(ticket);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
