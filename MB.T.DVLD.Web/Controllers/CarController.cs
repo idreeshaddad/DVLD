@@ -156,15 +156,21 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 try
                 {
-                    var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
+                    bool isLicensePlateUsed = CheckIfLicensePlateIsUsed(createEditCarVM.LicensePlate, createEditCarVM.Id);
 
-                    //await SetDriver(createEditCarVM, car);
-
-                    //await SetInsurance(createEditCarVM, car);
-
-                    _context.Update(car);
-
-                    await _context.SaveChangesAsync();
+                    if (isLicensePlateUsed)
+                    {
+                        ModelState.AddModelError("LicensePlate", "License Plate already used");
+                    }
+                    else
+                    {
+                        var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
+                        //await SetDriver(createEditCarVM, car);
+                        //await SetInsurance(createEditCarVM, car);
+                        _context.Update(car);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -177,8 +183,9 @@ namespace MB.T.DVLD.Web.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
+
             return View(createEditCarVM);
         }
 
@@ -201,9 +208,16 @@ namespace MB.T.DVLD.Web.Controllers
             return _context.Cars.Any(e => e.Id == id);
         }
 
-        private bool CheckIfLicensePlateIsUsed(string licensePlate)
+        private bool CheckIfLicensePlateIsUsed(string licensePlate, int carId = 0)
         {
-            return _context.Cars.Any(c => c.LicensePlate == licensePlate);
+            if(carId == 0) // Zero means Create New Car
+            {
+                return _context.Cars.Any(c => c.LicensePlate == licensePlate);
+            }
+            else // means Edit car
+            {
+                return _context.Cars.Any(c => c.LicensePlate == licensePlate && c.Id != carId);
+            }
         }
 
         //private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)

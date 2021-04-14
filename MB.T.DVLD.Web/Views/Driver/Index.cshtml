@@ -114,7 +114,9 @@
 
                     }
 
-                    <a class="fas fa-car " asp-action="DriverCars"data-toggle="tooltip" title="Driver's Cars" asp-route-id="@driver.Id"></a>
+                    <a asp-action="DriverCars" data-toggle="tooltip" title="Driver's Cars" asp-route-id="@driver.Id">
+                        <i class="fas fa-car"></i>
+                    </a>
                 </td>
             </tr>
         }

@@ -24,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.LicensePlate)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Insurance.CompanyName)
             </th>
             <th>
@@ -49,6 +52,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => car.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => car.LicensePlate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => car.Insurance.CompanyName)
@@ -138,7 +144,7 @@
 
                 </td>
                 <td>
-                    <a class="fas fa-info-circle"  data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@car.Id"></a>
+                    <a class="fas fa-info-circle" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@car.Id"></a>
 
                     @if (SignInManager.IsSignedIn(User))
                     {

@@ -107,7 +107,7 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 var isLicenseNumberUsed = CheckIfLicenseNumberUsed(driverVM.LicenseNumber);
 
-                if (isLicenseNumberUsed)
+                if (CheckIfLicenseNumberUsed(driverVM.LicenseNumber))
                 {
                     ModelState.AddModelError("LicenseNumber", "License number already used by another driver");
                 }
@@ -155,10 +155,20 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 try
                 {
-                    var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+                    var isLicenseNumberUsed = CheckIfLicenseNumberUsed(driverVM.LicenseNumber, driverVM.Id);
 
-                    _context.Update(driver);
-                    await _context.SaveChangesAsync();
+                    if (isLicenseNumberUsed)
+                    {
+                        ModelState.AddModelError("LicenseNumber", "License number already used by another driver");
+                    }
+                    else
+                    {
+                        var driver = _mapper.Map<DriverVM, Driver>(driverVM);
+
+                        _context.Update(driver);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -171,7 +181,7 @@ namespace MB.T.DVLD.Web.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
             }
 
             return View(driverVM);
@@ -198,9 +208,17 @@ namespace MB.T.DVLD.Web.Controllers
             return _context.Drivers.Any(e => e.Id == id);
         }
 
-        private bool CheckIfLicenseNumberUsed(string lisenceNumber)
+        private bool CheckIfLicenseNumberUsed(string lisenceNumber, int driverId = 0)
         {
-            return _context.Drivers.Any(driver => driver.LicenseNumber == lisenceNumber);
+            if(driverId == 0) // Zero means Create New Driver
+            {
+                return _context.Drivers.Any(driver => driver.LicenseNumber == lisenceNumber);
+            }
+            else // means it's edit driver
+            {
+                return _context.Drivers.Any(driver => driver.LicenseNumber == lisenceNumber && driver.Id != driverId);
+            }
+
         }
 
         #endregion

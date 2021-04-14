@@ -77,54 +77,32 @@ body {
     cursor: pointer;
 }
 
-/*.fas,.fab {
-    color: #646363;
-    transition: ease 250ms;
-    font-size: 110%;
-}*/
+.fas {
+    opacity: 0.6;
+}
 
-    .fas:hover {
-        text-decoration: none;
-    }
+.fas:hover {
+    text-decoration: none;
+    opacity: 1;
+}
 
 
 .fa-trash {
-    color: #761313;
-}
-
-.fa-info-circle {
-    color: #30268c;
-}
-
-.fa-pencil-alt {
-    color: #134e91;
-}
-
-.fa-paypal {
-    color: #437da6;
-}
-
-.fa-car {
-    color: #a6a04b;
-}
-
-
-.fa-trash:hover {
     color: #e43434;
 }
 
-.fa-info-circle:hover {
+.fa-info-circle {
     color: #2613d4;
 }
 
-.fa-pencil-alt:hover {
+.fa-pencil-alt {
     color: #087cff;
 }
 
-.fa-paypal:hover {
+.fa-paypal {
     color: #139bf8;
 }
 
-.fa-car:hover{
-    color:#f0e532;
+.fa-car {
+    color: #f0e532;
 }
