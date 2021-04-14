@@ -77,7 +77,7 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = new CreateEditCarVM()
             {
                 DriverSelectList = await _lookupService.GetDriverSelectList(),
-                InsuranceSelectList = await _lookupService.GetInsuranceSelectList()
+                InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList()
             };
 
             return View(createEditCarVM);
@@ -113,7 +113,7 @@ namespace MB.T.DVLD.Web.Controllers
 
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceSelectList();
+            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
             return View(createEditCarVM);
         }
 
@@ -138,7 +138,7 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceSelectList();
+            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
 
             return View(createEditCarVM);
         }

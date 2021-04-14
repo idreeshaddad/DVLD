@@ -76,17 +76,27 @@ namespace MB.T.DVLD.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OfficerVM OfficerVM)
+        public async Task<IActionResult> Create(OfficerVM officerVM)
         {
             if (ModelState.IsValid)
             {
-                Officer officer = _mapper.Map<OfficerVM, Officer>(OfficerVM);
+                bool isBadgeNumberUsed = CheckIfBadgeIsUsed(officerVM.BadgeNumber);
+                if (isBadgeNumberUsed)
+                {
+                    ModelState.AddModelError("BadgeNumber", "Badge number already used");
+                }
+                else
+                {
+                    Officer officer = _mapper.Map<OfficerVM, Officer>(officerVM);
 
-                _context.Add(officer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(officer);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                
             }
-            return View(OfficerVM);
+            officerVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
+            return View(officerVM);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -111,9 +121,9 @@ namespace MB.T.DVLD.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, OfficerVM OfficerVM)
+        public async Task<IActionResult> Edit(int id, OfficerVM officerVM)
         {
-            if (id != OfficerVM.Id)
+            if (id != officerVM.Id)
             {
                 return NotFound();
             }
@@ -122,14 +132,24 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 try
                 {
-                    Officer officer = _mapper.Map<OfficerVM, Officer>(OfficerVM);
+                    bool isBadgeNumberUsed = CheckIfBadgeIsUsed(officerVM.BadgeNumber,officerVM.Id);
+                    if (isBadgeNumberUsed)
+                    {
+                        ModelState.AddModelError("BadgeNumber", "Badge number already used");
+                    }
+                    else
+                    {
+                        Officer officer = _mapper.Map<OfficerVM, Officer>(officerVM);
 
-                    _context.Update(officer);
-                    await _context.SaveChangesAsync();
+                        _context.Update(officer);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OfficerExists(OfficerVM.Id))
+                    if (!OfficerExists(officerVM.Id))
                     {
                         return NotFound();
                     }
@@ -138,10 +158,10 @@ namespace MB.T.DVLD.Web.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
-
-            return View(OfficerVM);
+            officerVM.DepartmentSelectList = await _lookupService.GetDepartmentSelectList();
+            return View(officerVM);
         }
 
 
@@ -163,6 +183,17 @@ namespace MB.T.DVLD.Web.Controllers
         private bool OfficerExists(int id)
         {
             return _context.Officers.Any(e => e.Id == id);
+        }
+        private bool CheckIfBadgeIsUsed(string badgeNumber, int officerId = 0) 
+        {
+            if (officerId == 0) // Zero means Create New officer
+            {
+                return _context.Officers.Any(c => c.BadgeNumber == badgeNumber);
+            }
+            else // means Edit officer
+            {
+                return _context.Officers.Any(c => c.BadgeNumber == badgeNumber && c.Id != officerId);
+            }
         }
 
         #endregion

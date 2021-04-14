@@ -8,8 +8,8 @@ namespace MB.T.DVLD.Web.AutoMapper
     {
         public InsuranceProfile()
         {
-            CreateMap<Insurance, InsuranceVM>();
-            CreateMap<InsuranceVM, Insurance>();
+            CreateMap<InsuranceCompany, InsuranceVM>();
+            CreateMap<InsuranceVM, InsuranceCompany>();
         }
     }
 }
