@@ -34,7 +34,10 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Insurance" asp-action="Index">Insurances</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="InsuranceCompany" asp-action="Index">Insurances</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="InsurancePolicie" asp-action="Index">InsurancePolicy</a>
                             </li>
                         }
                         <li class="nav-item dropdown ">

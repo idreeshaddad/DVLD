@@ -4,14 +4,16 @@ using MB.T.DVLD.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DVLD.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210414190010_InsuranceCompanyIntoInsurancePolicy_Table")]
+    partial class InsuranceCompanyIntoInsurancePolicy_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,9 +49,6 @@ namespace DVLD.Data.Migrations
                     b.Property<int?>("InsuranceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InsurancePolicyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(max)");
 
@@ -62,10 +61,6 @@ namespace DVLD.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("InsuranceId");
-
-                    b.HasIndex("InsurancePolicyId")
-                        .IsUnique()
-                        .HasFilter("[InsurancePolicyId] IS NOT NULL");
 
                     b.ToTable("Cars");
                 });
@@ -462,13 +457,7 @@ namespace DVLD.Data.Migrations
                         .WithMany()
                         .HasForeignKey("InsuranceId");
 
-                    b.HasOne("MB.T.DVLD.Entities.InsurancePolicy", "InsurancePolicy")
-                        .WithOne("Car")
-                        .HasForeignKey("MB.T.DVLD.Entities.Car", "InsurancePolicyId");
-
                     b.Navigation("Insurance");
-
-                    b.Navigation("InsurancePolicy");
                 });
 
             modelBuilder.Entity("MB.T.DVLD.Entities.InsurancePolicy", b =>
@@ -571,11 +560,6 @@ namespace DVLD.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MB.T.DVLD.Entities.InsurancePolicy", b =>
-                {
-                    b.Navigation("Car");
                 });
 #pragma warning restore 612, 618
         }

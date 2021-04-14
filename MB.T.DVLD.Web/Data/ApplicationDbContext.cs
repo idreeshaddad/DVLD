@@ -17,5 +17,6 @@ namespace MB.T.DVLD.Web.Data
         public DbSet<Officer> Officers { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
+        public DbSet<InsurancePolicy> InsurancePolicies { get; set; }
     }
 }

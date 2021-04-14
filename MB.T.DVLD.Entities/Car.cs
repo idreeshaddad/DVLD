@@ -13,5 +13,7 @@ namespace MB.T.DVLD.Entities
         public List<Driver> Drivers { get; set; }
         public int? InsuranceId { get; set; }
         public InsuranceCompany Insurance { get; set; }
+        public int? InsurancePolicyId { get; set; }
+        public virtual InsurancePolicy InsurancePolicy { get; set; }
     }
 }
