@@ -1,5 +1,5 @@
 ﻿using MB.T.DVLD.Web.Models.Driver;
-using MB.T.DVLD.Web.Models.Insurances;
+using MB.T.DVLD.Web.Models.InsuranceCompanies;
 using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Car
@@ -23,7 +23,7 @@ namespace MB.T.DVLD.Web.Models.Car
         public string LicensePlate { get; set; }
 
         public DriverVM Driver { get; set; }
-        public InsuranceVM Insurance { get; set; }
-        
+        public InsuranceCompanyVM InsuranceCompany { get; set; }
+
     }
 }

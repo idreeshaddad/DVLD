@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MB.T.DVLD.Entities;
-using MB.T.DVLD.Web.Models.Insurances;
+using MB.T.DVLD.Web.Models.InsuranceCompanies;
 
 namespace MB.T.DVLD.Web.AutoMapper
 {
@@ -8,8 +8,8 @@ namespace MB.T.DVLD.Web.AutoMapper
     {
         public InsuranceProfile()
         {
-            CreateMap<InsuranceCompany, InsuranceVM>();
-            CreateMap<InsuranceVM, InsuranceCompany>();
+            CreateMap<InsuranceCompany, InsuranceCompanyVM>();
+            CreateMap<InsuranceCompanyVM, InsuranceCompany>();
         }
     }
 }

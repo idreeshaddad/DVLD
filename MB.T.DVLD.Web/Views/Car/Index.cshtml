@@ -26,13 +26,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.LicensePlate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Insurance.CompanyName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
             </th>
-            <th>
+            <th>*@
                 Driver Name
             </th>
             <th>
@@ -56,12 +56,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => car.LicensePlate)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => car.Insurance.CompanyName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => car.Insurance.InsuranceType)
-                </td>
+                </td>*@
                 <td>
                     @if (car.Driver == null)
                     {
