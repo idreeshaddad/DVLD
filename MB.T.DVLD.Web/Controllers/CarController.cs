@@ -40,7 +40,7 @@ namespace MB.T.DVLD.Web.Controllers
             List<Car> cars = await _context
                                         .Cars
                                         .Include(car => car.Drivers)
-                                        .Include(car => car.Insurance)
+                                        .Include(car => car.InsurancePolicy)
                                         .ToListAsync();
 
             List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars);
@@ -59,7 +59,7 @@ namespace MB.T.DVLD.Web.Controllers
             var car = await _context
                                 .Cars
                                 .Include(car => car.Drivers)
-                                .Include(car => car.Insurance)
+                                .Include(car => car.InsurancePolicy)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
@@ -127,7 +127,7 @@ namespace MB.T.DVLD.Web.Controllers
             var car = await _context
                                 .Cars
                                 .Include(car => car.Drivers)
-                                .Include(car => car.Insurance)
+                                .Include(car => car.InsurancePolicy)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
