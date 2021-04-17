@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Car
@@ -21,13 +22,13 @@ namespace MB.T.DVLD.Web.Models.Car
         [Display(Name = "License Plate")]
         public string LicensePlate { get; set; }
 
-        [Display(Name = "Driver")]
-        public int DriverId { get; set; }
+        [Display(Name = "Drivers")]
+        public List<int> DriverIds { get; set; }
 
-        [Display(Name = "Insurance")]
-        public int? InsuranceId { get; set; }
+        //[Display(Name = "Insurance")]
+        //public int? InsuranceId { get; set; }
 
         public SelectList DriverSelectList { get; set; }
-        public SelectList InsuranceSelectList { get; set; }
+        //public SelectList InsuranceSelectList { get; set; }
     }
 }

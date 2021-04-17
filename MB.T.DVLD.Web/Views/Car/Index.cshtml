@@ -27,12 +27,12 @@
                 @Html.DisplayNameFor(model => model.LicensePlate)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Insurance.CompanyName)
-            </th>
+                    @Html.DisplayNameFor(model => model.Insurance.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
+                </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
-            </th>
-            <th>*@
                 Driver Name
             </th>
             <th>
@@ -56,91 +56,95 @@
                 <td>
                     @Html.DisplayFor(modelItem => car.LicensePlate)
                 </td>
+
                 @*<td>
-                    @Html.DisplayFor(modelItem => car.Insurance.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => car.Insurance.InsuranceType)
+                        @Html.DisplayFor(modelItem => car.Insurance.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => car.Insurance.InsuranceType)
                 </td>*@
+                
                 <td>
-                    @if (car.Driver == null)
-                    {
-                        <span class="text-secondary font-weight-bold">
-                            No Owner
-                        </span>
-                    }
-                    else
-                    {
 
-                        <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#driverModal_@car.Id">
-                            @Html.DisplayFor(modelItem => car.Driver.FullName)
-                        </button>
+                    @*
+                        @if (car.Driver == null)
+                        {
+                            <span class="text-secondary font-weight-bold">
+                                No Owner
+                            </span>
+                        }
+                        else
+                        {
 
-                        <!-- Driver Modal -->
-                        <div class="modal fade" id="driverModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="driverModalLabel_@car.Id">Driver</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#driverModal_@car.Id">
+                                @Html.DisplayFor(modelItem => car.Driver.FullName)
+                            </button>
 
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                Name
-                                            </div>
-                                            <div class="col-md-7">
-                                                @car.Driver.FullName
-                                            </div>
+                            <!-- Driver Modal -->
+                            <div class="modal fade" id="driverModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="driverModalLabel_@car.Id">Driver</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
+                                        <div class="modal-body">
 
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                Gender
+                                            <div class="row mb-3">
+                                                <div class="col-md-5">
+                                                    Name
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @car.Driver.FullName
+                                                </div>
                                             </div>
-                                            <div class="col-md-7">
-                                                @car.Driver.Gender
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-5">
+                                                    Gender
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @car.Driver.Gender
+                                                </div>
                                             </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-5">
+                                                    Date of birth
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @car.Driver.DateOfBirth.ToString("dddd-MMMM-yyyy")
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-5">
+                                                    License Number
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @car.Driver.LicenseNumber
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-5">
+                                                    license Type
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @car.Driver.LicenseType
+                                                </div>
+                                            </div>
+
                                         </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                Date of birth
-                                            </div>
-                                            <div class="col-md-7">
-                                                @car.Driver.DateOfBirth.ToString("dddd-MMMM-yyyy")
-                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                License Number
-                                            </div>
-                                            <div class="col-md-7">
-                                                @car.Driver.LicenseNumber
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                license Type
-                                            </div>
-                                            <div class="col-md-7">
-                                                @car.Driver.LicenseType
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }*@
 
                 </td>
                 <td>

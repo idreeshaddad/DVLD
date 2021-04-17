@@ -1,5 +1,6 @@
 ﻿using MB.T.DVLD.Web.Models.Driver;
 using MB.T.DVLD.Web.Models.InsuranceCompanies;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Car
@@ -22,8 +23,8 @@ namespace MB.T.DVLD.Web.Models.Car
         [Display(Name = "License Plate")]
         public string LicensePlate { get; set; }
 
-        public DriverVM Driver { get; set; }
-        public InsuranceCompanyVM InsuranceCompany { get; set; }
+        public List<DriverVM> Drivers { get; set; }
 
+        public InsuranceCompanyVM InsuranceCompany { get; set; }
     }
 }

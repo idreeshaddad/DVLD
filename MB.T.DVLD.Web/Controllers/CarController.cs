@@ -77,7 +77,7 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = new CreateEditCarVM()
             {
                 DriverSelectList = await _lookupService.GetDriverSelectList(),
-                InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList()
+                //InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList()
             };
 
             return View(createEditCarVM);
@@ -99,11 +99,15 @@ namespace MB.T.DVLD.Web.Controllers
                 {
                     var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                    //if (createEditCarVM.DriverId > 0)
-                    //{
-                    //    var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-                    //    car.Driver = driver;
-                    //}
+                    if (createEditCarVM.DriverIds != null && createEditCarVM.DriverIds.Count > 0)
+                    {
+                        var drivers = await _context
+                                                .Drivers
+                                                .Where(driver => createEditCarVM.DriverIds.Contains(driver.Id))
+                                                .ToListAsync();
+                                                
+                        car.Drivers.AddRange(drivers);
+                    }
 
                     _context.Add(car);
                     await _context.SaveChangesAsync();
@@ -113,7 +117,8 @@ namespace MB.T.DVLD.Web.Controllers
 
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
+            //createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
+
             return View(createEditCarVM);
         }
 
@@ -138,7 +143,7 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
+            //createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
 
             return View(createEditCarVM);
         }

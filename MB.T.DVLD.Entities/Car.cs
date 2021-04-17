@@ -4,6 +4,11 @@ namespace MB.T.DVLD.Entities
 {
     public class Car
     {
+        public Car()
+        {
+            Drivers = new List<Driver>();
+        }
+
         public int Id { get; set; }
         public string Manu { get; set; }
         public string Model { get; set; }

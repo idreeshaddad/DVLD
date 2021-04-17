@@ -52,26 +52,26 @@ namespace MB.T.DVLD.Web.Controllers
             }
         }
 
-        //[AllowAnonymous]
-        //public async Task<IActionResult> DriverCars(int id)
-        //{
-        //    string driverName = await _context
-        //                            .Drivers
-        //                            .Where(driver => driver.Id == id)
-        //                            .Select(driver => $"{driver.FirstName} {driver.LastName}")
-        //                            .SingleAsync();
+        [AllowAnonymous]
+        public async Task<IActionResult> DriverCars(int id)
+        {
+            ViewBag.DriverName = await _context
+                                    .Drivers
+                                    .Where(driver => driver.Id == id)
+                                    .Select(driver => $"{driver.FirstName} {driver.LastName}")
+                                    .SingleAsync();
 
 
-        //    var driverCars = await _context
-        //                                .Cars
-        //                                .Include(car => car.Drivers)
-        //                                .Where(car => car.Driver.Id == id)
-        //                                .ToListAsync();
+            var driverCars = await _context
+                                        .Cars
+                                        .Include(car => car.Drivers)
+                                        .Where(car => car.Drivers.Any(driver => driver.Id == id))
+                                        .ToListAsync();
 
-        //    var carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
+            var carVMs = _mapper.Map<List<Car>, List<CarVM>>(driverCars);
 
-        //    return View(carVMs);
-        //}
+            return View(carVMs);
+        }
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
