@@ -1,29 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Data;
+using MB.T.DVLD.Web.Models.InsurancePolicies;
+using AutoMapper;
+using MB.T.DVLD.Entities.Helper.LookupService;
 
 namespace MB.T.DVLD.Web.Controllers
 {
-    public class InsurancePolicieController : Controller
+    public class InsurancePolicyController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        #region Data and Constructor
 
-        public InsurancePolicieController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly ILookupService _lookupService;
+
+        public InsurancePolicyController(ApplicationDbContext context,
+                                         IMapper mapper,
+                                         ILookupService lookupService)
         {
             _context = context;
+            _mapper = mapper;
+            _lookupService = lookupService;
         }
-       
+
+        #endregion
+
+        #region Actions
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.InsurancePolicies.ToListAsync());
         }
-       
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,14 +52,19 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(insurancePolicy);
         }
-       
-        public IActionResult Create()
+
+        public async Task<IActionResult> CreateAsync()
         {
-            return View();
-        }        
+            var vm = new CreateEditInsurancePolicyVM();
+
+            vm.CompanySelectList = await _lookupService.GetInsuranceCompanySelectList();
+
+            return View(vm);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( InsurancePolicy insurancePolicy)
+        public async Task<IActionResult> Create(InsurancePolicy insurancePolicy)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +73,8 @@ namespace MB.T.DVLD.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(insurancePolicy);
-        }       
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,7 +88,8 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
             return View(insurancePolicy);
-        }       
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, InsurancePolicy insurancePolicy)
@@ -102,6 +121,7 @@ namespace MB.T.DVLD.Web.Controllers
             }
             return View(insurancePolicy);
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -118,6 +138,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(insurancePolicy);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -128,9 +149,15 @@ namespace MB.T.DVLD.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool InsurancePolicyExists(int id)
         {
             return _context.InsurancePolicies.Any(e => e.Id == id);
-        }
+        } 
+
+        #endregion
     }
 }

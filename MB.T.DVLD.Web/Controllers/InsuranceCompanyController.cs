@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Data;
@@ -26,6 +24,7 @@ namespace MB.T.DVLD.Web.Controllers
         #endregion
 
         #region Methods
+
         public async Task<IActionResult> Index()
         {
             var insuranceCompaines = await _context.InsuranceCompanies.ToListAsync();
@@ -53,10 +52,12 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(insuranceCompanyVM);
         }
+
         public IActionResult Create()
         {
             return View();
         }       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InsuranceCompanyVM insuranceCompanyVM)
@@ -71,6 +72,7 @@ namespace MB.T.DVLD.Web.Controllers
             }
             return View(insuranceCompanyVM);
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,6 +132,7 @@ namespace MB.T.DVLD.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         #endregion
 
         #region Private Actions

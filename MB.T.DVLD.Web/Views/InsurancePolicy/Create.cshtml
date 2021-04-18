@@ -1,4 +1,5 @@
-﻿@model MB.T.DVLD.Entities.InsurancePolicy
+﻿@model MB.T.DVLD.Web.Models.InsurancePolicies.CreateEditInsurancePolicyVM
+@using MB.T.DVLD.Utilities.Enums
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +7,7 @@
 
 <h1>Create</h1>
 
-<h4>InsurancePolicy</h4>
+<h4>Insurance Policy</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,9 +25,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="InsuranceType" class="control-label"></label>
-                <select asp-for="InsuranceType" class="form-control"></select>
+                <select asp-for="InsuranceType" asp-items="@Html.GetEnumSelectList<InsuranceType>()" class="form-control"></select>
                 <span asp-validation-for="InsuranceType" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="InsuranceCompanyId" class="control-label"></label>
+                <select asp-for="InsuranceCompanyId" asp-items="@Model.CompanySelectList" class="form-control"></select>
+                <span asp-validation-for="InsuranceCompanyId" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
