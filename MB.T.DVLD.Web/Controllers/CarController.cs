@@ -99,15 +99,7 @@ namespace MB.T.DVLD.Web.Controllers
                 {
                     var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                    if (createEditCarVM.DriverIds != null && createEditCarVM.DriverIds.Count > 0)
-                    {
-                        var drivers = await _context
-                                                .Drivers
-                                                .Where(driver => createEditCarVM.DriverIds.Contains(driver.Id))
-                                                .ToListAsync();
-                                                
-                        car.Drivers.AddRange(drivers);
-                    }
+                    await AddDriversToCar(createEditCarVM, car);
 
                     _context.Add(car);
                     await _context.SaveChangesAsync();
@@ -170,8 +162,10 @@ namespace MB.T.DVLD.Web.Controllers
                     else
                     {
                         var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
-                        //await SetDriver(createEditCarVM, car);
-                        //await SetInsurance(createEditCarVM, car);
+
+                        // TODO fix this function
+                        //await UpdateCarDrivers(createEditCarVM, car);
+
                         _context.Update(car);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
@@ -188,7 +182,6 @@ namespace MB.T.DVLD.Web.Controllers
                         throw;
                     }
                 }
-                
             }
 
             return View(createEditCarVM);
@@ -250,6 +243,32 @@ namespace MB.T.DVLD.Web.Controllers
         //        car.Insurance = insurance;
         //    }
         //}
+
+        private async Task AddDriversToCar(CreateEditCarVM createEditCarVM, Car car)
+        {
+            if (createEditCarVM.DriverIds != null && createEditCarVM.DriverIds.Count > 0)
+            {
+                var drivers = await _context
+                                        .Drivers
+                                        .Where(driver => createEditCarVM.DriverIds.Contains(driver.Id))
+                                        .ToListAsync();
+
+                car.Drivers.AddRange(drivers);
+            }
+        }
+
+        private async Task UpdateCarDrivers(CreateEditCarVM createEditCarVM, Car car)
+        {
+            if (createEditCarVM.DriverIds != null && createEditCarVM.DriverIds.Count > 0)
+            {
+                var drivers = await _context
+                                        .Drivers
+                                        .Where(driver => createEditCarVM.DriverIds.Contains(driver.Id))
+                                        .ToListAsync();
+
+                car.Drivers.AddRange(drivers);
+            }
+        }
 
         #endregion
     }
