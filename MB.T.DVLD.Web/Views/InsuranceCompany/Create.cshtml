@@ -22,9 +22,10 @@
                 <input asp-for="Slogan" class="form-control" />
                 <span asp-validation-for="Slogan" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary mt-2" />
-                <a class="btn btn-secondary mt-2 ml-2" asp-action="Index">Back to List</a>
+            <div class="form-group float-right">
+                <a class="btn btn-secondary mt-2 " asp-action="Index">Cancel</a>
+                <input type="submit" value="Create" class="btn btn-primary ml-2 mt-2" />
+
             </div>
             
         </form>
