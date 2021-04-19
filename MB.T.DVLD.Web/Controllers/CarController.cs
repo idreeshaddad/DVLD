@@ -9,6 +9,7 @@ using MB.T.DVLD.Web.Data;
 using MB.T.DVLD.Web.Models.Car;
 using MB.T.DVLD.Entities.Helper.LookupService;
 using MB.T.DVLD.Entities;
+using MB.T.DVLD.Web.Models.Cars;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -195,6 +196,40 @@ namespace MB.T.DVLD.Web.Controllers
             _context.Cars.Remove(car);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> IssuePolicy(int carId)
+        {
+            var carPolicyVM = new CarPolicyVM();
+
+            carPolicyVM.CompanySelectList = await _lookupService.GetInsuranceCompanySelectList();
+            carPolicyVM.CarId = carId;
+
+            return View(carPolicyVM);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> IssuePolicy(CarPolicyVM carPolicyVM)
+        {
+            if(ModelState.IsValid)
+            {
+                var insurancePolicy = _mapper.Map<CarPolicyVM, InsurancePolicy>(carPolicyVM);
+                _context.Add(insurancePolicy);
+                await _context.SaveChangesAsync();
+
+                var car = await _context.Cars.FindAsync(carPolicyVM.CarId);
+                car.InsurancePolicyId = insurancePolicy.Id;
+                _context.Update(car);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+
+            carPolicyVM.CompanySelectList = await _lookupService.GetInsuranceCompanySelectList();
+            return View(carPolicyVM);
         }
 
         #endregion

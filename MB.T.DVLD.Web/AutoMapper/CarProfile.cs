@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Models.Car;
+using MB.T.DVLD.Web.Models.Cars;
 using System.Linq;
 
 namespace MB.T.DVLD.Web.AutoMapper
@@ -15,6 +16,8 @@ namespace MB.T.DVLD.Web.AutoMapper
 
             CreateMap<Car, CreateEditCarVM>()
                 .ForMember(dest => dest.DriverIds, opts => opts.MapFrom(src => src.Drivers.Select(driver => driver.Id)));
+
+            CreateMap<CarPolicyVM, InsurancePolicy>();
         }
     }
 }

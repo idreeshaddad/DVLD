@@ -15,6 +15,7 @@ namespace MB.T.DVLD.Entities
         public string Color { get; set; }
         public string LicensePlate { get; set; }
         public List<Driver> Drivers { get; set; }
+
         public int? InsurancePolicyId { get; set; }
         public virtual InsurancePolicy InsurancePolicy { get; set; }
     }
