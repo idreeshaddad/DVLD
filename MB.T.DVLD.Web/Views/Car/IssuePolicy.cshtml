@@ -38,16 +38,15 @@
 
             <input type="hidden" asp-for="CarId" />
 
-            <div class="form-group">
+            <div class="form-group float-right">
+                <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
