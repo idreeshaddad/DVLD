@@ -149,9 +149,9 @@ namespace MB.T.DVLD.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Ticket ticket)
+        public async Task<IActionResult> Edit(int id, CreateEditTicketVM ticketVM)
         {
-            if (id != ticket.Id)
+            if (id != ticketVM.Id)
             {
                 return NotFound();
             }
@@ -160,12 +160,16 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 try
                 {
+                    var ticket = _mapper.Map<CreateEditTicketVM, Ticket>(ticketVM);
+
+
+
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TicketExists(ticket.Id))
+                    if (!TicketExists(ticketVM.Id))
                     {
                         return NotFound();
                     }
@@ -176,7 +180,7 @@ namespace MB.T.DVLD.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(ticketVM);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -195,7 +199,10 @@ namespace MB.T.DVLD.Web.Controllers
         public async Task<IActionResult> PayTicket(int ticketId)
         {
             var ticket = await _context.Tickets.FindAsync(ticketId);
+
             ticket.Paid = true;
+            ticket.PaymentDate = DateTime.Now;
+
             _context.Update(ticket);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

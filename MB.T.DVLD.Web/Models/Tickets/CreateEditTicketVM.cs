@@ -42,9 +42,9 @@ namespace MB.T.DVLD.Web.Models.Tickets
         [Display(Name = "Department")]
         public int DepartmentId { get; set; }
         public bool Paid { get; set; }
+        public DateTime PaymentDate { get; set; }
 
 
-        
         public SelectList DriverSelectList { get; set; }
         public SelectList CarSelectList { get; set; }
         public SelectList OfficerSelectList { get; set; }

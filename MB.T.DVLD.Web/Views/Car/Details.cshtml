@@ -56,6 +56,30 @@
                 }
             </tbody>
         </table>
+
+        <div class="mt-5">
+            <h4>Insurance Information:</h4>
+            <dl class="row">
+                <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model.InsurancePolicy.StartTime)
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.InsurancePolicy.StartTime)
+                </dd>
+                <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model.InsurancePolicy.ExpiryDate)
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.InsurancePolicy.ExpiryDate)
+                </dd>
+                <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
+                </dd>
+            </dl>
+        </div>
     </div>
 
 </div>
@@ -64,22 +88,3 @@
     <a class="btn btn-secondary" asp-action="Index">Cancel</a>
     <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 </div>
-
-@*<dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Driver.FullName)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Driver.FullName)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Insurance.CompanyName)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Insurance.CompanyName)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Insurance.InsuranceType)
-    </dd>*@

@@ -153,12 +153,15 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <a class="fas fa-pencil-alt ml-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@car.Id"></a>
-                       
-                        <a class="fas fa-car-crash" data-toggle="tooltip" title="Issue an insurance policy" asp-action="IssuePolicy" asp-route-carId="@car.Id"></a>
 
                         <span data-toggle="tooltip" title="Delete">
                             <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@car.Id"></i>
                         </span>
+
+                        @if (car.InsurancePolicy == null)
+                        {
+                            <a class="fas fa-car-crash" data-toggle="tooltip" title="Issue an insurance policy" asp-action="IssuePolicy" asp-route-carId="@car.Id"></a>
+                        }
                     }
 
                     <!-- Delete Car Modal -->

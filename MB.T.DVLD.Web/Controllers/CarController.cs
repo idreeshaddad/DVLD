@@ -61,6 +61,7 @@ namespace MB.T.DVLD.Web.Controllers
                                 .Cars
                                 .Include(car => car.Drivers)
                                 .Include(car => car.InsurancePolicy)
+                                .Include(car => car.InsurancePolicy.InsuranceCompany)
                                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)

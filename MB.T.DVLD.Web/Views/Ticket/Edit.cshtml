@@ -8,12 +8,13 @@
 
 <hr />
 
-
 <form asp-action="Edit">
     <div class="row">
         <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="PaymentDate" />
+            <input type="hidden" asp-for="Paid" />
             <div class="form-group">
                 <label asp-for="IssueDate" class="control-label"></label>
                 <input asp-for="IssueDate" class="form-control" />
