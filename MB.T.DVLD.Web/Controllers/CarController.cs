@@ -10,6 +10,7 @@ using MB.T.DVLD.Web.Models.Car;
 using MB.T.DVLD.Entities.Helper.LookupService;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Models.Cars;
+using System;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -206,6 +207,8 @@ namespace MB.T.DVLD.Web.Controllers
 
             carPolicyVM.CompanySelectList = await _lookupService.GetInsuranceCompanySelectList();
             carPolicyVM.CarId = carId;
+            carPolicyVM.StartTime = DateTime.Now;
+            carPolicyVM.ExpiryDate = DateTime.Now.AddYears(1);
 
             return View(carPolicyVM);
         }
