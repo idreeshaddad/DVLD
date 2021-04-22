@@ -28,9 +28,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -52,11 +49,12 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                الحكومة
+                                Admin
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="text-dark dropdown-item" asp-area="" asp-controller="Department" asp-action="Index">Departments</a>
                                 <a class=" text-dark dropdown-item" asp-area="" asp-controller="Officer" asp-action="Index">Officers</a>
+                                <a class=" text-dark dropdown-item" asp-area="" asp-controller="PoliceCar" asp-action="Index">Police Cars</a>
                             </div>
                         </li>
 

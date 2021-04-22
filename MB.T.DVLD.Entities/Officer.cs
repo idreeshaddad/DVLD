@@ -1,4 +1,5 @@
 ﻿using MB.T.DVLD.Utilities.Enums;
+using System.Collections.Generic;
 
 namespace MB.T.DVLD.Entities
 {
@@ -12,5 +13,7 @@ namespace MB.T.DVLD.Entities
 
         public int? DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        public List<PoliceCar> PoliceCars { get; set; }
     }
 }

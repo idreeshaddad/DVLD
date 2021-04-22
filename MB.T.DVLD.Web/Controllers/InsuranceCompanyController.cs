@@ -7,6 +7,7 @@ using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Data;
 using AutoMapper;
 using MB.T.DVLD.Web.Models.InsuranceCompanies;
+using System;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace MB.T.DVLD.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public InsuranceCompanyController(ApplicationDbContext context, IMapper mapper)
+        public InsuranceCompanyController(ApplicationDbContext context , IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -33,7 +34,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(insuranceCompanyVM);
         }
-
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,7 +49,7 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var insuranceCompanyVM = _mapper.Map<InsuranceCompany, InsuranceCompanyVM>(insuranceCompany);
+            var insuranceCompanyVM = _mapper.Map<InsuranceCompany,InsuranceCompanyVM>(insuranceCompany);
 
             return View(insuranceCompanyVM);
         }
@@ -56,7 +57,7 @@ namespace MB.T.DVLD.Web.Controllers
         public IActionResult Create()
         {
             return View();
-        }
+        }       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,28 +123,23 @@ namespace MB.T.DVLD.Web.Controllers
             }
             return View(insuranceCompany);
         }
-
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cannotDelete = _context
-                                .Cars
-                                .Include(car => car.InsurancePolicy)
-                                .Any(car => car.InsurancePolicy.InsuranceCompanyId == id);
-
-            if (cannotDelete)
-            {
-                // TODO inform the user that he cannot delete
-                return RedirectToAction(nameof(Index));
-            }
-            else
+            try
             {
                 var insuranceCompany = await _context.InsuranceCompanies.FindAsync(id);
                 _context.InsuranceCompanies.Remove(insuranceCompany);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            catch (Exception ex)
+            {
+                return Redirect("~/errorPages/cannotDeleteInsuranceCompany.html");
+            }
+            
         }
 
         #endregion
@@ -152,7 +148,7 @@ namespace MB.T.DVLD.Web.Controllers
         private bool InsuranceCompanyExists(int id)
         {
             return _context.InsuranceCompanies.Any(e => e.Id == id);
-        }
+        } 
         #endregion
     }
 }

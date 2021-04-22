@@ -41,6 +41,8 @@ namespace MB.T.DVLD.Web.Controllers
 
             List<OfficerVM> officerVMs = _mapper.Map<List<Officer>, List<OfficerVM>>(officer);
 
+            ViewBag.PoliceCarSelectList = await _lookupService.GetPoliceCarSelectList();
+
             return View(officerVMs);
         }
 

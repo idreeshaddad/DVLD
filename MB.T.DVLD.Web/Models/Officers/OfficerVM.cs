@@ -40,5 +40,7 @@ namespace MB.T.DVLD.Web.Models.Officer
 
 
         public SelectList DepartmentSelectList { get; set; }
+
+        public SelectList PoliceCarSelectList { get; set; }
     }
 }

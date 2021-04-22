@@ -96,5 +96,21 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
 
             return departmentSelectList;
         }
+
+        public async Task<SelectList> GetPoliceCarSelectList()
+        {
+            var policeCarsLookup = await _context
+                                            .PoliceCar
+                                            .Select(policeCar => new LookupVM()
+                                            {
+                                                Id = policeCar.Id,
+                                                Name = $"{policeCar.Manu} - {policeCar.Model}" 
+                                            })
+                                            .ToListAsync();
+
+            var policeCarSelectList = new SelectList(policeCarsLookup, "Id", "Name");
+
+            return policeCarSelectList;
+        }
     }
 }
