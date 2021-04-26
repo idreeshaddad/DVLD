@@ -56,6 +56,7 @@ namespace MB.T.DVLD.Web.Controllers
             Officer officer = await _context
                                         .Officers
                                         .Include(officer => officer.Department)
+                                        .Include(officer => officer.PoliceCars)
                                         .FirstOrDefaultAsync(m => m.Id == id);
 
             if (officer == null)
@@ -175,6 +176,23 @@ namespace MB.T.DVLD.Web.Controllers
             var officer = await _context.Officers.FindAsync(id);
             _context.Officers.Remove(officer);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AssignCarToOfficer(int id, List<int> policeCarIds)
+        {
+            var officer = await _context.Officers.FindAsync(id);
+
+            var policeCars = await _context
+                                    .PoliceCar
+                                    .Where(driver => policeCarIds.Contains(driver.Id))
+                                    .ToListAsync();
+
+            officer.PoliceCars.AddRange(policeCars);
+            _context.Update(officer);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

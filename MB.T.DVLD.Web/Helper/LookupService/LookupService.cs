@@ -104,7 +104,7 @@ namespace MB.T.DVLD.Entities.Helper.LookupService
                                             .Select(policeCar => new LookupVM()
                                             {
                                                 Id = policeCar.Id,
-                                                Name = $"{policeCar.Manu} - {policeCar.Model}" 
+                                                Name = $"{policeCar.Manu} - {policeCar.Model} - {policeCar.CarNumber}" 
                                             })
                                             .ToListAsync();
 

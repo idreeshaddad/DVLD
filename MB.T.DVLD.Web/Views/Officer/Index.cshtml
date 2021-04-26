@@ -107,25 +107,27 @@
                     <div class="modal fade" id="policeCarModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="policeCarModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="policeCarModalLabel_@officer.Id">Assign Car to an Officer</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
 
-                                    <label class="control-label">Police Car</label>
-                                    <select multiple asp-items="@ViewBag.PoliceCarSelectList" class="form-control"></select>
+                                <form asp-action="AssignCarToOfficer">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="policeCarModalLabel_@officer.Id">Assign Car to an Officer</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
-                                </div>
-                                <div class="modal-footer">
-                                    <form asp-action="AssignCarToOfficer">
+                                        <label class="control-label">Police Car</label>
+                                        <select multiple asp-items="@ViewBag.PoliceCarSelectList" class="form-control" name="policeCarIds"></select>
+
+                                    </div>
+                                    <div class="modal-footer">
                                         <input type="hidden" value="@officer.Id" name="id" />
                                         <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
                                         <input type="submit" value="Assign" class="btn btn-primary mr-1" />
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>

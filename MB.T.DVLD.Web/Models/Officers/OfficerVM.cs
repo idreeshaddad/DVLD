@@ -1,6 +1,8 @@
 ﻿using MB.T.DVLD.Entities;
 using MB.T.DVLD.Utilities.Enums;
+using MB.T.DVLD.Web.Models.PoliceCars;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MB.T.DVLD.Web.Models.Officer
@@ -42,5 +44,7 @@ namespace MB.T.DVLD.Web.Models.Officer
         public SelectList DepartmentSelectList { get; set; }
 
         public SelectList PoliceCarSelectList { get; set; }
+
+        public List<PoliceCarVM> PoliceCars { get; set; }
     }
 }

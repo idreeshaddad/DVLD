@@ -5,6 +5,11 @@ namespace MB.T.DVLD.Entities
 {
     public class Officer
     {
+        public Officer()
+        {
+            PoliceCars = new List<PoliceCar>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
