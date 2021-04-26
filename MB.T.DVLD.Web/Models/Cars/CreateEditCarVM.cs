@@ -25,8 +25,7 @@ namespace MB.T.DVLD.Web.Models.Car
         [Display(Name = "Drivers")]
         public List<int> DriverIds { get; set; }
 
-        //[Display(Name = "Insurance")]
-        //public int? InsuranceId { get; set; }
+        public int? InsurancePolicyId { get; set; }
 
         public SelectList DriverSelectList { get; set; }
         //public SelectList InsuranceSelectList { get; set; }

@@ -79,8 +79,7 @@ namespace MB.T.DVLD.Web.Controllers
         {
             var createEditCarVM = new CreateEditCarVM()
             {
-                DriverSelectList = await _lookupService.GetDriverSelectList(),
-                //InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList()
+                DriverSelectList = await _lookupService.GetDriverSelectList()
             };
 
             return View(createEditCarVM);
@@ -94,7 +93,7 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 bool isLicensePlateUsed = CheckIfLicensePlateIsUsed(createEditCarVM.LicensePlate);
 
-                if(isLicensePlateUsed)
+                if (isLicensePlateUsed)
                 {
                     ModelState.AddModelError("LicensePlate", "License Plate already used");
                 }
@@ -138,7 +137,6 @@ namespace MB.T.DVLD.Web.Controllers
             var createEditCarVM = _mapper.Map<Car, CreateEditCarVM>(car);
 
             createEditCarVM.DriverSelectList = await _lookupService.GetDriverSelectList();
-            //createEditCarVM.InsuranceSelectList = await _lookupService.GetInsuranceCompanySelectList();
 
             return View(createEditCarVM);
         }
@@ -166,11 +164,11 @@ namespace MB.T.DVLD.Web.Controllers
                     {
                         var car = _mapper.Map<CreateEditCarVM, Car>(createEditCarVM);
 
-                        // TODO fix this function
-                        //await UpdateCarDrivers(createEditCarVM, car);
-
                         _context.Update(car);
                         await _context.SaveChangesAsync();
+
+                        await UpdateCarDrivers(createEditCarVM.Id, createEditCarVM.DriverIds);
+
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -217,7 +215,7 @@ namespace MB.T.DVLD.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> IssuePolicy(CarPolicyVM carPolicyVM)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var insurancePolicy = _mapper.Map<CarPolicyVM, InsurancePolicy>(carPolicyVM);
                 _context.Add(insurancePolicy);
@@ -247,7 +245,7 @@ namespace MB.T.DVLD.Web.Controllers
 
         private bool CheckIfLicensePlateIsUsed(string licensePlate, int carId = 0)
         {
-            if(carId == 0) // Zero means Create New Car
+            if (carId == 0) // Zero means Create New Car
             {
                 return _context.Cars.Any(c => c.LicensePlate == licensePlate);
             }
@@ -256,32 +254,6 @@ namespace MB.T.DVLD.Web.Controllers
                 return _context.Cars.Any(c => c.LicensePlate == licensePlate && c.Id != carId);
             }
         }
-
-        //private async Task SetDriver(CreateEditCarVM createEditCarVM, Car car)
-        //{
-        //    if (createEditCarVM.DriverId == 0)
-        //    {
-        //        car.DriverId = null;
-        //    }
-        //    else
-        //    {
-        //        var driver = await _context.Drivers.FindAsync(createEditCarVM.DriverId);
-        //        car.Driver = driver;
-        //    }
-        //}
-
-        //private async Task SetInsurance(CreateEditCarVM createEditCarVM, Car car)
-        //{
-        //    if (createEditCarVM.InsuranceId == 0)
-        //    {
-        //        car.InsuranceId = null;
-        //    }
-        //    else
-        //    {
-        //        var insurance = await _context.Insurances.FindAsync(createEditCarVM.InsuranceId);
-        //        car.Insurance = insurance;
-        //    }
-        //}
 
         private async Task AddDriversToCar(CreateEditCarVM createEditCarVM, Car car)
         {
@@ -296,16 +268,49 @@ namespace MB.T.DVLD.Web.Controllers
             }
         }
 
-        private async Task UpdateCarDrivers(CreateEditCarVM createEditCarVM, Car car)
+        private async Task UpdateCarDrivers(int carId, List<int> driverIds)
         {
-            if (createEditCarVM.DriverIds != null && createEditCarVM.DriverIds.Count > 0)
+            if (driverIds != null && driverIds.Count > 0)
             {
+                // Load the car and drivers
+                Car car = await _context
+                                        .Cars
+                                        .Include(car => car.Drivers)
+                                        .Where(car => car.Id == carId)
+                                        .SingleAsync();
+                // Delete car drivers 
+                car.Drivers.Clear();
+
+                // Load drivers  with IDs sent from the UI
                 var drivers = await _context
                                         .Drivers
-                                        .Where(driver => createEditCarVM.DriverIds.Contains(driver.Id))
+                                        .Where(driver => driverIds.Contains(driver.Id))
                                         .ToListAsync();
-
+                
+                // Add drivers to car
                 car.Drivers.AddRange(drivers);
+
+                // SAVE
+                _context.Update(car);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                // ELSE means: NO drivers are assigned to the car
+
+                // Load the car and drivers
+                Car car = await _context
+                                        .Cars
+                                        .Include(car => car.Drivers)
+                                        .Where(car => car.Id == carId)
+                                        .SingleAsync();
+
+                // Delete car drivers 
+                car.Drivers.Clear();
+
+                // SAVE
+                _context.Update(car);
+                await _context.SaveChangesAsync();
             }
         }
 
