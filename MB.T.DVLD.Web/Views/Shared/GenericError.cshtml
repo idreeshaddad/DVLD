@@ -1,0 +1,12 @@
+﻿@model GenericErrorVM
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="text-center">
+    <img src="~/imgs/error.png" />
+</div>
+
+<h4 class="text-center text-warning">
+    @Model.Message
+</h4>

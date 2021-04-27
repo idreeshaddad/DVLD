@@ -11,6 +11,7 @@ using MB.T.DVLD.Web.Models.Driver;
 using MB.T.DVLD.Entities;
 using Microsoft.Extensions.Logging;
 using System;
+using MB.T.DVLD.Web.Models;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -86,7 +87,11 @@ namespace MB.T.DVLD.Web.Controllers
 
             if (driver == null)
             {
-                return Redirect("~/errorPages/DriverNotFound.html");
+                var error = new GenericErrorVM()
+                {
+                    Message = $"No such driver with id ({id}) exists!"
+                };
+                return View("GenericError", error);
             }
 
             var driverVM = _mapper.Map<Driver, DriverVM>(driver);
@@ -186,8 +191,6 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(driverVM);
         }
-
-
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

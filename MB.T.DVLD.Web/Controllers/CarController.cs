@@ -11,6 +11,7 @@ using MB.T.DVLD.Entities.Helper.LookupService;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Models.Cars;
 using System;
+using MB.T.DVLD.Web.Models;
 
 namespace MB.T.DVLD.Web.Controllers
 {
@@ -67,7 +68,11 @@ namespace MB.T.DVLD.Web.Controllers
 
             if (car == null)
             {
-                return Redirect("~/errorPages/CarNotFound.html");
+                var error = new GenericErrorVM()
+                {
+                    Message = $"No such car with id ({id}) exists!"
+                };
+                return View("GenericError", error);
             }
 
             CarVM carVM = _mapper.Map<Car, CarVM>(car);

@@ -8,20 +8,30 @@ using MB.T.DVLD.Web.Data;
 using AutoMapper;
 using MB.T.DVLD.Web.Models.InsuranceCompanies;
 using System;
+using Microsoft.Extensions.Logging;
+using MB.T.DVLD.Web.Models;
+using MB.T.DVLD.Web.Models.Errors;
+using MB.T.DVLD.Web.Models.Car;
 
 namespace MB.T.DVLD.Web.Controllers
 {
     public class InsuranceCompanyController : Controller
     {
-        #region Data And Const
+        #region Data And Constructor
+
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<InsuranceCompanyController> _logger;
 
-        public InsuranceCompanyController(ApplicationDbContext context , IMapper mapper)
+        public InsuranceCompanyController(ApplicationDbContext context,
+                                          IMapper mapper,
+                                          ILogger<InsuranceCompanyController> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
+
         #endregion
 
         #region Methods
@@ -34,7 +44,7 @@ namespace MB.T.DVLD.Web.Controllers
 
             return View(insuranceCompanyVM);
         }
-      
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,7 +59,7 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var insuranceCompanyVM = _mapper.Map<InsuranceCompany,InsuranceCompanyVM>(insuranceCompany);
+            var insuranceCompanyVM = _mapper.Map<InsuranceCompany, InsuranceCompanyVM>(insuranceCompany);
 
             return View(insuranceCompanyVM);
         }
@@ -57,7 +67,7 @@ namespace MB.T.DVLD.Web.Controllers
         public IActionResult Create()
         {
             return View();
-        }       
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -123,23 +133,38 @@ namespace MB.T.DVLD.Web.Controllers
             }
             return View(insuranceCompany);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var insuranceCompany = await _context.InsuranceCompanies.FindAsync(id);
+
             try
             {
-                var insuranceCompany = await _context.InsuranceCompanies.FindAsync(id);
                 _context.InsuranceCompanies.Remove(insuranceCompany);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                return Redirect("~/errorPages/cannotDeleteInsuranceCompany.html");
+                _logger.LogWarning(ex, $"{User.Identity.Name} is trying to delete company {insuranceCompany.CompanyName}, with id: {id}");
+
+                var cars = await _context
+                                    .Cars
+                                    .Include(car => car.InsurancePolicy)
+                                    .Where(car => car.InsurancePolicy.InsuranceCompanyId == id)
+                                    .ToListAsync();
+
+                var error = new InsuranceCompanyErrorVM()
+                {
+                    Message = $"You cannot delete insurance company: ({insuranceCompany.CompanyName}) because those cars have policies issued by it:",
+                    Cars = _mapper.Map<List<Car>, List<CarVM>>(cars),
+                    DateNow = DateTime.Now
+                };
+
+                return View("InsuranceCompanyError", error);
             }
-            
         }
 
         #endregion
@@ -148,7 +173,7 @@ namespace MB.T.DVLD.Web.Controllers
         private bool InsuranceCompanyExists(int id)
         {
             return _context.InsuranceCompanies.Any(e => e.Id == id);
-        } 
+        }
         #endregion
     }
 }

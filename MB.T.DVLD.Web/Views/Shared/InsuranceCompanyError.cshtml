@@ -1,0 +1,40 @@
+﻿@model MB.T.DVLD.Web.Models.Errors.InsuranceCompanyErrorVM
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="text-center">
+    <img src="~/imgs/error.png" />
+</div>
+
+<h5 class="text-center">
+    Trying to delete at: <span class="font-weight-bold text-info">@Model.DateNow</span>
+</h5>
+
+<h4 class="text-center text-warning">
+    @Model.Message
+</h4>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>LicensePlate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model.Cars)
+        {
+        <tr>
+            <td>@car.Id</td>
+            <td>@car.Manu</td>
+            <td>@car.Model</td>
+            <td>@car.LicensePlate</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="InsuranceCompany" asp-action="Index">Back to Insurance Companies</a>
