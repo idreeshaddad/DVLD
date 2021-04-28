@@ -44,6 +44,7 @@ namespace MB.T.DVLD.Web.Controllers
                                         .Cars
                                         .Include(car => car.Drivers)
                                         .Include(car => car.InsurancePolicy)
+                                            .ThenInclude(inPol => inPol.InsuranceCompany)
                                         .ToListAsync();
 
             List<CarVM> carsVMs = _mapper.Map<List<Car>, List<CarVM>>(cars);
