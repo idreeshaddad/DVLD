@@ -4,29 +4,35 @@
     ViewData["Title"] = "Department Details";
 }
 
-<h1>Department Details</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Department Details</h1>
 
-<div>
-    <h4>Department</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-    </dl>
+        <div>
+            <h4>Department</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.City)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <div class="form-group float-right">
+                <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+                <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            </div>
+        </div>
+    </main>
 </div>
-<div>
-    <div class="form-group float-right">
-        <a class="btn btn-secondary" asp-action="Index">Cancel</a>
-        <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    </div>
-</div>
+
+

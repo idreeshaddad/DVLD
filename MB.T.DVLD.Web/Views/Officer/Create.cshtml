@@ -5,54 +5,56 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Create</h1>
 
-<h4>Officer</h4>
-<hr />
+        <h4>Officer</h4>
+        <hr />
 
+        <form asp-action="Create">
+            <div class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="BadgeNumber" class="control-label"></label>
+                        <input asp-for="BadgeNumber" class="form-control" />
+                        <span asp-validation-for="BadgeNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Rank" class="control-label"></label>
+                        <select asp-for="Rank" asp-items="@Html.GetEnumSelectList<Rank>()" class="form-control"></select>
+                        <span asp-validation-for="Rank" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                        <select asp-for="DepartmentId" asp-items="@Model.DepartmentSelectList" class="form-control"></select>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
 
-<form asp-action="Create">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="form-group float-right">
+                <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="BadgeNumber" class="control-label"></label>
-                <input asp-for="BadgeNumber" class="form-control" />
-                <span asp-validation-for="BadgeNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rank" class="control-label"></label>
-                <select asp-for="Rank" asp-items="@Html.GetEnumSelectList<Rank>()" class="form-control"></select>
-                <span asp-validation-for="Rank" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
-                <select asp-for="DepartmentId" asp-items="@Model.DepartmentSelectList" class="form-control"></select>
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group float-right">
-        <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>
-
+        </form>
+    </main>
+</div>
 
 
 

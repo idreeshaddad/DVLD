@@ -7,81 +7,86 @@
     ViewData["Title"] = "Departments";
 }
 
-<h1>Departments</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Departments</h1>
 
-<p>
-    <a asp-action="Create">Create New Department</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var department in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => department.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => department.City)
-                </td>
-                <td>
+        <p>
+            <a asp-action="Create">Create New Department</a>
+        </p>
+        <table class="datatable table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var department in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => department.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => department.City)
+                        </td>
+                        <td>
 
-                    <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@department.Id"></a>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@department.Id"></a>
+                            <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@department.Id"></a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@department.Id"></a>
 
 
-                        <span data-toggle="tooltip" title="Delete">
-                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@department.Id"></i>
-                        </span>
+                                <span data-toggle="tooltip" title="Delete">
+                                    <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@department.Id"></i>
+                                </span>
 
-                    }
-                    <div class="modal fade" id="deleteModal_@department.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="deleteModalLabel_@department.Id">Delete Car?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                    <div>
-                                        <dl class="row">
-                                            <dt class="col-sm-4 my-2">Car Manu :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@department.Name</dd>
-                                            <dt class="col-sm-4 my-2">Car Model :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@department.City</dd>
-                                        </dl>
+                            }
+                            <div class="modal fade" id="deleteModal_@department.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="deleteModalLabel_@department.Id">Delete Car?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                            <div>
+                                                <dl class="row">
+                                                    <dt class="col-sm-4 my-2">Car Manu :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@department.Name</dd>
+                                                    <dt class="col-sm-4 my-2">Car Model :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@department.City</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form asp-action="Delete">
+                                                <input type="hidden" value="@department.Id" name="id" />
+                                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <form asp-action="Delete">
-                                        <input type="hidden" value="@department.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</div>
+
 
 

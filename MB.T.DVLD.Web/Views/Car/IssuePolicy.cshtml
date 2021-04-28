@@ -5,46 +5,51 @@
     ViewData["Title"] = "Issue Policy";
 }
 
-<h1>Issue Policy</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Issue Policy</h1>
 
-<h4>Insurance Policy</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="IssuePolicy">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExpiryDate" class="control-label"></label>
-                <input asp-for="ExpiryDate" class="form-control" />
-                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
-            </div>
+        <h4>Insurance Policy</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="IssuePolicy">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="StartTime" class="control-label"></label>
+                        <input asp-for="StartTime" class="form-control" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ExpiryDate" class="control-label"></label>
+                        <input asp-for="ExpiryDate" class="form-control" />
+                        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="InsuranceType" class="control-label"></label>
-                <select asp-for="InsuranceType" asp-items="@Html.GetEnumSelectList<InsuranceType>()" class="form-control"></select>
-                <span asp-validation-for="InsuranceType" class="text-danger"></span>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="InsuranceType" class="control-label"></label>
+                        <select asp-for="InsuranceType" asp-items="@Html.GetEnumSelectList<InsuranceType>()" class="form-control"></select>
+                        <span asp-validation-for="InsuranceType" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="InsuranceCompanyId" class="control-label"></label>
-                <select asp-for="InsuranceCompanyId" asp-items="@Model.CompanySelectList" class="form-control"></select>
-                <span asp-validation-for="InsuranceCompanyId" class="text-danger"></span>
-            </div>
+                    <div class="form-group">
+                        <label asp-for="InsuranceCompanyId" class="control-label"></label>
+                        <select asp-for="InsuranceCompanyId" asp-items="@Model.CompanySelectList" class="form-control"></select>
+                        <span asp-validation-for="InsuranceCompanyId" class="text-danger"></span>
+                    </div>
 
-            <input type="hidden" asp-for="CarId" />
+                    <input type="hidden" asp-for="CarId" />
 
-            <div class="form-group float-right">
-                <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
-                <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="form-group float-right">
+                        <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
+        </div>
+    </main>
 </div>
+
 
 
 

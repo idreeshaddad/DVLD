@@ -4,48 +4,54 @@
     ViewData["Title"] = "Driver Details";
 }
 
-<h1>Driver Details</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Driver Details</h1>
 
-<div>
-    <div class="row">
-        <div class="col-sm-6 font-weight-bold">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </div>
-        <div class="col-sm-6">
-            @Html.DisplayFor(model => model.FirstName)
-        </div>
+        <div>
+            <div class="row">
+                <div class="col-sm-6 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(model => model.FirstName)
+                </div>
 
-        <div class="col-sm-6 font-weight-bold">
-            @Html.DisplayNameFor(model => model.Gender)
-        </div>
-        <div class="col-sm-6">
-            @Html.DisplayFor(model => model.Gender)
-        </div>
+                <div class="col-sm-6 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Gender)
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(model => model.Gender)
+                </div>
 
-        <div class="col-sm-6 font-weight-bold">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </div>
-        <div class="col-sm-6">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </div>
+                <div class="col-sm-6 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(model => model.DateOfBirth)
+                </div>
 
-        <div class="col-sm-6 font-weight-bold">
-            @Html.DisplayNameFor(model => model.LicenseNumber)
-        </div>
-        <div class="col-sm-6">
-            @Html.DisplayFor(model => model.LicenseNumber)
-        </div>
+                <div class="col-sm-6 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.LicenseNumber)
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(model => model.LicenseNumber)
+                </div>
 
-        <div class="col-sm-6 font-weight-bold">
-            @Html.DisplayNameFor(model => model.LicenseType)
+                <div class="col-sm-6 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.LicenseType)
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(model => model.LicenseType)
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-            @Html.DisplayFor(model => model.LicenseType)
+        <div class="form-group float-right">
+            <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+            <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
         </div>
-    </div>
+    </main>
 </div>
-<div class="form-group float-right">
-    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
-    <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-</div>
+
+
 

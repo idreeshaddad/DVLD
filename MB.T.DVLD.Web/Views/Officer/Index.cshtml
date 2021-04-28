@@ -6,133 +6,139 @@
     ViewData["Title"] = "Officers";
 }
 
-<h1>Officers</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Officers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BadgeNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rank)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var officer in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => officer.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => officer.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => officer.BadgeNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => officer.Rank)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => officer.Department.Name)
-                </td>
-                <td>
-                    <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@officer.Id"></a>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="datatable table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BadgeNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rank)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var officer in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => officer.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => officer.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => officer.BadgeNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => officer.Rank)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => officer.Department.Name)
+                        </td>
+                        <td>
+                            <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@officer.Id"></a>
 
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@officer.Id"></a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@officer.Id"></a>
 
-                        <span data-toggle="tooltip" title="Delete">
-                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@officer.Id"></i>
-                        </span>
+                                <span data-toggle="tooltip" title="Delete">
+                                    <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@officer.Id"></i>
+                                </span>
 
-                        <span data-toggle="tooltip" title="Assign Car to Officer">
-                            <i class="fas fa-taxi mr-1 pointer" data-toggle="modal" data-target="#policeCarModal_@officer.Id"></i>
-                        </span>
-                    }
+                                <span data-toggle="tooltip" title="Assign Car to Officer">
+                                    <i class="fas fa-taxi mr-1 pointer" data-toggle="modal" data-target="#policeCarModal_@officer.Id"></i>
+                                </span>
+                            }
 
-                    <!-- Delete Officer Modal -->
-                    <div class="modal fade" id="deleteModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="deleteModalLabel_@officer.Id">Delete Officer?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
+                            <!-- Delete Officer Modal -->
+                            <div class="modal fade" id="deleteModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="deleteModalLabel_@officer.Id">Delete Officer?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
 
-                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                    <div>
-                                        <dl class="row">
-                                            <dt class="col-sm-6 my-2">Officer Name :</dt>
-                                            <dd class="col-sm-6 my-2 text-danger">@officer.FullName</dd>
-                                            <dt class="col-sm-6 my-2">Badge Number :</dt>
-                                            <dd class="col-sm-6 my-2 text-danger">@officer.BadgeNumber</dd>
-                                            <dt class="col-sm-6 my-2">Officer Rank :</dt>
-                                            <dd class="col-sm-6 my-2 text-danger">@officer.Rank</dd>
-                                        </dl>
+                                            <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                            <div>
+                                                <dl class="row">
+                                                    <dt class="col-sm-6 my-2">Officer Name :</dt>
+                                                    <dd class="col-sm-6 my-2 text-danger">@officer.FullName</dd>
+                                                    <dt class="col-sm-6 my-2">Badge Number :</dt>
+                                                    <dd class="col-sm-6 my-2 text-danger">@officer.BadgeNumber</dd>
+                                                    <dt class="col-sm-6 my-2">Officer Rank :</dt>
+                                                    <dd class="col-sm-6 my-2 text-danger">@officer.Rank</dd>
+                                                </dl>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form asp-action="Delete">
+                                                <input type="hidden" value="@officer.Id" name="id" />
+                                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                                            </form>
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <form asp-action="Delete">
-                                        <input type="hidden" value="@officer.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Assign Car to Officer Modal -->
-                    <div class="modal fade" id="policeCarModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="policeCarModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                            <!-- Assign Car to Officer Modal -->
+                            <div class="modal fade" id="policeCarModal_@officer.Id" tabindex="-1" role="dialog" aria-labelledby="policeCarModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
 
-                                <form asp-action="AssignCarToOfficer">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="policeCarModalLabel_@officer.Id">Assign Car to an Officer</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <form asp-action="AssignCarToOfficer">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="policeCarModalLabel_@officer.Id">Assign Car to an Officer</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <label class="control-label">Police Car</label>
+                                                <select multiple asp-items="@ViewBag.PoliceCarSelectList" class="form-control" name="policeCarIds"></select>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="hidden" value="@officer.Id" name="id" />
+                                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Assign" class="btn btn-primary mr-1" />
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    <div class="modal-body">
-
-                                        <label class="control-label">Police Car</label>
-                                        <select multiple asp-items="@ViewBag.PoliceCarSelectList" class="form-control" name="policeCarIds"></select>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" value="@officer.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Assign" class="btn btn-primary mr-1" />
-                                    </div>
-                                </form>
-
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</div>
+
+

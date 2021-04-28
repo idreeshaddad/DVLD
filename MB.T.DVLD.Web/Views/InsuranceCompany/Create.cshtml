@@ -4,33 +4,39 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Create</h1>
 
-<h4>InsuranceCompany</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Slogan" class="control-label"></label>
-                <input asp-for="Slogan" class="form-control" />
-                <span asp-validation-for="Slogan" class="text-danger"></span>
-            </div>
-            <div class="form-group float-right">
-                <a class="btn btn-secondary mt-2 " asp-action="Index">Cancel</a>
-                <input type="submit" value="Create" class="btn btn-primary ml-2 mt-2" />
+        <h4>InsuranceCompany</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="CompanyName" class="control-label"></label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Slogan" class="control-label"></label>
+                        <input asp-for="Slogan" class="form-control" />
+                        <span asp-validation-for="Slogan" class="text-danger"></span>
+                    </div>
+                    <div class="form-group float-right">
+                        <a class="btn btn-secondary mt-2 " asp-action="Index">Cancel</a>
+                        <input type="submit" value="Create" class="btn btn-primary ml-2 mt-2" />
 
+                    </div>
+
+                </form>
             </div>
-            
-        </form>
-    </div>
+        </div>
+    </main>
 </div>
+
+
 
 
 @section Scripts {

@@ -9,116 +9,121 @@
     ViewData["Title"] = "Drivers";
 }
 
-<h1>Drivers</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Drivers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LicenseNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LicenseType)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var driver in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => driver.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => driver.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => driver.Gender)
-                </td>
-                <td>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="datatable table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LicenseNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LicenseType)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var driver in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => driver.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => driver.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => driver.Gender)
+                        </td>
+                        <td>
 
-                    @driver.DateOfBirth.ToString("dd-MMMM-yyyy")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => driver.LicenseNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => driver.LicenseType)
-                </td>
-                <td>
-                    <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@driver.Id"></a>
+                            @driver.DateOfBirth.ToString("dd-MMMM-yyyy")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => driver.LicenseNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => driver.LicenseType)
+                        </td>
+                        <td>
+                            <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@driver.Id"></a>
 
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@driver.Id"></a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@driver.Id"></a>
 
-                        <span data-toggle="tooltip" title="Delete">
-                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@driver.Id"></i>
-                        </span>
+                                <span data-toggle="tooltip" title="Delete">
+                                    <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@driver.Id"></i>
+                                </span>
 
 
-                        <!-- Driver Modal -->
-                        <div class="modal fade" id="deleteModal_@driver.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="deleteModalLabel_@driver.Id">Delete Driver?</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                                <!-- Driver Modal -->
+                                <div class="modal fade" id="deleteModal_@driver.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="deleteModalLabel_@driver.Id">Delete Driver?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
 
-                                        <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                        <div>
-                                            <dl class="row">
-                                                <dt class="col-sm-6 my-2">Driver Name :</dt>
-                                                <dd class="col-sm-6 my-2 text-danger">@driver.FullName</dd>
-                                                <dt class="col-sm-6 my-2">License Number :</dt>
-                                                <dd class="col-sm-6 my-2 text-danger">@driver.LicenseNumber</dd>
-                                                <dt class="col-sm-6 my-2">License Type :</dt>
-                                                <dd class="col-sm-6 my-2 text-danger">@driver.LicenseType</dd>
-                                            </dl>
+                                                <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                                <div>
+                                                    <dl class="row">
+                                                        <dt class="col-sm-6 my-2">Driver Name :</dt>
+                                                        <dd class="col-sm-6 my-2 text-danger">@driver.FullName</dd>
+                                                        <dt class="col-sm-6 my-2">License Number :</dt>
+                                                        <dd class="col-sm-6 my-2 text-danger">@driver.LicenseNumber</dd>
+                                                        <dt class="col-sm-6 my-2">License Type :</dt>
+                                                        <dd class="col-sm-6 my-2 text-danger">@driver.LicenseType</dd>
+                                                    </dl>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-action="Delete">
+                                                    <input type="hidden" value="@driver.Id" name="id" />
+                                                    <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                                    <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                                                </form>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form asp-action="Delete">
-                                            <input type="hidden" value="@driver.Id" name="id" />
-                                            <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                            <input type="submit" value="Delete" class="btn btn-danger mr-1" />
-                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
 
-                    }
+                            }
 
-                    <a asp-action="DriverCars" data-toggle="tooltip" title="Driver's Cars" asp-route-id="@driver.Id">
-                        <i class="fas fa-car"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            <a asp-action="DriverCars" data-toggle="tooltip" title="Driver's Cars" asp-route-id="@driver.Id">
+                                <i class="fas fa-car"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</div>
+

@@ -5,61 +5,61 @@
     ViewData["Title"] = "Edit Driver";
 }
 
-<h1>Edit Driver</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Edit Driver</h1>
 
-<hr />
+        <hr />
 
+        <form asp-action="Edit">
+            <div class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control"></select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateOfBirth" class="control-label"></label>
+                        <input asp-for="DateOfBirth" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="LicenseNumber" class="control-label"></label>
+                        <input asp-for="LicenseNumber" class="form-control" />
+                        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LicenseType" class="control-label"></label>
+                        <select asp-for="LicenseType" asp-items="@Html.GetEnumSelectList<LicenseType>()" class="form-control"></select>
+                        <span asp-validation-for="LicenseType" class="text-danger"></span>
+                    </div>
+                </div>
 
-<form asp-action="Edit">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="form-group float-right">
+                <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control"></select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="LicenseNumber" class="control-label"></label>
-                <input asp-for="LicenseNumber" class="form-control" />
-                <span asp-validation-for="LicenseNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LicenseType" class="control-label"></label>
-                <select asp-for="LicenseType" asp-items="@Html.GetEnumSelectList<LicenseType>()" class="form-control"></select>
-                <span asp-validation-for="LicenseType" class="text-danger"></span>
-            </div>
-        </div>
-
-    </div>
-    <div class="form-group float-right">
-        <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
-</form>
-
-
-
+        </form>
+    </main>
+</div>
 
 
 @section Scripts {

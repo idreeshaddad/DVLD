@@ -6,161 +6,166 @@
     ViewData["Title"] = "Cars";
 }
 
-<h1>Cars</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Cars</h1>
 
-<p>
-    <a asp-action="Create">Create a new Car</a>
-</p>
-<table class="datatable table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Manu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LicensePlate)
-            </th>
-            <th>
-                Driver Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceType)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => car.Manu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => car.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => car.LicensePlate)
-                </td>
-                <td>
-                    @if (car.Drivers.Count() == 0)
-                    {
-                        <span class="text-secondary">
-                            No Driver
-                        </span>
-                    }
-                    else if (car.Drivers.Count() == 1)
-                    {
-                        <span class="font-weight-bold">
-                            @car.Drivers.First().FullName
-                        </span>
-                    }
-                    else
-                    {
+        <p>
+            <a asp-action="Create">Create a new Car</a>
+        </p>
+        <table class="datatable table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Manu)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Model)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LicensePlate)
+                    </th>
+                    <th>
+                        Driver Name
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceType)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => car.Manu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => car.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => car.LicensePlate)
+                        </td>
+                        <td>
+                            @if (car.Drivers.Count() == 0)
+                            {
+                                <span class="text-secondary">
+                                    No Driver
+                                </span>
+                            }
+                            else if (car.Drivers.Count() == 1)
+                            {
+                                <span class="font-weight-bold">
+                                    @car.Drivers.First().FullName
+                                </span>
+                            }
+                            else
+                            {
 
-                        <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#driverModal_@car.Id">
-                            Click to show all Drivers
-                        </button>
+                                <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#driverModal_@car.Id">
+                                    Click to show all Drivers
+                                </button>
 
-                        <!-- Driver Modal -->
-                        <div class="modal fade" id="driverModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="driverModalLabel_@car.Id">Drivers</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        @foreach (var driver in car.Drivers)
-                                        {
-                                            <div class="font-weight-bold">
-                                                @driver.FullName
+                                <!-- Driver Modal -->
+                                <div class="modal fade" id="driverModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="driverModalLabel_@car.Id">Drivers</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        }
+                                            <div class="modal-body">
 
+                                                @foreach (var driver in car.Drivers)
+                                                {
+                                                    <div class="font-weight-bold">
+                                                        @driver.FullName
+                                                    </div>
+                                                }
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            }
+
+                        </td>
+                        <td>
+                            @if (car.InsurancePolicy != null)
+                            {
+                                @Html.DisplayFor(modelItem => car.InsurancePolicy.InsuranceType)
+                            }
+                            else
+                            {
+                                <div>---</div>
+                            }
+                        </td>
+                        <td>
+                            <a class="fas fa-info-circle" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@car.Id"></a>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="fas fa-pencil-alt ml-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@car.Id"></a>
+
+                                <span data-toggle="tooltip" title="Delete">
+                                    <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@car.Id"></i>
+                                </span>
+
+                                @if (car.InsurancePolicy == null)
+                                {
+                                    <a class="fas fa-car-crash" data-toggle="tooltip" title="Issue an insurance policy" asp-action="IssuePolicy" asp-route-carId="@car.Id"></a>
+                                }
+                            }
+
+                            <!-- Delete Car Modal -->
+                            <div class="modal fade" id="deleteModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="deleteModalLabel_@car.Id">Delete Car?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                            <div>
+                                                <dl class="row">
+                                                    <dt class="col-sm-4 my-2">Car Manu :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@car.Manu</dd>
+                                                    <dt class="col-sm-4 my-2">Car Model :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@car.Model</dd>
+                                                    <dt class="col-sm-4 my-2">License Plate :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@car.LicensePlate</dd>
+                                                </dl>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form asp-action="Delete">
+                                                <input type="hidden" value="@car.Id" name="id" />
+                                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
 
-                </td>
-                <td>
-                    @if (car.InsurancePolicy != null)
-                    {
-                        @Html.DisplayFor(modelItem => car.InsurancePolicy.InsuranceType)
-                    }
-                    else
-                    {
-                        <div>---</div>
-                    }
-                </td>
-                <td>
-                    <a class="fas fa-info-circle" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@car.Id"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</div>
 
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a class="fas fa-pencil-alt ml-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@car.Id"></a>
-
-                        <span data-toggle="tooltip" title="Delete">
-                            <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@car.Id"></i>
-                        </span>
-
-                        @if (car.InsurancePolicy == null)
-                        {
-                            <a class="fas fa-car-crash" data-toggle="tooltip" title="Issue an insurance policy" asp-action="IssuePolicy" asp-route-carId="@car.Id"></a>
-                        }
-                    }
-
-                    <!-- Delete Car Modal -->
-                    <div class="modal fade" id="deleteModal_@car.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="deleteModalLabel_@car.Id">Delete Car?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                    <div>
-                                        <dl class="row">
-                                            <dt class="col-sm-4 my-2">Car Manu :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@car.Manu</dd>
-                                            <dt class="col-sm-4 my-2">Car Model :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@car.Model</dd>
-                                            <dt class="col-sm-4 my-2">License Plate :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@car.LicensePlate</dd>
-                                        </dl>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <form asp-action="Delete">
-                                        <input type="hidden" value="@car.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

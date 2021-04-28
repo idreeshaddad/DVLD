@@ -4,93 +4,97 @@
     ViewData["Title"] = "Car Details";
 }
 
-<h1>Car Details</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Car Details</h1>
 
-<div class="row">
+        <div class="row">
 
-    <div class="col-sm-6">
-        <dl class="row">
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.Manu)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Manu)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.Model)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Model)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Color)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.LicensePlate)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.LicensePlate)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-sm-6">
-        <h4>Car Owners:</h4>
+            <div class="col-sm-6">
+                <dl class="row">
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.Manu)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @Html.DisplayFor(model => model.Manu)
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.Model)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @Html.DisplayFor(model => model.Model)
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.Color)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @Html.DisplayFor(model => model.Color)
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.LicensePlate)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @Html.DisplayFor(model => model.LicensePlate)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6">
+                <h4>Car Owners:</h4>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Driver Name</th>
-                    <th>License Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var driver in Model.Drivers)
-                {
-                    <tr>
-                        <td>@driver.FullName</td>
-                        <td>@driver.LicenseNumber</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>License Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var driver in Model.Drivers)
+                        {
+                            <tr>
+                                <td>@driver.FullName</td>
+                                <td>@driver.LicenseNumber</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-        <div class="mt-5">
-            <h4>Insurance Information:</h4>
-            <dl class="row">
-                <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.InsurancePolicy.StartTime)
-                </dt>
-                <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.InsurancePolicy.StartTime)
-                </dd>
-                <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.InsurancePolicy.ExpiryDate)
-                </dt>
-                <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.InsurancePolicy.ExpiryDate)
-                </dd>
-                <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
-                </dt>
-                <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
-                </dd>
-                <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceType)
-                </dt>
-                <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.InsurancePolicy.InsuranceType)
-                </dd>
-            </dl>
+                <div class="mt-5">
+                    <h4>Insurance Information:</h4>
+                    <dl class="row">
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.InsurancePolicy.StartTime)
+                        </dt>
+                        <dd class="col-sm-7">
+                            @Html.DisplayFor(model => model.InsurancePolicy.StartTime)
+                        </dd>
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.InsurancePolicy.ExpiryDate)
+                        </dt>
+                        <dd class="col-sm-7">
+                            @Html.DisplayFor(model => model.InsurancePolicy.ExpiryDate)
+                        </dd>
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
+                        </dt>
+                        <dd class="col-sm-7">
+                            @Html.DisplayFor(model => model.InsurancePolicy.InsuranceCompany.CompanyName)
+                        </dd>
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.InsurancePolicy.InsuranceType)
+                        </dt>
+                        <dd class="col-sm-7">
+                            @Html.DisplayFor(model => model.InsurancePolicy.InsuranceType)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
         </div>
-    </div>
 
-</div>
-
-<div class="form-group">
-    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
-    <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <div class="form-group">
+            <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+            <a class="btn btn-primary ml-1" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        </div>
+    </main>
 </div>

@@ -4,68 +4,72 @@
     ViewData["Title"] = "Edit Car";
 }
 
-<h1>Edit Car</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Edit Car</h1>
 
-<hr />
+        <hr />
+
+        <form asp-action="Edit">
+            <div class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="InsurancePolicyId" />
+
+                    <div class="form-group">
+                        <label asp-for="Manu" class="control-label"></label>*
+                        <input asp-for="Manu" class="form-control" />
+                        <span asp-validation-for="Manu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Model" class="control-label"></label>*
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label asp-for="Color" class="control-label"></label>*
+                        <input asp-for="Color" class="form-control" />
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="LicensePlate" class="control-label"></label>*
+                        <input asp-for="LicensePlate" class="form-control" />
+                        <span asp-validation-for="LicensePlate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label asp-for="DriverIds" class="control-label"></label>
+                        <select asp-for="DriverIds" asp-items="@Model.DriverSelectList" class="form-control">
+                        </select>
+                        <span asp-validation-for="DriverIds" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                        <label asp-for="InsuranceId" class="control-label"></label>
+                        <select asp-for="InsuranceId" asp-items="@Model.InsuranceSelectList" class="form-control">
+                            <option value="0">- Please select an Insurance  -</option>
+                        </select>
+                        <span asp-validation-for="InsuranceId" class="text-danger"></span>
+                    </div>*@
+                </div>
 
 
-<form asp-action="Edit">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="InsurancePolicyId" />
-
-            <div class="form-group">
-                <label asp-for="Manu" class="control-label"></label>*
-                <input asp-for="Manu" class="form-control" />
-                <span asp-validation-for="Manu" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>*
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
+            <div class="form-group float-right">
+                <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </div>
-        <div class="col-md-4">
+        </form>
+    </main>
+</div>
 
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>*
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="LicensePlate" class="control-label"></label>*
-                <input asp-for="LicensePlate" class="form-control" />
-                <span asp-validation-for="LicensePlate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-
-            <div class="form-group">
-                <label asp-for="DriverIds" class="control-label"></label>
-                <select asp-for="DriverIds" asp-items="@Model.DriverSelectList" class="form-control">
-                </select>
-                <span asp-validation-for="DriverIds" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="InsuranceId" class="control-label"></label>
-                <select asp-for="InsuranceId" asp-items="@Model.InsuranceSelectList" class="form-control">
-                    <option value="0">- Please select an Insurance  -</option>
-                </select>
-                <span asp-validation-for="InsuranceId" class="text-danger"></span>
-            </div>*@
-        </div>
-
-
-    </div>
-    <div class="form-group float-right">
-        <a class="btn btn-secondary ml-1" asp-action="Index">Cancel</a>
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
-</form>
 
 
 

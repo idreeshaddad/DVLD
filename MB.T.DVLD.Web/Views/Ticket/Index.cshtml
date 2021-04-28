@@ -4,147 +4,151 @@
     ViewData["Title"] = "Create new tickets";
 }
 
-<h1>Tickets</h1>
+<div class="container-fluid">
+    <main role="main" class="pb-3">
+        <h1>Tickets</h1>
 
-<p>
-    <a asp-action="Create">Create new ticket</a>
-</p>
-<table class="datatable table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IssueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Driver)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car.LicensePlate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reason)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-            <th>
+        <p>
+            <a asp-action="Create">Create new ticket</a>
+        </p>
+        <table class="datatable table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IssueDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Driver)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Car.LicensePlate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paid)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Model)
+                {
+                    <tr>
+                        <td>
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ticket in Model)
-        {
-            <tr>
-                <td>
+                            @ticket.IssueDate.ToString("dddd, dd MMMM yyyy HH:mm")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ticket.Driver.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ticket.Reason)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ticket.Amount)
+                        </td>
+                        <td>
+                            @if (ticket.Paid)
+                            {
+                                <i class="fas fa-check-circle text-success" data-toggle="tooltip" title="Paid on: @ticket.PaymentDate.ToLongDateString()"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times-circle text-danger" data-toggle="tooltip" title="Not Paid"></i>
 
-                    @ticket.IssueDate.ToString("dddd, dd MMMM yyyy HH:mm")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Driver.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Car.LicensePlate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Reason)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.Amount)
-                </td>
-                <td>
-                    @if (ticket.Paid)
-                    {
-                        <i class="fas fa-check-circle text-success" data-toggle="tooltip" title="Paid on: @ticket.PaymentDate.ToLongDateString()"></i>
-                    }
-                    else
-                    {
-                        <i class="fas fa-times-circle text-danger" data-toggle="tooltip" title="Not Paid"></i>
+                            }
+                        </td>
+                        <td>
+                            <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@ticket.Id"></a>
 
-                    }
-                </td>
-                <td>
-                    <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@ticket.Id"></a>
-
-                    <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@ticket.Id"></a>
+                            <a class="fas fa-pencil-alt mr-1" data-toggle="tooltip" title="Edit" asp-action="Edit" asp-route-id="@ticket.Id"></a>
 
 
-                    <span data-toggle="tooltip" title="Delete">
-                        <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
-                    </span>
-                    <!-- Delete Ticket Modal -->
-                    <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="deleteModalLabel_@ticket.Id">Delete Ticket?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
+                            <span data-toggle="tooltip" title="Delete">
+                                <i class="fas fa-trash mr-1 pointer" data-toggle="modal" data-target="#deleteModal_@ticket.Id"></i>
+                            </span>
+                            <!-- Delete Ticket Modal -->
+                            <div class="modal fade" id="deleteModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="deleteModalLabel_@ticket.Id">Delete Ticket?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
 
-                                    <h4 class="text-danger">Are you sure you want to delete ?</h4>
-                                    <div>
-                                        <dl class="row">
-                                            <dt class="col-sm-4 my-2">Ticket Id :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@ticket.Id</dd>
-                                            <dt class="col-sm-4 my-2">Driver Name :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@ticket.Driver.FullName</dd>
-                                            <dt class="col-sm-4 my-2">Issue Time :</dt>
-                                            <dd class="col-sm-8 my-2 text-danger">@ticket.IssueDate</dd>
-                                        </dl>
+                                            <h4 class="text-danger">Are you sure you want to delete ?</h4>
+                                            <div>
+                                                <dl class="row">
+                                                    <dt class="col-sm-4 my-2">Ticket Id :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@ticket.Id</dd>
+                                                    <dt class="col-sm-4 my-2">Driver Name :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@ticket.Driver.FullName</dd>
+                                                    <dt class="col-sm-4 my-2">Issue Time :</dt>
+                                                    <dd class="col-sm-8 my-2 text-danger">@ticket.IssueDate</dd>
+                                                </dl>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form asp-action="Delete">
+                                                <input type="hidden" value="@ticket.Id" name="id" />
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Delete" class="btn btn-danger ml-1" />
+                                            </form>
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <form asp-action="Delete">
-                                        <input type="hidden" value="@ticket.Id" name="id" />
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Delete" class="btn btn-danger ml-1" />
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
 
-                    @if (ticket.Paid == false)
-                    {
-                        <span data-toggle="tooltip" title="Pay Ticket">
-                            <i class="fab fa-paypal pointer" data-toggle="modal" data-target="#payTicketModal_@ticket.Id"></i>
-                        </span>
-                    }
-                    <!-- Pay Ticket Modal -->
-                    <div class="modal fade" id="payTicketModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="payTicketModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="payTicketModalLabel_@ticket.Id">pay Ticket?</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                        <h4 class="text-danger mb-5">Are you sure you want to pay this ticket?</h4>
+                            @if (ticket.Paid == false)
+                            {
+                                <span data-toggle="tooltip" title="Pay Ticket">
+                                    <i class="fab fa-paypal pointer" data-toggle="modal" data-target="#payTicketModal_@ticket.Id"></i>
+                                </span>
+                            }
+                            <!-- Pay Ticket Modal -->
+                            <div class="modal fade" id="payTicketModal_@ticket.Id" tabindex="-1" role="dialog" aria-labelledby="payTicketModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="payTicketModalLabel_@ticket.Id">pay Ticket?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-danger mb-5">Are you sure you want to pay this ticket?</h4>
 
-                                        <h6>Your Credit Card info won't be needed</h6>
-                                </div>
-                                <div class="modal-footer">
-                                    <form asp-action="PayTicket">
-                                        <input type="hidden" value="@ticket.Id" name="ticketId" />
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                        <input type="submit" value="Yes" class="btn btn-primary ml-1" />
-                                    </form>
+                                            <h6>Your Credit Card info won't be needed</h6>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form asp-action="PayTicket">
+                                                <input type="hidden" value="@ticket.Id" name="ticketId" />
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <input type="submit" value="Yes" class="btn btn-primary ml-1" />
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</div>
