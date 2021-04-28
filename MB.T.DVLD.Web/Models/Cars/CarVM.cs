@@ -1,6 +1,4 @@
-﻿using MB.T.DVLD.Entities;
-using MB.T.DVLD.Web.Models.Driver;
-using MB.T.DVLD.Web.Models.InsuranceCompanies;
+﻿using MB.T.DVLD.Web.Models.Driver;
 using MB.T.DVLD.Web.Models.InsurancePolicy;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +7,11 @@ namespace MB.T.DVLD.Web.Models.Car
 {
     public class CarVM
     {
+        public CarVM()
+        {
+            Drivers = new List<DriverVM>();
+        }
+
         public int Id { get; set; }
 
         [Required]
