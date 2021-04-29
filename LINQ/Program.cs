@@ -8,32 +8,15 @@ namespace LINQ
     {
         static void Main(string[] args)
         {
-            var employees = GetListOfEmployees();
+            var zarqaEmployees = GetZarqaEmployees().Where(emp => emp.Id > 45).ToList();
 
-            Console.Write("Enter the employee file ID you want to get? ");
-            var inputEmpId = Convert.ToInt32(Console.ReadLine());
-
-            var emp = employees.Where(emp => emp.Id == inputEmpId).SingleOrDefault();
-
-            if (emp != null)
-            {
-                Console.WriteLine($"Id: {emp.Id}, Name: {emp.FirstName} {emp.LastName}, DOB: {emp.DateOfBirth}");
-            }
-            else
-            {
-                Console.WriteLine($"No employee file with id {inputEmpId} is found!");
-            }
+            zarqaEmployees.ForEach(emp => {
+                Console.WriteLine(emp.FirstName);
+            });
         }
 
 
-
-
-
-
-
-
-
-        private static List<Employee> GetListOfEmployees()
+        private static List<Employee> GetZarqaEmployees()
         {
             List<Employee> employees = new List<Employee>();
 
@@ -66,6 +49,45 @@ namespace LINQ
                 Id = 22,
                 FirstName = "Sameer",
                 LastName = "Abu Laila",
+                DateOfBirth = new DateTime(1979, 7, 19)
+            });
+
+            return employees;
+        }
+
+        private static List<Employee> GetNewYorkEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+
+            employees.Add(new Employee()
+            {
+                Id = 45,
+                FirstName = "Micheal",
+                LastName = "Jackson",
+                DateOfBirth = new DateTime(1971, 8, 12)
+            });
+
+            employees.Add(new Employee()
+            {
+                Id = 107,
+                FirstName = "Adam",
+                LastName = "Zamitoni",
+                DateOfBirth = new DateTime(2005, 2, 17)
+            });
+
+            employees.Add(new Employee()
+            {
+                Id = 123,
+                FirstName = "Young",
+                LastName = "Wii",
+                DateOfBirth = new DateTime(2014, 12, 31)
+            });
+
+            employees.Add(new Employee()
+            {
+                Id = 22,
+                FirstName = "John",
+                LastName = "Doe",
                 DateOfBirth = new DateTime(1979, 7, 19)
             });
 
