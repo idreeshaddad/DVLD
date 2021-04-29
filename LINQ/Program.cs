@@ -10,16 +10,19 @@ namespace LINQ
         {
             var employees = GetListOfEmployees();
 
-            var filteredEmployees = employees.Where(emp => emp.Id > 1);
+            Console.Write("Enter the employee file ID you want to get? ");
+            var inputEmpId = Convert.ToInt32(Console.ReadLine());
 
-            foreach (var emp in filteredEmployees)
+            var emp = employees.Where(emp => emp.Id == inputEmpId).SingleOrDefault();
+
+            if (emp != null)
             {
                 Console.WriteLine($"Id: {emp.Id}, Name: {emp.FirstName} {emp.LastName}, DOB: {emp.DateOfBirth}");
             }
-
-            Console.WriteLine($"The count of employees list is: {employees.Count()}");
-
-            Console.WriteLine($"The count of filteredEmployees list is: {filteredEmployees.Count()}");
+            else
+            {
+                Console.WriteLine($"No employee file with id {inputEmpId} is found!");
+            }
         }
 
 
@@ -36,7 +39,7 @@ namespace LINQ
 
             employees.Add(new Employee()
             {
-                Id = 1,
+                Id = 45,
                 FirstName = "Ali",
                 LastName = "Al-Akhdar",
                 DateOfBirth = new DateTime(2004, 8, 12)
@@ -44,7 +47,7 @@ namespace LINQ
 
             employees.Add(new Employee()
             {
-                Id = 2,
+                Id = 107,
                 FirstName = "Mohammad",
                 LastName = "Saleem",
                 DateOfBirth = new DateTime(2005, 2, 17)
@@ -52,7 +55,7 @@ namespace LINQ
 
             employees.Add(new Employee()
             {
-                Id = 3,
+                Id = 123,
                 FirstName = "Anas",
                 LastName = "Blue Cheese",
                 DateOfBirth = new DateTime(2014, 12, 31)
@@ -60,7 +63,7 @@ namespace LINQ
 
             employees.Add(new Employee()
             {
-                Id = 4,
+                Id = 22,
                 FirstName = "Sameer",
                 LastName = "Abu Laila",
                 DateOfBirth = new DateTime(1979, 7, 19)
