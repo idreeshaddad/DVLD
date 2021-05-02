@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.T.DVLD.Web", "MB.T.DVLD.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Learning", "Learning", "{CDBD4F0A-A4D2-40B3-9ED0-2BB5AC0AF405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ\LINQ.csproj", "{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ", "LINQ\LINQ.csproj", "{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore-LINQ", "EFCore-LINQ\EFCore-LINQ.csproj", "{0EB5975F-4756-45B5-AF32-BC0A9C9F3977}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB5975F-4756-45B5-AF32-BC0A9C9F3977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB5975F-4756-45B5-AF32-BC0A9C9F3977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB5975F-4756-45B5-AF32-BC0A9C9F3977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB5975F-4756-45B5-AF32-BC0A9C9F3977}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1D422DE8-EBBF-41E4-8E92-CBA91C1B7AA5} = {CDBD4F0A-A4D2-40B3-9ED0-2BB5AC0AF405}
+		{0EB5975F-4756-45B5-AF32-BC0A9C9F3977} = {CDBD4F0A-A4D2-40B3-9ED0-2BB5AC0AF405}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBA4F150-8868-4DEE-A7D2-8E3F98271EC3}
