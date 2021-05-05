@@ -1,0 +1,47 @@
+﻿/*#region Colors */
+
+.bg-purple {
+    background-color: #6B53FF !important;
+}
+
+.text-purple {
+    color: #6B53FF !important;
+}
+
+/*#endregion */
+
+/*#region Utilities */
+
+
+/*#endregion */
+
+/*#region Header */
+a.navbar-brand {
+    color: #fff;
+    font-size: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+header .nav-link {
+    color: #fff;
+}
+
+/*#endregion */
+
+/*#region Home Page */
+
+.home-intro {
+    color: #fff;
+    background-color: #6B53FF !important;
+    padding: 80px 0 60px;
+}
+
+.home-intro .search-row {
+    text-align:  center;
+}
+
+/*#endregion */
+
+
+

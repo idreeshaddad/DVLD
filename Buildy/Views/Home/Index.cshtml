@@ -2,7 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="home-intro">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h2>Your Dream is here</h2>
+                <h1>We Make Buildings</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Vestibulum vehicula nisi eu finibus finibus. 
+                    In hac habitasse platea dictumst.
+                </p>
+                <a href="#" class="btn btn-light text-purple">Read more</a>
+            </div>
+            <div class="col-md-6">
+                <iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/sNKKlO17ynk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="row search-row">
+            <div class="col-md-8 offset-2">
+                <select class="custom-select w-auto mr-3">
+                    <option selected>Please select a property type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+                <select class="custom-select w-auto mr-3">
+                    <option selected>Please select a city</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+                <button class="btn btn-light">Search</button>
+            </div>
+        </div>
+    </div>
 </div>
