@@ -1,6 +1,8 @@
 ﻿using EFCore_LINQ.Data;
 using EFCore_LINQ.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EFCore_LINQ
@@ -12,8 +14,87 @@ namespace EFCore_LINQ
             //CreateStudentAnas();
             //CreateMathCourse_WithStudentEntity();
             //CreateMathCourse_WithStudentId();
-            
-            // TODO change Student(N) - Course (N)
+
+            // TODO change Student(N) - Course(N)
+            //CreateTwoCourses_AddTwoStudentsToAllCourses();
+
+            PrintStudentsAndTheirCourses();
+        }
+
+        private static void PrintStudentsAndTheirCourses()
+        {
+            List<Student> students = new List<Student>();
+
+            using (var context = new SchoolContext())
+            {
+                students = context
+                                    .Students
+                                    .Include(stu => stu.Courses)
+                                    .ToList();
+            }
+
+            foreach (var student in students)
+            {
+                Console.Write($"Student: {student.Name}, Course: ");
+
+                if (student.Courses.Count > 0)
+                {
+                    for (int i = 0; i < student.Courses.Count(); i++)
+                    {
+                        Console.Write($"{student.Courses[i].Name}");
+
+                        // Show the comma after every course name BUT the last one
+                        if(i+1 < student.Courses.Count)
+                        {
+                            Console.Write(", ");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.Write("Student is not enrolled in any courses.");
+                }
+
+                Console.WriteLine(Environment.NewLine);
+            }
+        }
+
+        private static void CreateTwoCourses_AddTwoStudentsToAllCourses()
+        {
+            var courseMaths = new Course()
+            {
+                Name = "Maths",
+                Code = "104"
+            };
+            var courseBiology = new Course()
+            {
+                Name = "Biology",
+                Code = "852"
+            };
+
+            var stuAnasJaffal = new Student()
+            {
+                Name = "Anas Jaffal",
+                DateOfBirth = new DateTime(1998, 8, 17),
+            };
+            stuAnasJaffal.Courses.Add(courseMaths);
+            stuAnasJaffal.Courses.Add(courseBiology);
+
+            var stuHamzaXaixo = new Student()
+            {
+                Name = "Hamza Xaixo",
+                DateOfBirth = new DateTime(1998, 8, 17)
+            };
+            stuHamzaXaixo.Courses.Add(courseMaths);
+            stuHamzaXaixo.Courses.Add(courseBiology);
+
+            using (var context = new SchoolContext())
+            {
+                context.Students.Add(stuAnasJaffal);
+                context.Students.Add(stuHamzaXaixo);
+                context.SaveChanges();
+            }
+
         }
 
         private static void CreateMathCourse_WithStudentId()
@@ -23,8 +104,7 @@ namespace EFCore_LINQ
                 var mathCourse = new Course()
                 {
                     Name = "Maths for Kids",
-                    Code = "258962",
-                    StudentId = 1
+                    Code = "258962"
                 };
 
                 context.Courses.Add(mathCourse);
@@ -44,8 +124,7 @@ namespace EFCore_LINQ
                 var mathCourse = new Course()
                 {
                     Name = "Maths for Kids",
-                    Code = "258962",
-                    Student = studentAnas
+                    Code = "258962"
                 };
 
                 context.Courses.Add(mathCourse);
