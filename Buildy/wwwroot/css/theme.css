@@ -70,10 +70,39 @@ header .nav-link {
     padding: 60px 0;
 }
 
-    .paid-posts .sub-title{
+    .paid-posts .sub-title {
         padding: 0 10rem;
         text-align: center;
     }
+
+.name-card .img {
+    float: left;
+    width: 64px;
+    margin-right: 14px;
+}
+
+.name-card .info {
+    padding-top: 3px;
+}
+
+.counters {
+    background-color: #F4F4F4;
+    padding: 60px 0;
+}
+
+    .counters .info .fas {
+        float: left;
+        margin-right: 18px;
+        font-size: 84px;
+    }
+
+    .counters .info .num {
+        font-size: 32px;
+        font-weight: bold;
+        color: #6B53FF;
+    }
+
+
 
 /*#endregion */
 
