@@ -1,5 +1,19 @@
 {
   "version": "1.0",
   "defaultProvider": "jsdelivr",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "slick-carousel@1.8.1",
+      "destination": "wwwroot/lib/slick-carousel/",
+      "files": [
+        "slick/slick-theme.min.css",
+        "slick/fonts/slick.eot",
+        "slick/fonts/slick.svg",
+        "slick/fonts/slick.ttf",
+        "slick/fonts/slick.woff",
+        "slick/slick.min.css",
+        "slick/slick.min.js"
+      ]
+    }
+  ]
 }
