@@ -21,6 +21,10 @@ a {
 
 /*#region Utilities */
 
+.hide {
+    display: none;
+}
+
 .px-10 {
     padding: 0 10rem !important;
 }
@@ -108,23 +112,13 @@ header .nav-link {
 .img-wrap {
     position: relative;
     color: #fff;
-    text-align: center;
 }
 
     .img-wrap .info {
-        display: none;
         position: absolute;
-        top: 0;
-        left: 0;
         bottom: 0;
-        right: 0;
-        background-color: rgba(0,0,0,0.5);
-        padding: 18% 0 0;
+        padding: 0 14px;
     }
-
-        .img-wrap:hover .info {
-            display: block;
-        }
 
         .img-wrap .info .ico-box {
             width: 34px;
