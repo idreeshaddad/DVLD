@@ -136,6 +136,28 @@ header .nav-link {
 
 
 
+#scrollToTop {
+    display: none;
+    position: fixed;
+    bottom: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    background-color: #6B53FF;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 4px #9f9a9a;
+    cursor: pointer;
+    opacity: 0.76;
+    z-index: 9;
+}
+
+    #scrollToTop:hover {
+        opacity: 1;
+    }
+
 /*#endregion */
 
 
