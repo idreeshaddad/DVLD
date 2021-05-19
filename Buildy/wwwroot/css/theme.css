@@ -198,6 +198,12 @@ header .nav-link {
         opacity: 1;
     }
 
+.footer {
+    background-color: #6B53FF;
+    padding: 60px 0 0;
+    color: #fff;
+}
+
 
 /*#endregion */
 

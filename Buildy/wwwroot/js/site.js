@@ -42,7 +42,6 @@ $(function () {
 
     // Start Testimonials slider
     $("#testimonialsSlider").slick({
-        arrows: true,
-        dots: true
+        arrows: true
     });
 });
