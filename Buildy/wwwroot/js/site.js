@@ -41,5 +41,8 @@ $(function () {
     });
 
     // Start Testimonials slider
-    $("#testimonialsSlider").slick();
+    $("#testimonialsSlider").slick({
+        arrows: true,
+        dots: true
+    });
 });

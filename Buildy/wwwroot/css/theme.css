@@ -46,8 +46,48 @@ header .nav-link {
 
 /*#endregion */
 
-/*#region Pages */
+/*#region Custom Slick Slider */
 
+.custom-slick .qoute {
+    padding: 3rem;
+    background-color: #ebebeb;
+}
+
+    .custom-slick .qoute i {
+        font-size: 24px;
+        display: block;
+        color: #6B53FF;
+    }
+
+    .custom-slick .qoute .txt {
+        margin-left: 2.5rem;
+    }
+
+.custom-slick .person {
+    text-align: center;
+    padding-top: 25px;
+}
+
+    .custom-slick .person .img {
+        border-radius: 50%;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .custom-slick .person .name {
+        color: #6B53FF;
+        font-size: 18px;
+        line-height: 10px;
+        font-weight: bold;
+    }
+
+    .custom-slick .person .desc {
+        font-size: 16px;
+    }
+
+/*#endregion */
+
+/*#region Pages */
 .home-intro {
     color: #fff;
     background-color: #6B53FF;
@@ -158,7 +198,9 @@ header .nav-link {
         opacity: 1;
     }
 
+
 /*#endregion */
+
 
 
 

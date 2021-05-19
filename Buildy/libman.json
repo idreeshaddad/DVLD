@@ -6,11 +6,15 @@
       "library": "slick-carousel@1.8.1",
       "destination": "wwwroot/lib/slick-carousel/",
       "files": [
-        "slick/slick-theme.min.css",
+        "slick/ajax-loader.gif",
         "slick/fonts/slick.eot",
         "slick/fonts/slick.svg",
         "slick/fonts/slick.ttf",
         "slick/fonts/slick.woff",
+        "slick/slick-theme.min.css",
+        "slick/slick-theme.css",
+        "slick/slick.css",
+        "slick/slick.js",
         "slick/slick.min.css",
         "slick/slick.min.js"
       ]
