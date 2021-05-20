@@ -29,6 +29,10 @@ a {
     padding: 0 10rem !important;
 }
 
+.btn-primary {
+    background-color: #6B53FF !important;
+}
+
 /*#endregion */
 
 /*#region Header */
@@ -200,9 +204,59 @@ header .nav-link {
 
 .footer {
     background-color: #6B53FF;
-    padding: 60px 0 0;
+    padding: 60px 0 40px;
     color: #fff;
+    font-size: 18px;
 }
+
+    .footer a {
+        color: #fff;
+    }
+
+    .footer .social-icons {
+        text-align: right;
+    }
+
+        .footer .social-icons a {
+            margin-left: 20px;
+            color: #fff;
+            opacity: 0.8;
+        }
+
+            .footer .social-icons a:hover {
+                opacity: 1;
+            }
+
+    .footer .subscription {
+        border: 2px solid #fff;
+        padding: 28px;
+        border-radius: 4px;
+    }
+
+        .footer .subscription .txt-box {
+            font-size: 25px;
+        }
+
+        .footer .subscription .subscribe {
+            background-color: #fff;
+            color: #6B53FF !important;
+            width: 100%;
+            font-size: 24px;
+        }
+
+.popular-posts .post {
+    margin-bottom: 2rem;
+}
+
+    .popular-posts .post .img {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .popular-posts .post .info {
+        padding: 20px;
+    }
+
 
 
 /*#endregion */

@@ -7,10 +7,7 @@ $(function () {
 
     $("#viewAllProjects").on("click", function () {
 
-        $(".more-project").slideDown(400, "swing", function () {
-            var distanceFromTopPlusProjects = $(document).height() + 580;
-            $('html, body').animate({ scrollTop: distanceFromTopPlusProjects }, 400);
-        });
+        $(".more-project").slideDown();
 
         $(this).hide();
         $("#viewLessProjects").show();
