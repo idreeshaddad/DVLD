@@ -22,7 +22,5 @@ namespace Buildy.Data.Entities
         }
 
         public DateTime DateOfBirth { get; set; }
-
-
     }
 }

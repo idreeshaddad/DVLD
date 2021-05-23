@@ -41,4 +41,7 @@ $(function () {
     $("#testimonialsSlider").slick({
         arrows: true
     });
+
+    // Initiate DataTables
+    $('.table').DataTable();
 });

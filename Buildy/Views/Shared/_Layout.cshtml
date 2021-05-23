@@ -10,6 +10,7 @@
     <link href="~/lib/zoomjs/zoom.css" rel="stylesheet" />
     <link href="~/lib/slick-carousel/slick/slick.min.css" rel="stylesheet" />
     <link href="~/lib/slick-carousel/slick/slick-theme.min.css" rel="stylesheet" />
+    <link href="~/lib/datatables/datatables.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/theme.css" rel="stylesheet" />
@@ -29,7 +30,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -141,6 +142,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/zoomjs/zoom.min.js"></script>
     <script src="~/lib/slick-carousel/slick/slick.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

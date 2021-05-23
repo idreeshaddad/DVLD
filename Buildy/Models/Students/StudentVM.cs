@@ -1,17 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace Buildy.Data.Entities
+namespace Buildy.Models.Students
 {
     public class StudentVM
     {
         public int Id { get; set; }
+
+        [Required]
+        [MinLength(3)]
+        [MaxLength(12)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Full Name")]
         public string Fullname
         {
             get
@@ -20,6 +26,7 @@ namespace Buildy.Data.Entities
             }
         }
 
+        [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
     }
 }
