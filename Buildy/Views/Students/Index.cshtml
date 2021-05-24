@@ -4,13 +4,21 @@
     ViewData["Title"] = "Students";
 }
 
+@section Scripts {
+    <script>
+        $(function () {
+            $('#studentsTable').DataTable();
+        })
+    </script>
+}
+
 <div class="container my-5">
     <h1>Students</h1>
 
     <p>
         <a asp-action="Create">Create New Student</a>
     </p>
-    <table class="table">
+    <table id="studentsTable" class="table">
         <thead>
             <tr>
                 <th>

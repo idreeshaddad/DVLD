@@ -1,7 +1,15 @@
-﻿@model Buildy.Data.Entities.Student
+﻿@model Buildy.Models.Students.StudentVM
 
 @{
     ViewData["Title"] = "Student Details";
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#studentDetailsTable').DataTable();
+        })
+    </script>
 }
 
 <div class="container my-5">
@@ -10,26 +18,55 @@
     <div>
         <h4>Student</h4>
         <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FirstName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FirstName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.LastName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.LastName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateOfBirth)
-            </dd>
-        </dl>
+
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DateOfBirth)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <table id="studentDetailsTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var exam in Model.ExamPapers)
+                        {
+                            <tr>
+                                <td>@exam.Id</td>
+                                <td>@exam.Name</td>
+                                <td>@exam.Grade</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
     <div>
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

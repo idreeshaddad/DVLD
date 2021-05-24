@@ -48,14 +48,18 @@ namespace Buildy.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _context
+                                    .Students
+                                    .Include(student => student.ExamPapers)
+                                    .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            var studentVM = _mapper.Map<Student, StudentVM>(student);
+
+            return View(studentVM);
         }
 
         public IActionResult Create()
@@ -177,18 +181,9 @@ namespace Buildy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = _context
-                                .Students
-                                .Include(student => student.ExamPapers)
-                                .Where(student => student.Id == examPaperVM.StudentId)
-                                .Single();
-
                 var examPaper = _mapper.Map<ExamPaperVM, ExamPaper>(examPaperVM);
 
-                student.ExamPapers.Add(examPaper);
-
-
-                _context.Update(student);
+                _context.Update(examPaper);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
