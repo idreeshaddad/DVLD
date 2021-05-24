@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Buildy.Models.Students;
+using Buildy.Models.Exams;
 
 namespace Buildy.Controllers
 {
@@ -155,6 +156,45 @@ namespace Buildy.Controllers
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> AddExamPaper(int studentId)
+        {
+            var examPaperVM = new ExamPaperVM();
+            examPaperVM.StudentId = studentId;
+
+            examPaperVM.StudentName = await _context
+                                        .Students
+                                        .Where(student => student.Id == studentId)
+                                        .Select(student => student.FullName)
+                                        .SingleAsync();
+
+            return View(examPaperVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExamPaper(ExamPaperVM examPaperVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = _context
+                                .Students
+                                .Include(student => student.ExamPapers)
+                                .Where(student => student.Id == examPaperVM.StudentId)
+                                .Single();
+
+                var examPaper = _mapper.Map<ExamPaperVM, ExamPaper>(examPaperVM);
+
+                student.ExamPapers.Add(examPaper);
+
+
+                _context.Update(student);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(examPaperVM);
         }
 
         #endregion

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Buildy.Models.Exams;
 
 namespace Buildy.Data
 {
@@ -15,5 +16,6 @@ namespace Buildy.Data
             : base(options)
         {
         }
+        public DbSet<Buildy.Models.Exams.ExamPaperVM> ExamPaperVM { get; set; }
     }
 }
