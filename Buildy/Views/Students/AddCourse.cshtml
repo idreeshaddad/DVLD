@@ -1,0 +1,40 @@
+﻿@model Buildy.Models.Courses.CourseVM
+
+@{
+    ViewData["Title"] = "Add Course";
+}
+
+<div class="container my-5">
+    <h1>Add Course</h1>
+
+    <h4>Student: @Model.StudentName</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddCourse">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <select asp-for="Name" asp-items="@Model.CourseSelectList" class="form-control"></select>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" value="@Model.StudentId" name="StudentId" />
+
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

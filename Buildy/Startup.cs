@@ -1,4 +1,5 @@
 using Buildy.Data;
+using Buildy.Helper.LookupService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,8 @@ namespace Buildy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ILookupService, LookupService>();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<ApplicationDbContext>(options =>

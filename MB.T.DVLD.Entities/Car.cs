@@ -18,5 +18,6 @@ namespace MB.T.DVLD.Entities
 
         public int? InsurancePolicyId { get; set; }
         public virtual InsurancePolicy InsurancePolicy { get; set; }
+        public List<Ticket> Tickets { get; set; }
     }
 }

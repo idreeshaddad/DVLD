@@ -9,6 +9,7 @@ namespace Buildy.Data.Entities
         public Student()
         {
             ExamPapers = new List<ExamPaper>();
+            Courses = new List<Course>();
         }
 
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace Buildy.Data.Entities
         public DateTime DateOfBirth { get; set; }
 
         public List<ExamPaper> ExamPapers  { get; set; }
+
+        public List<Course> Courses { get; set; }
     }
 }

@@ -9,29 +9,34 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Buildy.Models.Students;
 using Buildy.Models.Exams;
+using Buildy.Models.Courses;
+using Buildy.Helper.LookupService;
 
 namespace Buildy.Controllers
 {
     public class StudentsController : Controller
     {
-        #region Data and Const
+        #region Data and Constructors
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<StudentsController> _logger;
+        private readonly ILookupService _lookupService;
 
         public StudentsController(ApplicationDbContext context,
                                   IMapper mapper,
-                                  ILogger<StudentsController> logger)
+                                  ILogger<StudentsController> logger,
+                                  ILookupService lookupService)
         {
             _context = context;
             _mapper = mapper;
             _logger = logger;
+            _lookupService = lookupService;
         }
 
         #endregion
 
-        #region Services
+        #region Actions
 
         public async Task<IActionResult> Index()
         {
@@ -191,6 +196,25 @@ namespace Buildy.Controllers
 
             return View(examPaperVM);
         }
+
+        public async Task<IActionResult> AddCourse(int studentId)
+        {
+            var courseVM = new CourseVM();
+            courseVM.StudentId = studentId;
+
+            courseVM.StudentName = await _context
+                                        .Students
+                                        .Where(student => student.Id == studentId)
+                                        .Select(student => student.FullName)
+                                        .SingleAsync();
+
+            courseVM.CourseSelectList = await _lookupService.GetCourseSelectList();
+
+
+            return View(courseVM);
+        }
+
+        // TODO: AddCourses HttpPost
 
         #endregion
 
