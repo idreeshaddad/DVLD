@@ -214,7 +214,24 @@ namespace Buildy.Controllers
             return View(courseVM);
         }
 
-        // TODO: AddCourses HttpPost
+        [HttpPost]
+        public async Task<IActionResult> AddCourse(CourseVM courseVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var course = await _context.Course.FindAsync(courseVM.Id);
+                var student = await _context.Students.FindAsync(courseVM.StudentId);
+
+                course.Students.Add(student);
+
+                _context.Update(course);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(courseVM);
+        }
 
         #endregion
 
