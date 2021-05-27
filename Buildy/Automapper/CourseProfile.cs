@@ -8,6 +8,7 @@ namespace Buildy.Automapper
     {
         public CourseProfile()
         {
+            CreateMap<Course, CreateUpdateCourseVM>().ReverseMap();
             CreateMap<Course, CourseVM>().ReverseMap();
         }
     }

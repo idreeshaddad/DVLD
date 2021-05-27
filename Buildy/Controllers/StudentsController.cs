@@ -56,6 +56,7 @@ namespace Buildy.Controllers
             var student = await _context
                                     .Students
                                     .Include(student => student.ExamPapers)
+                                    .Include(student => student.Courses)
                                     .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
@@ -199,7 +200,8 @@ namespace Buildy.Controllers
 
         public async Task<IActionResult> AddCourse(int studentId)
         {
-            var courseVM = new CourseVM();
+            var courseVM = new CreateUpdateCourseVM();
+
             courseVM.StudentId = studentId;
 
             courseVM.StudentName = await _context
@@ -215,7 +217,7 @@ namespace Buildy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCourse(CourseVM courseVM)
+        public async Task<IActionResult> AddCourse(CreateUpdateCourseVM courseVM)
         {
             if (ModelState.IsValid)
             {

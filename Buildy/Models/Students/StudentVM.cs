@@ -1,4 +1,5 @@
-﻿using Buildy.Models.Exams;
+﻿using Buildy.Models.Courses;
+using Buildy.Models.Exams;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace Buildy.Models.Students
         public StudentVM()
         {
             ExamPapers = new List<ExamPaperVM>();
+            Courses = new List<CourseVM>();
         }
 
         public int Id { get; set; }
@@ -37,5 +39,7 @@ namespace Buildy.Models.Students
         public DateTime DateOfBirth { get; set; }
 
         public List<ExamPaperVM> ExamPapers { get; set; }
+        public List<CourseVM> Courses { get; set; }
+
     }
 }
