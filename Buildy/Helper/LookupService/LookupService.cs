@@ -18,8 +18,7 @@ namespace Buildy.Helper.LookupService
             _context = context;
         }
 
-        // TODO send student ID and exclude the courses the student has already enrolled in
-        public async Task<SelectList> GetCourseSelectList(int studentId)
+        public async Task<SelectList> GetNotEnrolledInCourseSelectList(int studentId)
         {
             var student = await _context
                                  .Students.FindAsync(studentId);

@@ -210,7 +210,7 @@ namespace Buildy.Controllers
                                         .Select(student => student.FullName)
                                         .SingleAsync();
 
-            courseVM.CourseSelectList = await _lookupService.GetCourseSelectList(studentId);
+            courseVM.CourseSelectList = await _lookupService.GetNotEnrolledInCourseSelectList(studentId);
 
 
             return View(courseVM);
