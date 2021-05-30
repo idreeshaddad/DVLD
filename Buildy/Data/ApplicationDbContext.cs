@@ -13,6 +13,6 @@ namespace Buildy.Data
 
         public DbSet<Student> Students { get; set; }
         public DbSet<ExamPaper> ExamPapers { get; set; }
-        public DbSet<Course> Course { get; set; }
+        public DbSet<Course> Courses { get; set; }
     }
 }

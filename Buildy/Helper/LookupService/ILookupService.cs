@@ -5,6 +5,6 @@ namespace Buildy.Helper.LookupService
 {
     public interface ILookupService
     {
-        public Task<SelectList> GetCourseSelectList();
+        public Task<SelectList> GetCourseSelectList(int studentId);
     }
 }

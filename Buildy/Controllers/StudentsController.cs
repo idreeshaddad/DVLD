@@ -210,7 +210,7 @@ namespace Buildy.Controllers
                                         .Select(student => student.FullName)
                                         .SingleAsync();
 
-            courseVM.CourseSelectList = await _lookupService.GetCourseSelectList();
+            courseVM.CourseSelectList = await _lookupService.GetCourseSelectList(studentId);
 
 
             return View(courseVM);
@@ -221,7 +221,7 @@ namespace Buildy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var course = await _context.Course.FindAsync(courseVM.Id);
+                var course = await _context.Courses.FindAsync(courseVM.Id);
                 var student = await _context.Students.FindAsync(courseVM.StudentId);
 
                 course.Students.Add(student);

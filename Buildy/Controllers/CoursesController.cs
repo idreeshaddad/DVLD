@@ -24,7 +24,7 @@ namespace Buildy.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Course.ToListAsync());
+            return View(await _context.Courses.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +34,7 @@ namespace Buildy.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
@@ -69,7 +69,7 @@ namespace Buildy.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -116,7 +116,7 @@ namespace Buildy.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Course
+            var course = await _context.Courses
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
@@ -130,8 +130,8 @@ namespace Buildy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var course = await _context.Course.FindAsync(id);
-            _context.Course.Remove(course);
+            var course = await _context.Courses.FindAsync(id);
+            _context.Courses.Remove(course);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -142,7 +142,7 @@ namespace Buildy.Controllers
 
         private bool CourseExists(int id)
         {
-            return _context.Course.Any(e => e.Id == id);
+            return _context.Courses.Any(e => e.Id == id);
         } 
 
         #endregion

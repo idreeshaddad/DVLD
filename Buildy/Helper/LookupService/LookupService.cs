@@ -19,10 +19,14 @@ namespace Buildy.Helper.LookupService
         }
 
         // TODO send student ID and exclude the courses the student has already enrolled in
-        public async Task<SelectList> GetCourseSelectList()
+        public async Task<SelectList> GetCourseSelectList(int studentId)
         {
+            var student = await _context
+                                 .Students.FindAsync(studentId);
+
             var courses = await _context
-                            .Course
+                            .Courses
+                            .Where(course => course.Students.Contains(student) == false)
                             .Select(course => new LookupVM {
                                 Id = course.Id,
                                 Name = course.Name
