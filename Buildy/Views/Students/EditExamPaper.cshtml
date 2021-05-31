@@ -1,17 +1,17 @@
 ﻿@model Buildy.Models.Exams.ExamPaperVM
 
 @{
-    ViewData["Title"] = "Add Exam Paper";
+    ViewData["Title"] = "EditExamPaper";
 }
-
-
 <div class="container my-5">
-    <h4>Add exam paper for student @Model.StudentName</h4>
+    <h4>Edit exam paper for student @Model.StudentName</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="AddExamPaper">
+            <form asp-action="EditExamPaper">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="StudentId" />
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
@@ -28,17 +28,15 @@
                     <span asp-validation-for="GradeTop" class="text-danger"></span>
                 </div>
 
-                <input type="hidden" value="@Model.StudentId" name="StudentId" />
-
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </form>
         </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Details" asp-route-id="@Model.StudentId">Back to List</a>
     </div>
 </div>
 @section Scripts {

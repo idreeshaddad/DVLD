@@ -168,6 +168,33 @@ namespace Buildy.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> DeleteExamPaper(int? examPaperId)
+        {
+            if (examPaperId == null)
+            {
+                return NotFound();
+            }
+
+            var examPaper = await _context.ExamPapers
+                .FirstOrDefaultAsync(m => m.Id == examPaperId);
+            if (examPaper == null)
+            {
+                return NotFound();
+            }
+            var examPaperVM = _mapper.Map<ExamPaper, ExamPaperVM>(examPaper);
+            return View(examPaperVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteExamPaper(int id)
+        {
+            var examPaper = await _context.ExamPapers.FindAsync(id);
+            _context.ExamPapers.Remove(examPaper);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details),new {id = examPaper.StudentId });
+        }
+
         public async Task<IActionResult> AddExamPaper(int studentId)
         {
             var examPaperVM = new ExamPaperVM();
@@ -193,6 +220,39 @@ namespace Buildy.Controllers
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
+            }
+
+            return View(examPaperVM);
+        }
+
+        public async Task<IActionResult> EditExamPaper(int examPaperId)
+        {
+            var examPaper = await _context
+                                  .ExamPapers
+                                  .FindAsync(examPaperId);
+
+            var examPaperVM = _mapper.Map<ExamPaper, ExamPaperVM>(examPaper);
+
+            examPaperVM.StudentName = await _context
+                                        .Students
+                                        .Where(student => student.Id == examPaper.StudentId)
+                                        .Select(student => student.FullName)
+                                        .SingleAsync();
+
+            return View(examPaperVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditExamPaper(ExamPaperVM examPaperVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var examPaper = _mapper.Map<ExamPaperVM, ExamPaper>(examPaperVM);
+
+                _context.Update(examPaper);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Details", new { id = examPaper.StudentId});
             }
 
             return View(examPaperVM);

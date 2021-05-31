@@ -51,16 +51,24 @@
                             <th>Id</th>
                             <th scope="col">Name</th>
                             <th scope="col">Grade</th>
+                            <th scope="col">Grade Top</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var exam in Model.ExamPapers)
                         {
-                            <tr>
-                                <td>@exam.Id</td>
-                                <td>@exam.Name</td>
-                                <td>@exam.Grade</td>
-                            </tr>
+                        <tr>
+                            <td>@exam.Id</td>
+                            <td>@exam.Name</td>
+                            <td>@exam.Grade</td>
+                            <td>@exam.GradeTop</td>
+                            <td>
+                                <a asp-action="EditExamPaper" asp-route-examPaperId="@exam.Id">Edit</a>
+                                <a asp-action="DeleteExamPaper" asp-route-examPaperId="@exam.Id">Delete</a>
+                            </td>
+
+                        </tr>
                         }
 
                     </tbody>

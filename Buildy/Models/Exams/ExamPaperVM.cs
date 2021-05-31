@@ -12,6 +12,9 @@ namespace Buildy.Models.Exams
         [Required]
         public int Grade { get; set; }
 
+        [Required]
+        public int GradeTop { get; set; }
+
         public int StudentId { get; set; }
         public string StudentName { get; set; }
     }

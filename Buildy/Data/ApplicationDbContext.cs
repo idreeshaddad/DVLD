@@ -1,6 +1,7 @@
 ﻿using Buildy.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Buildy.Models.Exams;
 
 namespace Buildy.Data
 {
