@@ -31,7 +31,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Department)
                     </th>
-                    <th></th>
+                    <th>
+                        Cars
+                    </th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +55,16 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => officer.Department.Name)
+                        </td>
+                        <td>
+                            @foreach (var policeCar in officer.PoliceCars)
+                            {
+
+                                @policeCar.Manu <span>-</span>
+                                @policeCar.Model <span>-</span>
+                                @policeCar.CarNumber
+                                <br />
+                            }
                         </td>
                         <td>
                             <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@officer.Id"></a>
