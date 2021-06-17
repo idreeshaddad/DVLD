@@ -18,7 +18,49 @@ namespace EFCore_LINQ
             // TODO change Student(N) - Course(N)
             //CreateTwoCourses_AddTwoStudentsToAllCourses();
 
-            PrintStudentsAndTheirCourses();
+            //PrintStudentsAndTheirCourses();
+
+            //DoesAStudentWithNameAnasExist();
+
+            PrintAllStudentsThatStartWithSameer();
+        }
+
+        private static void PrintAllStudentsThatStartWithSameer()
+        {
+            Console.Write("Enter name to search for: ");
+            var keyWord = Console.ReadLine().Trim();
+
+            using (var context = new SchoolContext())
+            {
+                var students = context
+                                .Students
+                                .Where(student => student.FirstName.Contains(keyWord))
+                                .ToList();
+
+                foreach (var student in students)
+                {
+                    Console.WriteLine($"Student Name: {student.FirstName}.");
+                }
+
+            }
+        }
+
+        private static void DoesAStudentWithNameAnasExist()
+        {
+            using (var context = new SchoolContext())
+            {
+                var doesAnasExist = context.Students.Any(student => student.FirstName == "anas");
+
+
+                if (doesAnasExist)
+                {
+                    Console.WriteLine("Anas Exists");
+                }
+                else
+                {
+                    Console.WriteLine("No Anas Here");
+                }
+            }
         }
 
         private static void PrintStudentsAndTheirCourses()
@@ -35,7 +77,7 @@ namespace EFCore_LINQ
 
             foreach (var student in students)
             {
-                Console.Write($"Student: {student.Name}, Course: ");
+                Console.Write($"Student: {student.FirstName}, Course: ");
 
                 if (student.Courses.Count > 0)
                 {
@@ -44,7 +86,7 @@ namespace EFCore_LINQ
                         Console.Write($"{student.Courses[i].Name}");
 
                         // Show the comma after every course name BUT the last one
-                        if(i+1 < student.Courses.Count)
+                        if (i + 1 < student.Courses.Count)
                         {
                             Console.Write(", ");
                         }
@@ -74,7 +116,7 @@ namespace EFCore_LINQ
 
             var stuAnasJaffal = new Student()
             {
-                Name = "Anas Jaffal",
+                FirstName = "Anas Jaffal",
                 DateOfBirth = new DateTime(1998, 8, 17),
             };
             stuAnasJaffal.Courses.Add(courseMaths);
@@ -82,7 +124,7 @@ namespace EFCore_LINQ
 
             var stuHamzaXaixo = new Student()
             {
-                Name = "Hamza Xaixo",
+                FirstName = "Hamza Xaixo",
                 DateOfBirth = new DateTime(1998, 8, 17)
             };
             stuHamzaXaixo.Courses.Add(courseMaths);
@@ -118,7 +160,7 @@ namespace EFCore_LINQ
             {
                 var studentAnas = context
                                     .Students
-                                    .Where(stu => stu.Name == "Anas")
+                                    .Where(stu => stu.FirstName == "Anas")
                                     .Single();
 
                 var mathCourse = new Course()
@@ -136,7 +178,7 @@ namespace EFCore_LINQ
         {
             var stu = new Student()
             {
-                Name = "Anas",
+                FirstName = "Anas",
                 DateOfBirth = new DateTime(2007, 9, 16)
             };
 

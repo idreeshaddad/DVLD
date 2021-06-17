@@ -37,6 +37,7 @@ namespace MB.T.DVLD.Web.Controllers
             List<Officer> officer = await _context
                                             .Officers
                                             .Include(officer => officer.Department)
+                                            .Include(officer => officer.PoliceCars)
                                             .ToListAsync();
 
             List<OfficerVM> officerVMs = _mapper.Map<List<Officer>, List<OfficerVM>>(officer);
@@ -57,7 +58,8 @@ namespace MB.T.DVLD.Web.Controllers
                                         .Officers
                                         .Include(officer => officer.Department)
                                         .Include(officer => officer.PoliceCars)
-                                        .FirstOrDefaultAsync(m => m.Id == id);
+                                        .Where(officer => officer.Id == id)
+                                        .FirstOrDefaultAsync();
 
             if (officer == null)
             {
