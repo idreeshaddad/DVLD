@@ -14,6 +14,7 @@ namespace Cozmo.AutoMapper
         public CustomerProfile()
         {
             CreateMap<Customer, CustomerVM>().ReverseMap();
+            CreateMap<Customer, CustomerCreateEditVM>().ReverseMap();
         }
     }
 }

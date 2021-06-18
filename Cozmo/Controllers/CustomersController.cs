@@ -9,6 +9,7 @@ using Cozmo.Data;
 using Entites;
 using AutoMapper;
 using Cozmo.Models.Customer;
+using Cozmo.Helper.LookUpService;
 
 namespace Cozmo.Controllers
 {
@@ -17,11 +18,13 @@ namespace Cozmo.Controllers
         #region Data and Const
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILookUpService _lookUpService;
 
-        public CustomersController(ApplicationDbContext context,IMapper mapper)
+        public CustomersController(ApplicationDbContext context,IMapper mapper, ILookUpService lookUpService)
         {
             _context = context;
             _mapper = mapper;
+            _lookUpService = lookUpService;
         }
         #endregion
 
@@ -61,24 +64,31 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
-        public IActionResult Create()
-        {
-            return View();
+        public async Task<IActionResult> Create()
+        {           
+            var customerCreateEditVM = new CustomerCreateEditVM();
+
+            customerCreateEditVM.GetProductItems = await _lookUpService.GetProductsList();
+            
+            return View(customerCreateEditVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerVM customerVM)
+        public async Task<IActionResult> Create(CustomerCreateEditVM customerCreateEditVM)
         {
             if (ModelState.IsValid)
             {
 
-                var customer = _mapper.Map<CustomerVM,Customer> (customerVM);
+                var customer = _mapper.Map<CustomerCreateEditVM, Customer> (customerCreateEditVM);
 
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customerVM);
+
+            customerCreateEditVM.GetProductItems = await _lookUpService.GetProductsList();
+
+            return View(customerCreateEditVM);
         }
         public async Task<IActionResult> Edit(int? id)
         {
