@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ASP.NET\DLVD\Entites\Entites.csproj" />
+    <ProjectReference Include="..\Entites\Entites.csproj" />
   </ItemGroup>
 
 </Project>
