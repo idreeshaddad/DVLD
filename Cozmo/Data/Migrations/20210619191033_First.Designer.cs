@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cozmo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210617191122_Customer_Product_Table")]
-    partial class Customer_Product_Table
+    [Migration("20210619191033_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,9 +258,11 @@ namespace Cozmo.Data.Migrations
 
             modelBuilder.Entity("Entites.Product", b =>
                 {
-                    b.HasOne("Entites.Customer", null)
+                    b.HasOne("Entites.Customer", "Customer")
                         .WithMany("Products")
                         .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

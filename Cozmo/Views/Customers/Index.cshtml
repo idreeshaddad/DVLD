@@ -15,9 +15,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                Product Name
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -25,12 +22,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @foreach (var product in item.Products)
-                {
-                    @product.Name
-                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

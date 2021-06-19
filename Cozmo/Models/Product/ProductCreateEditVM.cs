@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cozmo.Models.Customer
+namespace Cozmo.Models.Product
 {
-    public class CustomerCreateEditVM
+    public class ProductCreateEditVM
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int ProductsId { get; set; }
-        public SelectList GetProductItems { get; set; }
+        public int CustomerId { get; set; }
+        public SelectList GetCustomersList { get; set; }
     }
 }

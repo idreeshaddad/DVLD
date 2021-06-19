@@ -21,10 +21,10 @@ namespace Cozmo.Helper.LookUpService
         {
             _context = context;
         }
-        public async Task<SelectList> GetProductsList()
+        public async Task<SelectList> GetCustomerList()
         {
-            var getproduct = await _context
-                                           .Products
+            var getcustomer = await _context
+                                           .Customers
                                            .Select(x => new LookUpVM()
                                            {
                                                Id = x.Id,
@@ -32,9 +32,9 @@ namespace Cozmo.Helper.LookUpService
                                            })
                                            .ToListAsync();
 
-            var getproductVM = new SelectList(getproduct,"Id","Name");
+            var getcustomerVM = new SelectList(getcustomer, "Id","Name");
 
-            return getproductVM;
+            return getcustomerVM;
         }
     }
 }

@@ -18,11 +18,6 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductsId" class="control-label"></label>
-                <select asp-for="ProductsId" asp-items="@Model.GetProductItems" class="form-control"></select>
-                <span asp-validation-for="ProductsId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

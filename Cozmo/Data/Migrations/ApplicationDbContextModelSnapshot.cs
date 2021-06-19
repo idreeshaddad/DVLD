@@ -29,9 +29,6 @@ namespace Cozmo.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -259,9 +256,11 @@ namespace Cozmo.Data.Migrations
 
             modelBuilder.Entity("Entites.Product", b =>
                 {
-                    b.HasOne("Entites.Customer", null)
+                    b.HasOne("Entites.Customer", "Customer")
                         .WithMany("Products")
                         .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

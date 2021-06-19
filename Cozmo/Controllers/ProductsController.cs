@@ -7,25 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cozmo.Data;
 using Entites;
+using AutoMapper;
+using Cozmo.Helper.LookUpService;
+using Cozmo.Models.Product;
 
 namespace Cozmo.Controllers
 {
     public class ProductsController : Controller
     {
+        #region Data and Const
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly ILookUpService _lookUpService;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context,
+                                                      IMapper mapper,
+                                                      ILookUpService lookUpService)
         {
             _context = context;
+            _mapper = mapper;
+            _lookUpService = lookUpService;
         }
+        #endregion
 
-        // GET: Products
+        #region Public Actions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
-        }
+            var product = await _context
+                                        .Products
+                                        .Include(x => x.Customer)
+                                        .ToListAsync();
 
-        // GET: Products/Details/5
+            var productVM = _mapper.Map<List<Product>, List<ProductVM>>(product);
+
+            return View(productVM);
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,19 +58,13 @@ namespace Cozmo.Controllers
 
             return View(product);
         }
-
-        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -64,8 +74,6 @@ namespace Cozmo.Controllers
             }
             return View(product);
         }
-
-        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,13 +88,9 @@ namespace Cozmo.Controllers
             }
             return View(product);
         }
-
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.Id)
             {
@@ -115,8 +119,6 @@ namespace Cozmo.Controllers
             }
             return View(product);
         }
-
-        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,8 +135,6 @@ namespace Cozmo.Controllers
 
             return View(product);
         }
-
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -144,10 +144,13 @@ namespace Cozmo.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Private Actions
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
-        }
+        } 
+        #endregion
     }
 }

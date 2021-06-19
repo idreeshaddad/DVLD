@@ -8,6 +8,6 @@ namespace Cozmo.Helper.LookUpService
 {
     public interface ILookUpService
     {
-        public Task<SelectList> GetProductsList();
+        public Task<SelectList> GetCustomerList();
     }
 }

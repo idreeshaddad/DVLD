@@ -2,7 +2,7 @@
 
 namespace Cozmo.Data.Migrations
 {
-    public partial class Customer_Product_Table : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -64,31 +64,24 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
-        public async Task<IActionResult> Create()
-        {           
-            var customerCreateEditVM = new CustomerCreateEditVM();
-
-            customerCreateEditVM.GetProductItems = await _lookUpService.GetProductsList();
-            
-            return View(customerCreateEditVM);
+        public IActionResult Create()
+        {                      
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerCreateEditVM customerCreateEditVM)
+        public async Task<IActionResult> Create(CustomerVM customerVM)
         {
             if (ModelState.IsValid)
             {
-
-                var customer = _mapper.Map<CustomerCreateEditVM, Customer> (customerCreateEditVM);
+                var customer = _mapper.Map<CustomerVM, Customer> (customerVM);
 
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            customerCreateEditVM.GetProductItems = await _lookUpService.GetProductsList();
-
-            return View(customerCreateEditVM);
+            return View(customerVM);
         }
         public async Task<IActionResult> Edit(int? id)
         {
