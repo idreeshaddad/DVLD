@@ -84,6 +84,12 @@ namespace Cozmo.Controllers
                 var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
                 product.Customer = x ;
 
+                //if the "CustomerVMId" inside of "ProductCreateEditVM" name is "CustomerId" (So the automapper understand it)
+                //it gives this error
+                //(qlException: Cannot insert explicit value for identity column in table 'Customers' when IDENTITY_INSERT is set to OFF.)
+                //and if you add new prop inside of "Product" Entity name "CustomerId" The new Migrtion is not EMPTY
+                //How To let the automapper understand it without (FindAsync or .ForMember)
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

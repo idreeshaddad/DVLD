@@ -64,6 +64,18 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
+        public async Task<IActionResult> CustomerProducts(int? id)
+        {
+            var customer = await _context
+                                         .Customers
+                                         .Include(x => x.Products)
+                                         .Where(x => x.Id == id)
+                                         .FirstOrDefaultAsync();  
+
+            var customerVM = _mapper.Map<Customer,CustomerVM>(customer);
+
+            return View(customerVM);
+        }
         public IActionResult Create()
         {                      
             return View();
