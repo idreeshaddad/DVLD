@@ -94,15 +94,6 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 var ticket = _mapper.Map<CreateEditTicketVM, Ticket>(ticketVM);
 
-                var driver = await _context.Drivers.FindAsync(ticketVM.DriverId);
-                ticket.Driver = driver;
-
-                var car = await _context.Cars.FindAsync(ticketVM.CarId);
-                ticket.Car = car;
-
-                var officer = await _context.Officers.FindAsync(ticketVM.OfficerId);
-                ticket.Officer = officer;
-
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
