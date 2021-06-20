@@ -49,30 +49,49 @@ namespace Cozmo.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _context
+                                        .Products
+                                        .Include(x => x.Customer)
+                                        .Where(x => x.Id == id)
+                                        .FirstOrDefaultAsync();
+
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            var productVM = _mapper.Map<Product, ProductVM>(product);
+
+            return View(productVM);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var productCreateEditVM = new ProductCreateEditVM()
+            {
+                GetCustomersList = await _lookUpService.GetCustomerList()
+            };
+
+            return View(productCreateEditVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductCreateEditVM productVM)
         {
             if (ModelState.IsValid)
             {
+                var product = _mapper.Map<ProductCreateEditVM, Product>(productVM);
+
+                var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
+                product.Customer = x ;
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            productVM.GetCustomersList = await _lookUpService.GetCustomerList();
+
+            return View(productVM);
         }
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,18 +100,28 @@ namespace Cozmo.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context
+                                        .Products
+                                        .Include(x => x.Customer)
+                                        .Where(x => x.Id == id)
+                                        .FirstOrDefaultAsync();
+
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+
+            var productVM = _mapper.Map<Product,ProductCreateEditVM>(product);
+
+            productVM.GetCustomersList = await _lookUpService.GetCustomerList();
+
+            return View(productVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int id, ProductCreateEditVM productVM)
         {
-            if (id != product.Id)
+            if (id != productVM.Id)
             {
                 return NotFound();
             }
@@ -101,12 +130,17 @@ namespace Cozmo.Controllers
             {
                 try
                 {
+                    var product = _mapper.Map<ProductCreateEditVM,Product>(productVM);
+
+                    var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
+                    product.Customer = x;
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(productVM.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +151,10 @@ namespace Cozmo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            productVM.GetCustomersList = await _lookUpService.GetCustomerList();
+
+            return View(productVM);
         }
         public async Task<IActionResult> Delete(int? id)
         {

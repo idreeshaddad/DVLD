@@ -13,6 +13,7 @@ namespace Cozmo.AutoMapper
         public ProductProfile()
         {
             CreateMap<Product, ProductVM>().ReverseMap();
+            CreateMap<Product, ProductCreateEditVM>().ReverseMap();
         }
     }
 }
