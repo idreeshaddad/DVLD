@@ -1,8 +1,6 @@
 ﻿using Cozmo.Models.Product;
-using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cozmo.Models.Customer
 {
@@ -15,5 +13,7 @@ namespace Cozmo.Models.Customer
         public int Id { get; set; }
         public string Name { get; set; }
         public List<ProductVM> Products { get; set; }
+
+        public SelectList ProductsSelectList { get; set; }
     }
 }

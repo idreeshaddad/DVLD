@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cozmo.Data;
 using Entites;
 using AutoMapper;
 using Cozmo.Models.Customer;
 using Cozmo.Helper.LookUpService;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cozmo.Controllers
 {
@@ -28,9 +27,13 @@ namespace Cozmo.Controllers
         }
         #endregion
 
-        #region Public Actions
+        #region Actions
+
         public async Task<IActionResult> Index()
         {
+            var products = await _context.Products.ToListAsync();
+            ViewBag.Products = new SelectList(products, "Id", "Name");
+
             var customer = await _context
                                          .Customers
                                          .Include(x => x.Products)
@@ -40,6 +43,7 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,6 +68,7 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
+
         public async Task<IActionResult> CustomerProducts(int? id)
         {
             var customer = await _context
@@ -72,14 +77,19 @@ namespace Cozmo.Controllers
                                          .Where(x => x.Id == id)
                                          .FirstOrDefaultAsync();  
 
+
+
+
             var customerVM = _mapper.Map<Customer,CustomerVM>(customer);
 
             return View(customerVM);
         }
+
         public IActionResult Create()
         {                      
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CustomerVM customerVM)
@@ -95,6 +105,7 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +124,7 @@ namespace Cozmo.Controllers
 
             return View(customerVM);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,CustomerVM customerVM)
@@ -146,6 +158,7 @@ namespace Cozmo.Controllers
             }
             return View(customerVM);
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -162,6 +175,7 @@ namespace Cozmo.Controllers
 
             return View(customer);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -171,13 +185,31 @@ namespace Cozmo.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> BuyMeal(int id, int productId)
+        {
+            var customer = await _context.Customers.FindAsync(id);
+
+            var product = await _context.Products.FindAsync(productId);
+
+            customer.Products.Add(product);
+
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         #endregion
 
-        #region Private Actions
+        #region Private Functions
+
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);
         } 
+
         #endregion
     }
 }

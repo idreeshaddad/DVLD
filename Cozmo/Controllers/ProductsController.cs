@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cozmo.Data;
 using Entites;
@@ -31,17 +29,19 @@ namespace Cozmo.Controllers
         #endregion
 
         #region Public Actions
+
         public async Task<IActionResult> Index()
         {
             var product = await _context
                                         .Products
-                                        .Include(x => x.Customer)
+                                        .Include(x => x.Customers)
                                         .ToListAsync();
 
             var productVM = _mapper.Map<List<Product>, List<ProductVM>>(product);
 
             return View(productVM);
         }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,7 +51,7 @@ namespace Cozmo.Controllers
 
             var product = await _context
                                         .Products
-                                        .Include(x => x.Customer)
+                                        .Include(x => x.Customers)
                                         .Where(x => x.Id == id)
                                         .FirstOrDefaultAsync();
 
@@ -64,41 +64,28 @@ namespace Cozmo.Controllers
 
             return View(productVM);
         }
-        public async Task<IActionResult> Create()
-        {
-            var productCreateEditVM = new ProductCreateEditVM()
-            {
-                GetCustomersList = await _lookUpService.GetCustomerList()
-            };
 
-            return View(productCreateEditVM);
+        public IActionResult Create()
+        {
+            return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductCreateEditVM productVM)
+        public async Task<IActionResult> Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                var product = _mapper.Map<ProductCreateEditVM, Product>(productVM);
-
-                var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
-                product.Customer = x ;
-
-                //if the "CustomerVMId" inside of "ProductCreateEditVM" name is "CustomerId" (So the automapper understand it)
-                //it gives this error
-                //(qlException: Cannot insert explicit value for identity column in table 'Customers' when IDENTITY_INSERT is set to OFF.)
-                //and if you add new prop inside of "Product" Entity name "CustomerId" The new Migrtion is not EMPTY
-                //How To let the automapper understand it without (FindAsync or .ForMember)
+                var product = _mapper.Map<ProductVM, Product>(productVM);
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            productVM.GetCustomersList = await _lookUpService.GetCustomerList();
-
             return View(productVM);
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -108,7 +95,7 @@ namespace Cozmo.Controllers
 
             var product = await _context
                                         .Products
-                                        .Include(x => x.Customer)
+                                        .Include(x => x.Customers)
                                         .Where(x => x.Id == id)
                                         .FirstOrDefaultAsync();
 
@@ -123,6 +110,7 @@ namespace Cozmo.Controllers
 
             return View(productVM);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProductCreateEditVM productVM)
@@ -138,8 +126,8 @@ namespace Cozmo.Controllers
                 {
                     var product = _mapper.Map<ProductCreateEditVM,Product>(productVM);
 
-                    var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
-                    product.Customer = x;
+                    //var x = await _context.Customers.FindAsync(productVM.CustomerVMId);
+                    //product.Customer = x;
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();
@@ -162,6 +150,7 @@ namespace Cozmo.Controllers
 
             return View(productVM);
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +167,7 @@ namespace Cozmo.Controllers
 
             return View(product);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -187,13 +177,16 @@ namespace Cozmo.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         #endregion
 
         #region Private Actions
+
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
         } 
+
         #endregion
     }
 }

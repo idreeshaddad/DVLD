@@ -16,26 +16,58 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                Products
+                Actions
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @item.Products.Count
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="CustomerProducts" asp-route-id="@item.Id">Products Bought</a>
-            </td>
-        </tr>
-}
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Name)
+                </td>
+
+                <!-- Buy Mean Modal -->
+                <div class="modal fade" id="buyMealModal_@customer.Id" tabindex="-1" role="dialog" aria-labelledby="buyMealModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form asp-action="BuyMeal">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="deleteModalLabel_@customer.Id">buy Meal</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <label class="control-label">Meal</label>
+                                    <select asp-items="@ViewBag.Products" class="form-control" name="productId"></select>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <input type="hidden" value="@customer.Id" name="id" />
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <input type="submit" value="Buy" class="btn btn-danger mr-1" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@customer.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@customer.Id">Details</a> |
+
+                    <span data-toggle="tooltip" title="Buy Meal">
+                        <span class="text-as-link" data-toggle="modal" data-target="#buyMealModal_@customer.Id">Buy Meal</span>
+                    </span> |
+
+                    <a asp-action="Delete" asp-route-id="@customer.Id">Delete</a> |
+                    <a asp-action="CustomerProducts" asp-route-id="@customer.Id">Products Bought</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
