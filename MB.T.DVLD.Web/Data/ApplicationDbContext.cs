@@ -18,6 +18,7 @@ namespace MB.T.DVLD.Web.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
         public DbSet<InsurancePolicy> InsurancePolicies { get; set; }
-        public DbSet<MB.T.DVLD.Entities.PoliceCar> PoliceCar { get; set; }
+        public DbSet<PoliceCar> PoliceCar { get; set; }
+        public DbSet<Inspector> Inspectors { get; set; }
     }
 }

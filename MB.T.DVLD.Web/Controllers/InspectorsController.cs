@@ -1,42 +1,31 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MB.T.DVLD.Entities;
 using MB.T.DVLD.Web.Data;
-using AutoMapper;
-using MB.T.DVLD.Web.Models.Departments;
-using System.Collections.Generic;
 
 namespace MB.T.DVLD.Web.Controllers
 {
-    public class DepartmentController : Controller
+    public class InspectorsController : Controller
     {
-        #region Data and Constructors
-
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public DepartmentController(ApplicationDbContext context,
-                                    IMapper mapper)
+        public InspectorsController(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        #endregion
-
-        #region Actions
-
+        // GET: Inspectors
         public async Task<IActionResult> Index()
         {
-            var departments = await _context.Departments.ToListAsync();
-
-            var departmentsVMs = _mapper.Map<List<Department>, List<DepartmentVM>>(departments);
-
-            return View(departmentsVMs);
+            return View(await _context.Inspectors.ToListAsync());
         }
 
+        // GET: Inspectors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,41 +33,39 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var department = await _context
-                                        .Departments
-                                        .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (department == null)
+            var inspector = await _context.Inspectors
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (inspector == null)
             {
                 return NotFound();
             }
 
-            var departmentVM = _mapper.Map<Department, DepartmentVM>(department);
-
-            return View(departmentVM);
+            return View(inspector);
         }
 
+        // GET: Inspectors/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: Inspectors/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DepartmentVM departmentVM)
+        public async Task<IActionResult> Create([Bind("Id,Name,BadgeNumber")] Inspector inspector)
         {
             if (ModelState.IsValid)
             {
-                var department = _mapper.Map<DepartmentVM, Department>(departmentVM);
-
-                _context.Add(department);
+                _context.Add(inspector);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(departmentVM);
+            return View(inspector);
         }
 
+        // GET: Inspectors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,24 +73,22 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments.FindAsync(id);
-
-            if (department == null)
+            var inspector = await _context.Inspectors.FindAsync(id);
+            if (inspector == null)
             {
                 return NotFound();
             }
-
-            var departmentVM = _mapper.Map<Department, DepartmentVM>(department);
-
-
-            return View(departmentVM);
+            return View(inspector);
         }
 
+        // POST: Inspectors/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, DepartmentVM departmentVM)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BadgeNumber")] Inspector inspector)
         {
-            if (id != departmentVM.Id)
+            if (id != inspector.Id)
             {
                 return NotFound();
             }
@@ -112,14 +97,12 @@ namespace MB.T.DVLD.Web.Controllers
             {
                 try
                 {
-                    var department = _mapper.Map<DepartmentVM, Department>(departmentVM);
-
-                    _context.Update(department);
+                    _context.Update(inspector);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(departmentVM.Id))
+                    if (!InspectorExists(inspector.Id))
                     {
                         return NotFound();
                     }
@@ -130,10 +113,10 @@ namespace MB.T.DVLD.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(departmentVM);
+            return View(inspector);
         }
 
+        // GET: Inspectors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,41 +124,30 @@ namespace MB.T.DVLD.Web.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments
+            var inspector = await _context.Inspectors
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            if (inspector == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(inspector);
         }
 
+        // POST: Inspectors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
-            _context.Departments.Remove(department);
+            var inspector = await _context.Inspectors.FindAsync(id);
+            _context.Inspectors.Remove(inspector);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult AddInspector()
+        private bool InspectorExists(int id)
         {
-            return View();
+            return _context.Inspectors.Any(e => e.Id == id);
         }
-
-        #endregion
-
-        #region Private Methods
-
-        private bool DepartmentExists(int id)
-        {
-            return _context.Departments.Any(e => e.Id == id);
-        }
-
-        #endregion
     }
 }

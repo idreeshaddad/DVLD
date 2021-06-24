@@ -37,6 +37,7 @@
                             @Html.DisplayFor(modelItem => department.City)
                         </td>
                         <td>
+                            <a class="fas fa-user mr-1" data-toggle="tooltip" title="Details" asp-action="AddInspector" asp-route-id="@department.Id"></a>
 
                             <a class="fas fa-info-circle mr-1" data-toggle="tooltip" title="Details" asp-action="Details" asp-route-id="@department.Id"></a>
                             @if (SignInManager.IsSignedIn(User))
